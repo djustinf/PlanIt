@@ -1,0 +1,25 @@
+<script>
+console.log("test");
+</script>
+
+<!DOCTYPE html>
+<head> 
+</head>
+  <head>
+    <script src="node_modules/angular/angular.js"> </script>
+    <script src="controller.js"> </script>
+    <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet"> 
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+  </head>
+ 
+  <img class = "img-center center-block" src = "../../PlanIt/images/Logo.png"> 
+  <body ng-controller = 'TestController'> 
+  <input class = "form-control" ng-model = "username" placeholder="Username"> </input>
+  <input class = "form-control" type = "password" ng-model = "password" placeholder="Password"> </input>
+  <button  ng-click = "submit()" class = "btn btn-primary btn-sm col-xs-2 btn-primary-spacing btn-block"> Login </button>
+  <h3 style = "color:red" ng-show="err"> You have an error. </h3>
+  </body>
+</body> 
+</html>
+
+    
