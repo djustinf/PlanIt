@@ -46,6 +46,7 @@ public class AuthDriver {
             System.out.println("Enter Password:");
             password = ui.nextLine();
             if (checkCreds(userID, password) == true) {
+                user = directUser(userID);
                 break;
             }
             i++;
@@ -55,6 +56,15 @@ public class AuthDriver {
         {
             System.out.printf("Too many invalid attempts, System LOCKED!!");
         }
+        else if(user instanceof DepartmentScheduler){
+            System.out.printf("DEPT. SCHEDULER IN HERE\n");
+        }
+        else if(user instanceof Faculty){
+            System.out.printf("DEPT. SCHEDULER IN HERE\n");
+        }
+        else {
+            System.out.printf("General user\n");
+        }
         return;
     }
 
@@ -62,7 +72,7 @@ public class AuthDriver {
 
         if(pword.equals(""))
         {
-            directUser("", "Guest");
+            directUser("");
             return true;
         }
         for(int i = 0; i<10; i++)
@@ -71,7 +81,6 @@ public class AuthDriver {
             {
                 if(lilDB[i][1].equals(pword))
                 {
-                    directUser(uid, lilDB[i][2]);
                     return true;
                 }
             }
@@ -79,8 +88,15 @@ public class AuthDriver {
         return false;
     }
 
-    public static User directUser(String uid, String level){
+    public static User directUser(String uid){
         User user;
+        String level = "";
+
+        for(int i = 0; i<10; i++){
+            if(lilDB[i][0].equals(uid)){
+                level = lilDB[i][2];
+            }
+        }
         if(level.equals("Dept.Sched."))
         {
             user = new DepartmentScheduler(112358, "Strings", "From", "Database", "here");
