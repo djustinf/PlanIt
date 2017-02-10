@@ -1,10 +1,11 @@
 package AnalyzerTests;
 
+import Analytics.Analyzer;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import Analytics.Analyzer;
 
 public class AnalyzerTest {
 
