@@ -1,7 +1,5 @@
-console.log("Hello");
 var myAppModule = angular.module('myApp', []);
 myAppModule.controller('TestController', function($scope) {
-  console.log("Testing");
   $scope.message = "Goodbye World";
   $scope.arr = ["hi", "lol", "bye"];
   $scope.action = function(newMsg) {
@@ -9,12 +7,11 @@ myAppModule.controller('TestController', function($scope) {
      $scope.arr.push(newMsg); 
   };
   $scope.show = false;
-  $scope.username = "";
-  $scope.password = "";
-  $scope.submit = function() {
+  $scope.submit = function($location) {
     console.log("Submit was clicked");
     if (!$scope.username || !$scope.password) {
       $scope.err = true;
+      $location.url("http://localhost:63342/project1/Business%20Logic/src/View/viewSchedule.html");
     }
     else {
       $scope.err = false;
