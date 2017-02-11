@@ -1051,7 +1051,7 @@
       <option name="presentableId" value="Default" />
       <updated>1486719180647</updated>
       <workItem from="1486749002330" duration="4209000" />
-      <workItem from="1486781230643" duration="2566000" />
+      <workItem from="1486781230643" duration="2576000" />
     </task>
     <task id="LOCAL-00001" summary="updated gitignore">
       <created>1486750473901</created>
@@ -1067,11 +1067,18 @@
       <option name="project" value="LOCAL" />
       <updated>1486783865113</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Built with Hibernate dependency added. Nothing broke.">
+      <created>1486783875998</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1486783875998</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6775000" />
+    <option name="totallyTimeSpent" value="6785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
