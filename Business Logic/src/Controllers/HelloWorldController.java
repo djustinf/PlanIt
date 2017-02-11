@@ -1,4 +1,4 @@
-package Server;
+package Controllers;
 
 import Models.HelloWorld;
 import org.springframework.web.bind.annotation.RequestMapping;
