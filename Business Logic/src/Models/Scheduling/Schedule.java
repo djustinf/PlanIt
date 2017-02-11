@@ -9,6 +9,7 @@ import java.util.List;
  * @version initial - 2/3/2017.
  */
 public class Schedule {
+    private int ID;
     private Term term;
     List<Course> courseList; // one entry per course in DB
     List<Comment> comments;
