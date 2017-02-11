@@ -1,28 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <script src="node_modules/angular/angular.js"> </script>
     <script src="controller.js"> </script>
     <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet">
     <link rel="stylesheet" href="../../../fullcalendar/fullcalendar.css" />
-    <script src='../../../fullcalendar/lib/jquery.min.js'></script>
     <script src='../../../fullcalendar/lib/moment.min.js'></script>
-    <script src='../../../fullcalendar/fullcalendar.js'></script>
+    <script src='../../../fullcalendar/lib/jquery.min.js'></script>
+    <script src='../../../fullcalendar/fullcalendar.min.js'></script>
     <script>
       $(document).ready(function() {
         $('#calendar').fullCalendar({
             header: {
               left: 'prev, next today',
               center: 'title',
-              right: 'month, agendaWeek, agendaDay'
-            }
+              right: 'agendaWeek,agendaDay'
+            },
+            default: 'fc-view fc-agendaWeek-view fc-agenda-view'
         })
       });
 
     </script>
+    <style type = "text/css">
+        body {
+            margin-top: 40px;
+            text-align: center;
+        }
+        #calendar {
+            width: 900px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
-<img id = "close" class = "img-center center-block" src = "../../../images/Logo.png">
 <body>
-    <div id="calendar"></div>
+<img id = "close" width="150" height="90" class = "img-center center-block" src = "../../../images/Logo.png">
+
+    <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
 </body>
 </html>
