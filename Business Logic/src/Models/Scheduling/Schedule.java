@@ -1,9 +1,6 @@
 package Models.Scheduling;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Java representation of a schedule.
@@ -22,8 +19,8 @@ public class Schedule {
     {
         this.term = term;
         this.ID = ID;
-        courseList = new List<CourseOffering>();
-        comments = new List<Comment>();
+        courseList = new ArrayList<CourseOffering>();
+        comments = new ArrayList<Comment>();
         this.name = term.getTermName() + term.getTermYear() + name;
     }
 
@@ -41,12 +38,8 @@ public class Schedule {
         return term.getTermYear();
     }
 
-    public List<Course> getCourseList() {
+    public List<CourseOffering> getCourseList() {
         return courseList;
-    }
-
-    public void setCourseList(List<Course> courseList) {
-        this.courseList = courseList;
     }
 
     public boolean addCourse(CourseOffering course){
@@ -63,5 +56,9 @@ public class Schedule {
 
     public boolean addComment(Comment comment) {
         return comments.add(comment);
+    }
+
+    public String getName() {
+        return name;
     }
 }
