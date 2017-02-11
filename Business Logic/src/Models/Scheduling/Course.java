@@ -13,15 +13,22 @@ public class Course {
     private ArrayList<CourseOffering> offerings;
     private ArrayList<Faculty> faculty;
 
-    public Course(int ID, String name) {
-        this.ID = ID;
+    public Course(String name) {
         this.name = name;
         faculty = new ArrayList<Faculty>();
         offerings = new ArrayList<CourseOffering>();
     }
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public int getID() {
         return ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -36,11 +43,17 @@ public class Course {
         faculty.remove(member);
     }
 
-    public void addOffering(CourseOffering offer) {
+    public CourseOffering addOffering(Term term) {
+        CourseOffering offer = new CourseOffering(ID, term.getTermYear(), term.getTermName());
         offerings.add(offer);
+        return offer;
     }
 
     public void removeOffering(CourseOffering offer) {
         offerings.remove(offer);
+    }
+
+    public ArrayList<CourseOffering> getOfferings() {
+        return offerings;
     }
 }
