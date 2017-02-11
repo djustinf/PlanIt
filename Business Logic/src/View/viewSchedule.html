@@ -4,8 +4,25 @@
     <script src="node_modules/angular/angular.js"> </script>
     <script src="controller.js"> </script>
     <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet">
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" href="../../../fullcalendar/fullcalendar.css" />
+    <script src='../../../fullcalendar/lib/jquery.min.js'></script>
+    <script src='../../../fullcalendar/lib/moment.min.js'></script>
+    <script src='../../../fullcalendar/fullcalendar.js'></script>
+    <script>
+      $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            header: {
+              left: 'prev, next today',
+              center: 'title',
+              right: 'month, agendaWeek, agendaDay'
+            }
+        })
+      });
+
+    </script>
 </head>
-
-<img class = "img-center center-block" src = "../../../images/Logo.png">
-
+<img id = "close" class = "img-center center-block" src = "../../../images/Logo.png">
+<body>
+    <div id="calendar"></div>
+</body>
+</html>
