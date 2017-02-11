@@ -11108,7 +11108,7 @@ Calendar.defaults = {
 	nextDayThreshold: '09:00:00', // 9am
 
 	// display
-	defaultView: 'month',
+	defaultView: 'week',
 	aspectRatio: 1.35,
 	header: {
 		left: 'title',
@@ -11140,15 +11140,15 @@ Calendar.defaults = {
 	// locale
 	isRTL: false,
 	buttonText: {
-		prev: "prev",
-		next: "next",
+		prev: "Prev",
+		next: "Next",
 		prevYear: "prev year",
 		nextYear: "next year",
-		year: 'year', // TODO: locale files need to specify this
-		today: 'today',
-		month: 'month',
+		year: 'Year', // TODO: locale files need to specify this
+		today: 'Today',
+		month: 'Month',
 		week: 'week',
-		day: 'day'
+		day: 'Day'
 	},
 
 	buttonIcons: {
