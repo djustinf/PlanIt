@@ -6,7 +6,7 @@ package Models.People;
  * @author Kris Campos
  * @version 1 - initial version. 1/31/2017
  */
-public class User {
+public abstract class User {
     private int userID;
     private String userName;
     private String email;
