@@ -9,4 +9,7 @@ public class DepartmentScheduler extends User {
         super(userID, userName, email, firstName, lastName);
     }
 
+    public void buildSchedule(){
+
+    }
 }

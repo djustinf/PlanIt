@@ -10,7 +10,7 @@ public class Component {
     private int startTime;
     private double classHours;
 
-    public Component(int sectionID, String sectionType, int workUnits,
+    public Component(int sectionIString sectionType, int workUnits,
                      int startTime, double classHours){
         this.sectionID = sectionID;
         this.sectionType = sectionType;
