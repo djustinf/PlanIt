@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    #header {
+        overflow: auto;
+    }
+
+    #footer {
+        overflow: auto
+    }
+
+    div {
+        align-content: center;
+    }
+
+    .center {
+        margin: auto;
+        padding: 0px;
+        align: center;
+    }
+
+</style>
+
+<body>
+<div id = "header">
+  <img id = "close" width="150" height="90" align="left" class = "img-center center-block" src = "../../../images/Logo.png">
+</div>
+</body>
+
+<head>
+    <script src="node_modules/angular/angular.js"> </script>
+    <script src="formcontroller.js"> </script>
+    <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet">
+</head>
+
+
+<div class = "center" id = "footer" ng-app="myApp" ng-controller="myCtrl">
+    <select> <option ng-repeat="x in terms">{{x}}</option> </select>
+    <select> <option ng-repeat="y in years">{{y}}</option> </select>
+    <select> <option ng-repeat="z in views">{{z}}</option> </select>
+</div>
+
+<div class = "center" id = "footer" ng-app="myApp" ng-controller="myCtrl">
+
+</div>
+
+
+
+</html>
