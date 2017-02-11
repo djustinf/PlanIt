@@ -7,7 +7,9 @@ import java.util.List;
  */
 public class RoomOffering {
     private List<List<Integer>> availability;
+
     public RoomOffering(){
 
     }
+
 }
