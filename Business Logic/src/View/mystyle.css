@@ -20,3 +20,10 @@ body {
   border: none;
 }
 
+#close {
+  display: block;
+  float: left;
+  width: 150px;
+  height: 90px;
+}
+
