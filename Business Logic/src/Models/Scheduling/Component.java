@@ -9,6 +9,7 @@ public class Component {
     private int workUnits;
     private int startTime;
     private double classHours;
+    private RoomOffering room;
 
     public Component(String sectionType, int workUnits, int startTime, double classHours){
         this.sectionType = sectionType;
@@ -19,6 +20,10 @@ public class Component {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public void setRoom(int roomNum){
+        this.room = new RoomOffering(roomNum);
     }
 
     public int getID(){

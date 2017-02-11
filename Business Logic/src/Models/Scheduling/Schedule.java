@@ -1,6 +1,9 @@
 package Models.Scheduling;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Java representation of a schedule.
@@ -11,8 +14,18 @@ import java.util.List;
 public class Schedule {
     private int ID;
     private Term term;
-    List<Course> courseList; // one entry per course in DB
+    private String name;
+    List<CourseOffering> courseList; // one entry per course in DB
     List<Comment> comments;
+
+    public Schedule(Term term, int ID, String name)
+    {
+        this.term = term;
+        this.ID = ID;
+        courseList = new List<CourseOffering>();
+        comments = new List<Comment>();
+        this.name = term.getTermName() + term.getTermYear() + name;
+    }
 
     // getters and setters
 
@@ -20,24 +33,12 @@ public class Schedule {
         return term;
     }
 
-    public void setTerm(Term term) {
-        this.term = term;
-    }
-
     public String getTermName() {
         return term.getTermName();
     }
 
-    public void setTermName(String name) {
-        term.setTermName(name);
-    }
-
     public int getTermYear() {
         return term.getTermYear();
-    }
-
-    public void setTermYear(int year) {
-        term.setTermYear(year);
     }
 
     public List<Course> getCourseList() {
@@ -48,11 +49,19 @@ public class Schedule {
         this.courseList = courseList;
     }
 
+    public boolean addCourse(CourseOffering course){
+        return courseList.add(course);
+    }
+
+    public boolean removeCourse(CourseOffering course){
+        return courseList.remove(course);
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public boolean addComment(Comment comment) {
+        return comments.add(comment);
     }
 }

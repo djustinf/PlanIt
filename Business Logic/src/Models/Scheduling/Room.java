@@ -6,7 +6,6 @@ class Room {
     private int roomID;
     private List<String> resources;
     private int capacity;
-    private List<List<Integer>> availability;
     private int roomType;
 
     public int getRoomID() {
