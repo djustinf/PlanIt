@@ -1,4 +1,5 @@
 package Models.People;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Faculty extends User {
@@ -7,7 +8,7 @@ public class Faculty extends User {
 
     private int[][] preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
     private int preferredTotalHours;// workload preference
-    private Map<int, int> coursePreferences = new HashMap<int, int>;// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
+    private Map<Integer, Integer> coursePreferences = new HashMap<>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
     public Faculty(int userID, String userName, String email, String firstName, String lastName) {
         super(userID, userName, email, firstName, lastName);
