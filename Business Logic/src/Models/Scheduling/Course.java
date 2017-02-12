@@ -43,8 +43,8 @@ public class Course {
         faculty.remove(member);
     }
 
-    public CourseOffering addOffering(Term term) {
-        CourseOffering offer = new CourseOffering(ID, term.getTermYear(), term.getTermName());
+    public CourseOffering addOffering(Schedule sched) {
+        CourseOffering offer = new CourseOffering(sched.getName(), this);
         offerings.add(offer);
         return offer;
     }
