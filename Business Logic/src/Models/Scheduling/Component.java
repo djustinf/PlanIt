@@ -9,15 +9,15 @@ public class Component {
     private int workUnits;
     private int[] days;
     private int startTime;
-    private double classHours;
+    private int endTime;
     private RoomOffering room;
 
-    public Component(String sectionType, int workUnits, int startTime, double classHours,
+    public Component(String sectionType, int workUnits, int startTime, int endTime,
                      boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
         this.sectionType = sectionType;
         this.workUnits = workUnits;
         this.startTime = startTime;
-        this.classHours = classHours;
+        this.endTime = endTime;
         days = new int[7];
         if(sun) days[0] = 1;
         if(mon) days[1] = 1;
@@ -52,8 +52,12 @@ public class Component {
         return startTime;
     }
 
-    public double getClassHours() {
-        return classHours;
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public double getDurationHours(){
+        return ((double)(endTime - startTime))/2;
     }
 
     public void setDays(boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
@@ -64,5 +68,9 @@ public class Component {
         if(thurs) days[4] = 1;
         if(fri) days[5] = 1;
         if(sat) days[6] = 1;
+    }
+
+    public int[] getDays(){
+        return days;
     }
 }
