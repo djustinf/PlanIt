@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Created by Kris on 2/11/2017.
- */
+ *
 @RestController
 @RequestMapping(value = "/User")
 public class UserController {
@@ -23,7 +23,7 @@ public class UserController {
             return list of all Users
         else
             return forbidden (look up http error codes)
-         */
+         *
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -36,3 +36,4 @@ public class UserController {
 
     }
 }
+ */
