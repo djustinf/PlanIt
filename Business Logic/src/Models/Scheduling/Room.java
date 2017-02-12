@@ -43,12 +43,4 @@ class Room {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
-    public List<List<Integer>> getAvailability() {
-        return availability;
-    }
-
-    public void setAvailability(List<List<Integer>> availability) {
-        this.availability = availability;
-    }
 }

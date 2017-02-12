@@ -17,5 +17,7 @@ public class DepartmentScheduler extends User {
 
     }
 
-    public void addComponent
+    public void addComponent(){
+
+    }
 }

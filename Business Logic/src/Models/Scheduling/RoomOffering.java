@@ -1,5 +1,6 @@
 package Models.Scheduling;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class RoomOffering {
                 availability[i][j] = 0; //New rooms start out entirely unoccupied
             }
         }
-        components = new List<Component>();
+        components = new ArrayList<Component>();
     }
 
     public void addComponent(Component c){

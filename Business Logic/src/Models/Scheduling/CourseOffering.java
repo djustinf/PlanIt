@@ -26,8 +26,8 @@ public class CourseOffering {
         return ID;
     }
 
-    public Component addComponent(String sectionType, int workUnits, int startTime, double classHours) {
-        Component component = new Component(sectionType, workUnits, startTime, classHours);
+    public Component addComponent(String sectionType, int workUnits, int startTime, int endTime) {
+        Component component = new Component(sectionType, workUnits, startTime, endTime);
         components.add(component);
         return component;
     }

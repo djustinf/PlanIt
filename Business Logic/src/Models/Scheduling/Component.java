@@ -12,6 +12,13 @@ public class Component {
     private int endTime;
     private RoomOffering room;
 
+    public Component(String sectionType, int workUnits, int startTime, int endTime){
+        this.sectionType = sectionType;
+        this.workUnits = workUnits;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        days = new int[7];
+    }
     public Component(String sectionType, int workUnits, int startTime, int endTime,
                      boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
         this.sectionType = sectionType;
@@ -32,9 +39,9 @@ public class Component {
         this.ID = ID;
     }
 
-    public void setRoom(int roomNum){
+    /*public void setRoom(int roomNum){
         this.room = new RoomOffering(roomNum);
-    }
+    }*/
 
     public int getID(){
         return ID;
