@@ -1,4 +1,8 @@
 package Models.People;
+import Models.Chunks.Chunk;
+import Models.Chunks.FacultyChunk;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,15 +20,22 @@ public class Faculty extends User {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
-    private int[][] preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
+    private int[][] preferredTimes;
     private int preferredTotalHours;// workload preference
     private Map<Integer, Integer> coursePreferences = new HashMap<>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
     public Faculty(int userID, String userName, String email, String firstName, String lastName) {
         super(userID, userName, email, firstName, lastName);
+        preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
+        for(int i = 0; i<DAYS_IN_WEEK; i++){
+            for(int j = 0; j<INTERVALS_PER_DAY; j++) {
+
+                preferredTimes[i][j] = 0; //New rooms start out entirely unoccupied
+            }
+        }
     }
 
-    private boolean addCoursePref(int courseNum, int prefLvl) {
+    public boolean addCoursePref(int courseNum, int prefLvl) {
         if (prefLvl >= -1 && prefLvl <= 1) {
             coursePreferences.put(courseNum, prefLvl);
             return true;
@@ -32,7 +43,7 @@ public class Faculty extends User {
         return false;
     }
 
-    private boolean addTimePref(int day, int interval, int prefLvl){
+    public boolean addTimePref(int day, int interval, int prefLvl){
         if (prefLvl >= -1 && prefLvl <= 1
                 && day >= 0 && day < DAYS_IN_WEEK
                 && interval >= 0 && interval <= INTERVALS_PER_DAY) {
@@ -42,11 +53,34 @@ public class Faculty extends User {
         return false;
     }
 
-    private boolean setWeeklyHoursPref(int total) {
+    public boolean setWeeklyHoursPref(int total) {
         if (0 < total && total <= 168) {
             preferredTotalHours = total;
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Chunk> preferencesToChunks(){
+        int chunki = 0;
+        int currentChunkVal;
+        ArrayList<Chunk> chunks = new ArrayList<Chunk>();
+        for(int dayi = 0; dayi < DAYS_IN_WEEK; dayi++){
+            currentChunkVal = preferredTimes[dayi][0];
+            if(currentChunkVal != 0){
+                chunks[chunki] = new FacultyChunk(getUserID(), dayi, 0, currentChunkVal);
+            }
+            for(int houri = 1; houri < INTERVALS_PER_DAY; houri++){
+                if(preferredTimes[dayi][houri] = -1*currentChunkVal){
+                    //end last chunk, start new chunk
+                }
+                else if (preferredTimes[dayi][houri] == 0 && currentChunkVal != 0){
+                    //end current chunk
+                }
+                else{
+                    //move along
+                }
+            }
+        }
     }
 }
