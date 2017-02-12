@@ -1,7 +1,7 @@
-angular.module('HelloWorldApp', [])
-    .controller('HelloWorldController', function($scope, $http) {
-        $http.get('localhost:').
-        then(function(response) {
-            $scope.greeting = response.data;
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("localhost:8080/helloworld")
+        .then(function(response) {
+            $scope.myWelcome = response.data;
         });
-    });
+});

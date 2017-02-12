@@ -9,13 +9,34 @@
     <script src='../../../fullcalendar/lib/moment.min.js'></script>
     <script src='../../../fullcalendar/lib/jquery.min.js'></script>
     <script src='../../../fullcalendar/fullcalendar.min.js'></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     <script>
       $(document).ready(function() {
         $('#calendar').fullCalendar({
             header: {
               left: 'prev, next today',
               center: 'title',
-              right: 'agendaWeek,agendaDay'
+              right: 'agendaWeek,agendaDay, list, list-view'
+            },
+            events: [
+                {
+                    title: 'Event1',
+                    start: '2017-02-11'
+                }
+            ],
+            dayClick: function(date, jsEvent, view, resourceObj) {
+
+                alert('Date: ' + date.format());
+                alert('Resource ID: ' + resourceObj.id);
+
+            },
+            eventClick: function(event, element) {
+
+                event.title = "CLICKED!";
+
+                $('#calendar').fullCalendar('updateEvent', event);
+
             },
         })
       });
@@ -33,8 +54,39 @@
     </style>
 </head>
 <body>
-<img id = "close" width="150" height="90" class = "img-center center-block" src = "../../../images/Logo.png">
+
+<button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form id="role-form"  method="get">
+                    <div class="modal-body">
+                        <div class="form-group col-md-12">
+                            <input type="text" name="role" class="form-control">
+                                Event Name
+                            </input>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <select id="year" name="role" class="form-control">
+                                <option selected disabled>Event Time</option>
+                                <option value='1'>2015</option>
+                                <option value='2'>2016</option>
+                                <option value='3'>2017</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<img id = "close" width = "180" height = "105" class = "img-center center-block" src = "https://raw.githubusercontent.com/djustinf/PlanIt/master/images/Logo.png">
     <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
     <div class="fc-view fc-agendaWeek-view fc-agenda-view" style></div>
+
+
 </body>
 </html>
