@@ -39,9 +39,9 @@ public class Component {
         this.ID = ID;
     }
 
-    /*public void setRoom(int roomNum){
-        this.room = new RoomOffering(roomNum);
-    }*/
+    public void setRoom(int roomNum){
+        //TODO: Figure this shit out
+    }
 
     public int getID(){
         return ID;
