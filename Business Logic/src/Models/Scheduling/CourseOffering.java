@@ -7,12 +7,14 @@ import java.util.ArrayList;
  */
 public class CourseOffering {
 
+    private Course parent;
     private int ID;
     private String name;
     private ArrayList<Component> components;
 
-    public CourseOffering(Integer courseID, Integer termYear, String termName) {
-        this.name = courseID.toString() + termName + termYear.toString();
+    public CourseOffering(String schedName, Course parent) {
+        this.name = parent.getName() + "-" + schedName;
+        this.parent = parent;
         components = new ArrayList<Component>();
     }
 
@@ -24,8 +26,8 @@ public class CourseOffering {
         return ID;
     }
 
-    public Component addComponent(String sectionType, int workUnits, int startTime, double classHours) {
-        Component component = new Component(sectionType, workUnits, startTime, classHours);
+    public Component addComponent(String sectionType, int workUnits, int startTime, int endTime) {
+        Component component = new Component(sectionType, workUnits, startTime, endTime);
         components.add(component);
         return component;
     }
