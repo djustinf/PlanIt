@@ -7,5 +7,12 @@ import Models.Scheduling.Component;
  */
 public class RoomChunk extends Chunk {
     private Component component;
+
+    public RoomChunk(int id, int day, int start, Component component){
+        super(id, day, start);
+        this.component = component;
+    }
 }
+
+
 

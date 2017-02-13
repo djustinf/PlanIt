@@ -69,42 +69,36 @@ public class Faculty extends User {
             currentChunkVal = preferredTimes[dayi][0];
             //started day in a chunk
             if(currentChunkVal != 0){
-                chunks[chunki] = new FacultyChunk(getUserID(), dayi, 0, currentChunkVal);
+                chunks.set(chunki, new FacultyChunk(getUserID(), dayi, 0, currentChunkVal));
             }
             for(int houri = 1; houri < INTERVALS_PER_DAY; houri++) {
                 //chunk to chunk
-                if (currentChunkVal != 0 && preferredTimes[dayi][houri] = -1 * currentChunkVal) {
+                if ((currentChunkVal != 0) && (preferredTimes[dayi][houri] == -1 * currentChunkVal)) {
                     //end last chunk, start new chunk
                     currentChunkVal = preferredTimes[dayi][houri];
-                    chunks[chunki++].setEnd(houri - 1);
-                    chunks[chunki] = new FacultyChunk(getUserID(), dayi, houri, currentChunkVal);
+                    chunks.get(chunki).setEnd(houri - 1);
+                    chunki++;
+                    chunks.set(chunki, new FacultyChunk(getUserID(), dayi, houri, currentChunkVal));
                 }
                 //chunk to 0
                 else if (preferredTimes[dayi][houri] == 0 && currentChunkVal != 0) {
                     //end current chunk
                     currentChunkVal = 0;
-                    chunks[chunki++].setEnd(houri - 1);
+                    chunks.get(chunki).setEnd(houri-1);
+                    chunki++;
                 }
                 //0 to chunk
                 else if (preferredTimes[dayi][houri] != 0 && currentChunkVal == 0) {
                     //start new chunk
-                    chunks[chunki] = new FacultyChunk(getUserID(), dayi, houri, currentChunkVal);
+                    chunks.set(chunki, new FacultyChunk(getUserID(), dayi, houri, currentChunkVal));
                 }
             }
             //ended day in a chunk
             if(currentChunkVal != 0) {
-                chunks[chunki++].setEnd(INTERVALS_PER_DAY-1);
+                chunks.get(chunki).setEnd(INTERVALS_PER_DAY-1);
+                chunki++;
             }
         }
         return chunks;
-    }
-
-    public int[][] chunksToPreferences(ArrayList<FacultyChunk> chunks){
-        int [][] build = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
-        for(FacultyChunk c: chunks){
-            for(int i = c.getStartTime(); i<=c.getEndTime(); i++) {
-                build[c.getDay()][i] = c.getPreferenceLevel();
-            }
-        }
     }
 }

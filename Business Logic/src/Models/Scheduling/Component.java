@@ -1,5 +1,7 @@
 package Models.Scheduling;
 
+import Models.People.Faculty;
+
 /**
  * Created by Kris on 2/3/2017.
  */
@@ -11,6 +13,7 @@ public class Component {
     private int startTime;
     private int endTime;
     private RoomOffering room;
+    private Faculty faculty;
 
     public Component(String sectionType, int workUnits, int startTime, int endTime){
         this.sectionType = sectionType;
