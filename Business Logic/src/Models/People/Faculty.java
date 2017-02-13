@@ -98,4 +98,13 @@ public class Faculty extends User {
         }
         return chunks;
     }
+
+    public int[][] chunksToPreferences(ArrayList<FacultyChunk> chunks){
+        int [][] build = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
+        for(FacultyChunk c: chunks){
+            for(int i = c.getStartTime(); i<=c.getEndTime(); i++) {
+                build[c.getDay()][i] = c.getPreferenceLevel();
+            }
+        }
+    }
 }

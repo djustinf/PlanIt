@@ -18,4 +18,20 @@ public abstract class Chunk {
     public void setEnd(int end) {
         endTime = end;
     }
+
+    public int getID(){
+        return ID;
+    }
+
+    public int getDay(){
+        return day;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
 }
