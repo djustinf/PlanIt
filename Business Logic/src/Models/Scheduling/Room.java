@@ -2,7 +2,7 @@ package Models.Scheduling;
 
 import java.util.List;
 
-class Room {
+public class Room {
     private int roomID;
     private List<String> resources;
     private int capacity;
