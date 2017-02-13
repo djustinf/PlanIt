@@ -67,20 +67,38 @@ public class Faculty extends User {
         ArrayList<Chunk> chunks = new ArrayList<Chunk>();
         for(int dayi = 0; dayi < DAYS_IN_WEEK; dayi++){
             currentChunkVal = preferredTimes[dayi][0];
+            //started day in a chunk
             if(currentChunkVal != 0){
-                chunks[chunki] = new FacultyChunk(getUserID(), dayi, 0, currentChunkVal);
+                chunks.set(chunki, new FacultyChunk(getUserID(), dayi, 0, currentChunkVal));
             }
-            for(int houri = 1; houri < INTERVALS_PER_DAY; houri++){
-                if(preferredTimes[dayi][houri] = -1*currentChunkVal){
+            for(int houri = 1; houri < INTERVALS_PER_DAY; houri++) {
+                //chunk to chunk
+                if ((currentChunkVal != 0) && (preferredTimes[dayi][houri] == -1 * currentChunkVal)) {
                     //end last chunk, start new chunk
+                    currentChunkVal = preferredTimes[dayi][houri];
+                    chunks.get(chunki).setEnd(houri - 1);
+                    chunki++;
+                    chunks.set(chunki, new FacultyChunk(getUserID(), dayi, houri, currentChunkVal));
                 }
-                else if (preferredTimes[dayi][houri] == 0 && currentChunkVal != 0){
+                //chunk to 0
+                else if (preferredTimes[dayi][houri] == 0 && currentChunkVal != 0) {
                     //end current chunk
+                    currentChunkVal = 0;
+                    chunks.get(chunki).setEnd(houri-1);
+                    chunki++;
                 }
-                else{
-                    //move along
+                //0 to chunk
+                else if (preferredTimes[dayi][houri] != 0 && currentChunkVal == 0) {
+                    //start new chunk
+                    chunks.set(chunki, new FacultyChunk(getUserID(), dayi, houri, currentChunkVal));
                 }
+            }
+            //ended day in a chunk
+            if(currentChunkVal != 0) {
+                chunks.get(chunki).setEnd(INTERVALS_PER_DAY-1);
+                chunki++;
             }
         }
+        return chunks;
     }
 }

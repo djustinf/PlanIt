@@ -15,4 +15,8 @@ public class FacultyChunk extends Chunk{
     {
         super.setEnd(end);
     }
+
+    public int getPreferenceLevel(){
+        return preferenceLevel;
+    }
 }
