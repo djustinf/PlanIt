@@ -11,8 +11,12 @@ public class FacultyChunk extends Chunk{
          this.preferenceLevel = preferenceLevel;
     }
 
-    public setEnd(int end)
+    public void setEnd(int end)
     {
         super.setEnd(end);
+    }
+
+    public int getPreferenceLevel(){
+        return preferenceLevel;
     }
 }
