@@ -5,7 +5,7 @@ package Models.Scheduling;
  */
 public class Term {
     private String termName;
-    private Integer termYear;
+    private int termYear;
 
     public String getTermName() {
         return termName;
@@ -15,11 +15,11 @@ public class Term {
         this.termName = termName;
     }
 
-    public Integer getTermYear() {
+    public int getTermYear() {
         return termYear;
     }
 
-    public void setTermYear(Integer termYear) {
+    public void setTermYear(int termYear) {
         this.termYear = termYear;
     }
 }

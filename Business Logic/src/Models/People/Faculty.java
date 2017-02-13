@@ -98,4 +98,10 @@ public class Faculty extends User {
         }
         return chunks;
     }
+
+    public int[][] chunksToPreferences(ArrayList<FacultyChunk> chunks){
+        for(FacultyChunk i: chunks){
+
+        }
+    }
 }
