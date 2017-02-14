@@ -39,7 +39,7 @@ public class ScheduleController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public Schedule putSchedule() {
-        return new Schedule(new Term(), 0, "hi");
+        return new Schedule("hi");
     }
 
     /**
@@ -58,7 +58,7 @@ public class ScheduleController {
      */
     @RequestMapping(value = "/{term}", method = RequestMethod.GET)
     public Schedule getScheduleTerm(@PathVariable long term) {
-        return new Schedule(new Term(), 0, "hi");
+        return new Schedule("hi");
     }
 
     /**

@@ -1,5 +1,8 @@
 package Models.Scheduling;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -8,26 +11,46 @@ import java.util.*;
  * @author Kris Campos
  * @version initial - 2/3/2017.
  */
+@Entity
 public class Schedule {
-    private int ID;
-    private Term term;
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private String name;
+    private String fullName;
+
+    @ManyToOne
+    private Term term;
+
+    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
     List<CourseOffering> courseList; // one entry per course in DB
+
+    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
     List<Comment> comments;
 
-    public Schedule(Term term, int ID, String name)
-    {
-        this.term = term;
-        this.ID = ID;
+    public Schedule() {
         courseList = new ArrayList<CourseOffering>();
         comments = new ArrayList<Comment>();
-        this.name = term.getTermName() + term.getTermYear() + name;
+    }
+
+    public Schedule(String name)
+    {
+        courseList = new ArrayList<CourseOffering>();
+        comments = new ArrayList<Comment>();
+        this.name = name;
     }
 
     // getters and setters
 
     public Term getTerm() {
         return term;
+    }
+
+    public void setTerm(Term term) {
+        this.term = term;
+        this.fullName = term.getTermName() + term.getTermYear() + name;
     }
 
     public String getTermName() {
@@ -56,6 +79,10 @@ public class Schedule {
 
     public boolean addComment(Comment comment) {
         return comments.add(comment);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {

@@ -43,8 +43,9 @@ public class Course {
         faculty.remove(member);
     }
 
+    /*
     public CourseOffering addOffering(Schedule sched) {
-        CourseOffering offer = new CourseOffering(sched.getName(), this);
+        CourseOffering offer = new CourseOffering(sched.getName());
         offerings.add(offer);
         return offer;
     }
@@ -56,4 +57,5 @@ public class Course {
     public ArrayList<CourseOffering> getOfferings() {
         return offerings;
     }
+    */
 }
