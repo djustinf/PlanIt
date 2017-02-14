@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
 
 /**
  * Created by Justin on 2/13/2017.
@@ -50,15 +51,24 @@ public class ScheduleTest {
         term.addSched(one);
         term.addSched(two);
 
-        entityManager.getTransaction().begin();
+        try {
+            entityManager.getTransaction().begin();
 
-        // persist organizer (will be cascaded to hikes)
-        entityManager.persist( term );
+            // persist organizer (will be cascaded to hikes)
+            entityManager.persist(term);
 
-        entityManager.getTransaction().commit();
+            entityManager.getTransaction().commit();
 
-        // get a new EM to make sure data is actually retrieved from the store and not Hibernate's internal cache
-        entityManager.close();
+            // get a new EM to make sure data is actually retrieved from the store and not Hibernate's internal cache
+            entityManager.close();
+        }
+        catch (RollbackException e) {
+            System.out.println("********************************************");
+            System.out.printf("Term %s-%d already persists in datastore.\n", term.getTermName(), term.getTermYear());
+            System.out.println("********************************************");
+            entityManager.close();
+            System.exit(0);
+        }
         entityManager = entityManagerFactory.createEntityManager();
 
         // load it back
@@ -68,6 +78,9 @@ public class ScheduleTest {
         assertEquals(loadedTerm.getTermName(), term.getTermName());
 
         entityManager.getTransaction().commit();
+        System.out.println("********************************************");
+        System.out.printf("Successfully added %s-%d to datastore.\n", term.getTermName(), term.getTermYear());
+        System.out.println("********************************************");
 
         entityManager.close();
     }

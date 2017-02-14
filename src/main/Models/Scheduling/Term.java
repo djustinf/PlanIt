@@ -16,7 +16,10 @@ public class Term {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    @Column(unique = true)
     private String termName;
+
     private int termYear;
 
     @OneToMany(mappedBy = "term", cascade = CascadeType.PERSIST)

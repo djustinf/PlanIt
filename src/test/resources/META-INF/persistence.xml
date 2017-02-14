@@ -13,6 +13,7 @@
         <class>Models.Scheduling.Comment</class>
         <class>Models.Scheduling.CourseOffering</class>
         <class>Models.Scheduling.Component</class>
+        <class>Models.People.Faculty</class>
 
         <properties>
             <property name="hibernate.ogm.datastore.provider" value="neo4j_embedded" />

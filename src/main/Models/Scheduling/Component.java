@@ -2,11 +2,11 @@ package Models.Scheduling;
 
 import Models.People.Faculty;
 import org.hibernate.annotations.GenericGenerator;
+import org.neo4j.cypher.internal.compiler.v2_2.ast.In;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kris on 2/3/2017.
@@ -24,11 +24,18 @@ public class Component {
 
     private String sectionType;
     private int workUnits;
-   // private int[] days;
+
+    @ElementCollection
+    private List<Integer> days;
+
     private int startTime;
     private int endTime;
+
+    //@OneToMany
     //private RoomOffering room;
-   // private Faculty faculty;
+
+    //@OneToMany
+    //private Faculty faculty;
 
     public Component() {}
 
@@ -37,25 +44,24 @@ public class Component {
         this.workUnits = workUnits;
         this.startTime = startTime;
         this.endTime = endTime;
-       // days = new int[7];
+        days = new ArrayList<Integer>();
     }
-/*
+
     public Component(String sectionType, int workUnits, int startTime, int endTime,
                      boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
         this.sectionType = sectionType;
         this.workUnits = workUnits;
         this.startTime = startTime;
         this.endTime = endTime;
-        days = new int[7];
-        if(sun) days[0] = 1;
-        if(mon) days[1] = 1;
-        if(tues) days[2] = 1;
-        if(wed) days[3] = 1;
-        if(thurs) days[4] = 1;
-        if(fri) days[5] = 1;
-        if(sat) days[6] = 1;
+        days = new ArrayList<Integer>();
+        if(sun) days.add(0, 1);
+        if(mon) days.add(1, 1);
+        if(tues) days.add(2, 1);
+        if(wed) days.add(3, 1);
+        if(thurs) days.add(4, 1);
+        if(fri) days.add(5, 1);
+        if(sat) days.add(6, 1);
     }
-    */
 
     public void setID(String ID) {
         this.id = ID;
@@ -88,19 +94,19 @@ public class Component {
     public double getDurationHours(){
         return ((double)(endTime - startTime))/2;
     }
-/*
+
     public void setDays(boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
-        if(sun) days[0] = 1;
-        if(mon) days[1] = 1;
-        if(tues) days[2] = 1;
-        if(wed) days[3] = 1;
-        if(thurs) days[4] = 1;
-        if(fri) days[5] = 1;
-        if(sat) days[6] = 1;
+        if(sun) days.add(0, 1);
+        if(mon) days.add(1, 1);
+        if(tues) days.add(2, 1);
+        if(wed) days.add(3, 1);
+        if(thurs) days.add(4, 1);
+        if(fri) days.add(5, 1);
+        if(sat) days.add(6, 1);
     }
 
-    public int[] getDays(){
+    public List<Integer> getDays(){
         return days;
     }
-    */
+
 }
