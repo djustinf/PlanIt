@@ -10,6 +10,8 @@
     <script src='../../../fullcalendar/lib/jquery.min.js'></script>
     <script src='../../../fullcalendar/fullcalendar.min.js'></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="viewingSchedule.css">
+
 
     <script>
       $(document).ready(function() {
@@ -54,12 +56,13 @@
     </style>
 </head>
 <body>
-
-<button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button>
+<div w3-include-html="navbar.html"></div>
+<button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button> <br>
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+
                 <form id="role-form"  method="get">
                     <div class="modal-body">
                         <div class="form-group col-md-12">
@@ -83,7 +86,6 @@
     </div>
 
 
-<img id = "close" width = "180" height = "105" class = "img-center center-block" src = "https://raw.githubusercontent.com/djustinf/PlanIt/master/images/Logo.png">
     <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
     <div class="fc-view fc-agendaWeek-view fc-agenda-view" style></div>
 

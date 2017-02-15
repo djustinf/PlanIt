@@ -126,6 +126,11 @@ input::-webkit-input-placeholder {
 span.input-group-addon i {
     color: #009edf;
     font-size: 17px;
+    min-height: 18px;
+    min-width: 20px;
+    align-items: center;
+    align-content: center;
+    align-self: center;
 }
 
 .login-button{
