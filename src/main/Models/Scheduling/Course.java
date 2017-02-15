@@ -1,17 +1,33 @@
 package Models.Scheduling;
 
 import Models.People.Faculty;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kris on 2/3/2017.
  */
+@Entity
 public class Course {
 
-    private int ID;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+
+    @Column(unique = true)
     private String name;
-    private ArrayList<CourseOffering> offerings;
-    private ArrayList<Faculty> faculty;
+
+    //@OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
+    private List<CourseOffering> offerings;
+
+    //@ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
+    private List<Faculty> faculty;
+
+    public Course() {}
 
     public Course(String name) {
         this.name = name;
@@ -19,12 +35,12 @@ public class Course {
         offerings = new ArrayList<CourseOffering>();
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(String ID) {
+        this.id = ID;
     }
 
-    public int getID() {
-        return ID;
+    public String getID() {
+        return id;
     }
 
     public void setName(String name) {
@@ -43,17 +59,16 @@ public class Course {
         faculty.remove(member);
     }
 
-    public CourseOffering addOffering(Schedule sched) {
-        CourseOffering offer = new CourseOffering(sched.getName(), this);
+    public void addOffering(CourseOffering offer) {
         offerings.add(offer);
-        return offer;
     }
 
     public void removeOffering(CourseOffering offer) {
         offerings.remove(offer);
     }
 
-    public ArrayList<CourseOffering> getOfferings() {
+    public List<CourseOffering> getOfferings() {
         return offerings;
     }
+
 }

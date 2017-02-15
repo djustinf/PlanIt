@@ -35,7 +35,7 @@ public class RoomOffering {
         }
         components = new ArrayList<Component>();
     }
-
+/*
     public void addComponent(Component c){
         components.add(c);
         int[] days = c.getDays();
@@ -48,5 +48,5 @@ public class RoomOffering {
         }
 
     }
-
+*/
 }

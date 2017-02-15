@@ -30,8 +30,8 @@ targetCompatibility = 1.8
 idea {
 
     module {
-        sourceDirs += file('/Business Logic/src')
-        testSourceDirs += file('/Business Logic/test')
+        sourceDirs += file('/src/main')
+        testSourceDirs += file('/src/test')
     }
 }
 
@@ -40,6 +40,8 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.apache.commons:commons-collections4:4.1'
-    compile 'org.hibernate:hibernate-core:5.2.7.Final'
+    compile group: 'org.hibernate.ogm', name: 'hibernate-ogm-core', version: '5.0.4.Final'
+    compile group: 'org.hibernate.ogm', name: 'hibernate-ogm-neo4j', version: '5.0.4.Final'
+    compile group: 'org.jboss.jbossts', name: 'jbossjta', version: '4.16.6.Final'
     compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
 }

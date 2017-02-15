@@ -1,12 +1,20 @@
 package Models.People;
 import Models.Chunks.Chunk;
 import Models.Chunks.FacultyChunk;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+//@Entity
 public class Faculty extends User {
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48; //30 min intervals
 
@@ -20,9 +28,13 @@ public class Faculty extends User {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
-    private int[][] preferredTimes;
+    private int[][] preferredTimes; //Doesn't map well with OGM
     private int preferredTotalHours;// workload preference
-    private Map<Integer, Integer> coursePreferences = new HashMap<>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
+
+    public Faculty() {}
 
     public Faculty(int userID, String userName, String email, String firstName, String lastName) {
         super(userID, userName, email, firstName, lastName);
