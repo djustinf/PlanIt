@@ -17,6 +17,7 @@ public class HelloWorldController {
 
     @RequestMapping("/helloworld")
     public HelloWorld helloWorld( @RequestParam(value = "name", defaultValue = "World") String name ) {
+        System.out.println("Helloworld hit");
         return new HelloWorld(counter.incrementAndGet(), String.format(template, name));
     }
 
