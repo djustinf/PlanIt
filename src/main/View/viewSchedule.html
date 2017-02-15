@@ -1,48 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+
+    <link rel='stylesheet' href='../../../fullcalendar/fullcalendar.css' />
+    <script src='lib/jquery.min.js'></script>
+    <script src='lib/moment.min.js'></script>
+    <script src='fullcalendar/fullcalendar.js'></script>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <script src="node_modules/angular/angular.js"> </script>
-    <script src="controller.js"> </script>
     <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet">
-    <link rel="stylesheet" href="../../../fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="../../../fullcalendar/fullcalendar.css" >
     <script src='../../../fullcalendar/lib/moment.min.js'></script>
     <script src='../../../fullcalendar/lib/jquery.min.js'></script>
     <script src='../../../fullcalendar/fullcalendar.min.js'></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="viewingSchedule.css">
+
+    <script src='../../../fullcalendar/fullcalendar.js'></script>
 
 
     <script>
-      $(document).ready(function() {
-        $('#calendar').fullCalendar({
-            header: {
-              left: 'prev, next today',
-              center: 'title',
-              right: 'agendaWeek,agendaDay, list, list-view'
-            },
-            events: [
-                {
-                    title: 'Event1',
-                    start: '2017-02-11'
-                }
-            ],
-            dayClick: function(date, jsEvent, view, resourceObj) {
+        $(document).ready(function() {
 
-                alert('Date: ' + date.format());
-                alert('Resource ID: ' + resourceObj.id);
 
-            },
-            eventClick: function(event, element) {
+            $(document).ready(function () {
 
-                event.title = "CLICKED!";
-
-                $('#calendar').fullCalendar('updateEvent', event);
-
-            },
-        })
-      });
-
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay, list, list-view'
+                    },
+                    defaultDate: '2017-02-12',
+                    navLinks: true, // can click day/week names to navigate views
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    events: [
+                        {
+                            title: 'All Day Event',
+                            start: '2017-02-01'
+                        },
+                        {
+                            title: 'Long Event',
+                            start: '2017-02-07',
+                            end: '2017-02-10'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2017-02-09T16:00:00'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2017-02-16T16:00:00'
+                        },
+                        {
+                            title: 'Conference',
+                            start: '2017-02-11',
+                            end: '2017-02-13'
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2017-02-12T10:30:00',
+                            end: '2017-02-12T12:30:00'
+                        },
+                        {
+                            title: 'Lunch',
+                            start: '2017-02-12T12:00:00'
+                        },
+                        {
+                            title: 'Meeting',
+                            start: '2017-02-12T14:30:00'
+                        },
+                        {
+                            title: 'Happy Hour',
+                            start: '2017-02-12T17:30:00'
+                        },
+                        {
+                            title: 'Dinner',
+                            start: '2017-02-12T20:00:00'
+                        },
+                        {
+                            title: 'Birthday Party',
+                            start: '2017-02-13T07:00:00'
+                        },
+                        {
+                            title: 'Click for Google',
+                            url: 'http://google.com/',
+                            start: '2017-02-28'
+                        }
+                    ]
+                });
+            });
+        });
     </script>
     <style type = "text/css">
         body {
@@ -55,39 +109,40 @@
         }
     </style>
 </head>
-<body>
-<div w3-include-html="navbar.html"></div>
-<button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button> <br>
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
 
-                <form id="role-form"  method="get">
-                    <div class="modal-body">
-                        <div class="form-group col-md-12">
-                            <input type="text" name="role" class="form-control">
-                                Event Name
-                            </input>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <select id="year" name="role" class="form-control">
-                                <option selected disabled>Event Time</option>
-                                <option value='1'>2015</option>
-                                <option value='2'>2016</option>
-                                <option value='3'>2017</option>
-                            </select>
-                        </div>
-                        <div class="clearfix"></div>
+<body>
+
+<button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="role-form"  method="get">
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <input type="text" name="role" class="form-control">
+                        Event Name
+                        </input>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group col-md-12">
+                        <select id="year" name="role" class="form-control">
+                            <option selected disabled>Event Time</option>
+                            <option value='1'>2015</option>
+                            <option value='2'>2016</option>
+                            <option value='3'>2017</option>
+                        </select>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
-    <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
-    <div class="fc-view fc-agendaWeek-view fc-agenda-view" style></div>
+<img id = "close" width = "180" height = "105" class = "img-center center-block" src = "https://raw.githubusercontent.com/djustinf/PlanIt/master/images/Logo.png">
+<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
+<div class="fc-view fc-agendaWeek-view fc-agenda-view" ></div>
 
 
 </body>
