@@ -1,14 +1,18 @@
 <!doctype html>
-<html>
-<script src="node_modules/angular/angular.js"> </script>
-<body>
-
-<div ng-app="myApp" ng-controller="myCtrl">
-    <p>Today's welcome message is:</p>
-
-    <h1>{{myWelcome}}</h1>
-
-</div>
-</body>
-
+<html ng-app="demo">
+    <head>
+        <title>API Test</title>
+        <!--
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+        -->
+        <script src="node_modules/angular/angular.min.js"></script>
+        <script src="helloworld.js"></script>
+    </head>
+    <body>
+        <div ng-controller="Hello">
+            <p>The id is {{greeting.id}}</p>
+            <p>The content is {{greeting.content}}</p>
+            <p>The response object contains the following: {{greeting}}</p>
+        </div>
+    </body>
 </html>

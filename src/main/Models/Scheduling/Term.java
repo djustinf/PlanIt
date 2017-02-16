@@ -18,6 +18,8 @@ public class Term {
     private String id;
 
     @Column(unique = true)
+    private String uniqueName;
+
     private String termName;
 
     private int termYear;
@@ -26,6 +28,16 @@ public class Term {
     private List<Schedule> schedules = new ArrayList<Schedule>();
 
     public Term () {}
+
+    public Term (String name, int year) {
+        termName = name;
+        termYear = year;
+        genName();
+    }
+
+    public void genName() {
+        uniqueName = termName + Integer.toString(termYear);
+    }
 
     public String getId() {
         return id;
