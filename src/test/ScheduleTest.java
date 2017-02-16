@@ -32,9 +32,7 @@ public class ScheduleTest {
     public void canPersistAndLoadTermAndSchedule() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Term term = new Term();
-        term.setTermName("Fall");
-        term.setTermYear(2018);
+        Term term = new Term("Fall", 2018);
 
         Schedule one =  new Schedule("First_Sched");
         one.setTerm(term);
@@ -51,11 +49,28 @@ public class ScheduleTest {
         term.addSched(one);
         term.addSched(two);
 
+        Term term2 = new Term("Fall", 2019);
+
+        Schedule one2 =  new Schedule("First_Sched");
+        one2.setTerm(term2);
+        one2.addCourse(new CourseOffering("CPE453", one2));
+        one2.addCourse(new CourseOffering("CPE349", one2));
+        one2.addCourse(new CourseOffering("CPE309", one2));
+
+        Schedule two2 = new Schedule("Second_Sched");
+        two2.setTerm(term2);
+        two2.addCourse(new CourseOffering("CPE453", two2));
+        two2.addCourse(new CourseOffering("CPE349", two2));
+        two2.addCourse(new CourseOffering("CPE309", two2));
+
+        term2.addSched(one2);
+        term2.addSched(two2);
+
         try {
             entityManager.getTransaction().begin();
 
-            // persist organizer (will be cascaded to hikes)
             entityManager.persist(term);
+            entityManager.persist(term2);
 
             entityManager.getTransaction().commit();
 
@@ -74,8 +89,8 @@ public class ScheduleTest {
         // load it back
         entityManager.getTransaction().begin();
 
-        Term loadedTerm = entityManager.find( Term.class, term.getId() );
-        assertEquals(loadedTerm.getTermName(), term.getTermName());
+        Schedule loadedTerm = entityManager.find( Schedule.class, one.getId() );
+        assertEquals(loadedTerm.getName(), one.getName());
 
         entityManager.getTransaction().commit();
         System.out.println("********************************************");
