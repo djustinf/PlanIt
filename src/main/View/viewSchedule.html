@@ -2,25 +2,20 @@
 <html>
 <head>
 
-    <link rel='stylesheet' href='../../../fullcalendar/fullcalendar.css' />
-    <script src='lib/jquery.min.js'></script>
-    <script src='lib/moment.min.js'></script>
-    <script src='fullcalendar/fullcalendar.js'></script>
-
-
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="node_modules/angular/angular.js"> </script>
-    <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet">
-    <link rel="stylesheet" href="../../../fullcalendar/fullcalendar.css" >
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
     <script src='../../../fullcalendar/lib/moment.min.js'></script>
-    <script src='../../../fullcalendar/lib/jquery.min.js'></script>
-    <script src='../../../fullcalendar/fullcalendar.min.js'></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
     <script src='../../../fullcalendar/fullcalendar.js'></script>
+    <script src='../../../fullcalendar/fullcalendar.min.js'></script>
+    <link href='../../../fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='../../../fullcalendar/fullcalendar.print.min.css' rel="stylesheet" media="print"/>
 
+
+    <script src="node_modules/angular/angular.js"> </script>
+    <link href = "node_modules/bootstrap/dist/css/bootstrap.css" type = "text/css" rel = "stylesheet"/>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     <script>
         $(document).ready(function() {
@@ -98,24 +93,22 @@
             });
         });
     </script>
+
+
     <style type = "text/css">
         body {
             margin-top: 40px;
             text-align: center;
         }
-        #calendar {
-            width: 900px;
-            margin: 0 auto;
-        }
+
     </style>
 </head>
 
-<body>
 
 <button id="myBtn" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Event</button>
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <form id="role-form"  method="get">
                 <div class="modal-body">
@@ -125,7 +118,7 @@
                         </input>
                     </div>
                     <div class="form-group col-md-12">
-                        <select id="year" name="role" class="form-control">
+                        <select id="year" name="role" class="form-control" title="Random">
                             <option selected disabled>Event Time</option>
                             <option value='1'>2015</option>
                             <option value='2'>2016</option>
@@ -142,8 +135,6 @@
 
 <img id = "close" width = "180" height = "105" class = "img-center center-block" src = "https://raw.githubusercontent.com/djustinf/PlanIt/master/images/Logo.png">
 <div id="calendar" class="fc fc-unthemed fc-ltr"></div>
-<div class="fc-view fc-agendaWeek-view fc-agenda-view" ></div>
+<div class="fc-view fc-agendaWeek-view fc-agenda-view"> </div>
 
-
-</body>
 </html>
