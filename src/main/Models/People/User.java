@@ -1,13 +1,27 @@
 package Models.People;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * Representation of a User as a model.
  *
  * @author Kris Campos
  * @version 1 - initial version. 1/31/2017
  */
+@Entity
 public class User {
-    private int userID;
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+
+    @Column(unique = true)
     private String userName;
     private String email;
     private String firstName;
@@ -15,16 +29,16 @@ public class User {
 
     public User() {}
 
-    public User(int userID, String userName, String email, String firstName, String lastName) {
-        this.userID = userID;
+    public User(String userID, String userName, String email, String firstName, String lastName) {
+        this.id = userID;
         this.userName = userName;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUserID() {
+        return id;
     }
 
     public String getUserName() {

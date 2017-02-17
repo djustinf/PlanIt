@@ -2,14 +2,17 @@ package Models.People;
 
 import Models.Scheduling.Schedule;
 
+import javax.persistence.Entity;
+
 /**
  * Created by Kris on 2/1/2017.
  */
+@Entity
 public class DepartmentScheduler extends User {
 
-    Schedule schedule = null;
+    public DepartmentScheduler() {}
 
-    public DepartmentScheduler(int userID, String userName, String email, String firstName, String lastName) {
+    public DepartmentScheduler(String userID, String userName, String email, String firstName, String lastName) {
         super(userID, userName, email, firstName, lastName);
     }
 
