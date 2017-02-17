@@ -1,15 +1,30 @@
 package Models.Scheduling;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Room {
-    private int roomID;
-    private List<String> resources;
-    private int capacity;
-    private int roomType;
 
-    public int getRoomID() {
-        return roomID;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+
+    @ElementCollection
+    private List<String> resources;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
+    private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
+
+    private int capacity;
+    private String roomType;
+
+    public String getRoomID() {
+        return id;
     }
 
     public List<String> getResources() {

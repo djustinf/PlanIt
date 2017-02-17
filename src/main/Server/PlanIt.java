@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlanIt {
 
     @RequestMapping("/")
-    String home() {
-        return "../View/login.html";
+    public String home() {
+        return "index";
     }
 
     public static void main(String[] args) {

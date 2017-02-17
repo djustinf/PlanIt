@@ -1,13 +1,24 @@
 package Models.Scheduling;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Landon on 2/11/2017.
  */
+@Entity
 public class RoomOffering {
-    private Room parent;
+
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+
+    @ManyToOne
+    private Room room;
 
     /* each second-index indicates a 30 minute interval, each increment of 1 shows an occupancy.
     * if there is a 2 in days[3][14] that means this room has two courses scheduled on wednesday from 7:00 AM - 7:30 AM
@@ -22,20 +33,25 @@ public class RoomOffering {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
+    @ElementCollection
     private List<Integer> availability;
-    private List<Component> components;
+
+    @OneToMany(mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
+    private List<Component> components = new ArrayList<Component>();
 
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48;
 
     public RoomOffering(Room parent){
-        this.parent = parent;
+        this.room = parent;
         availability = new ArrayList<Integer>();
         for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
                 availability.set(i, 0); //New rooms start out entirely unoccupied
         }
         components = new ArrayList<Component>();
     }
+
+    public RoomOffering() {}
 
     public void addComponent(Component c){
         components.add(c);

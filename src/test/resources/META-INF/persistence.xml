@@ -13,12 +13,17 @@
         <class>Models.Scheduling.Comment</class>
         <class>Models.Scheduling.CourseOffering</class>
         <class>Models.Scheduling.Component</class>
+        <class>Models.Scheduling.Room</class>
+        <class>Models.Scheduling.RoomOffering</class>
         <class>Models.People.Faculty</class>
 
         <properties>
-            <property name="hibernate.ogm.datastore.provider" value="neo4j_embedded" />
-            <property name="hibernate.ogm.datastore.database" value="SchedDB" />
-            <property name="hibernate.ogm.neo4j.database_path" value="target/test_data_dir" />
+            <property name="hibernate.ogm.datastore.provider" value="mongodb" />
+            <property name="hibernate.ogm.datastore.database" value="TermDB" />
+            <property name="hibernate.ogm.datastore.host" value="localhost" />
+            <property name="hibernate.ogm.datastore.username" value="user" />
+            <property name="hibernate.ogm.datastore.password" value="pass" />
+            <property name="hibernate.ogm.datastore.create_database" value="true" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -31,11 +31,11 @@ public class Component {
     private int startTime;
     private int endTime;
 
-    //@OneToMany
-    //private RoomOffering room;
+    @ManyToOne
+    private RoomOffering roomOffering;
 
-    //@OneToMany
-    //private Faculty faculty;
+    @ManyToOne
+    private Faculty faculty;
 
     public Component() {}
 
