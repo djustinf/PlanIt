@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Entity
+@Entity
 public class Faculty extends User {
 
     @Id
