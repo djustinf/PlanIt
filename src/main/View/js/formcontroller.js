@@ -32,6 +32,6 @@ app.controller('myCtrl', function ($scope) {
         {
             name: "Time",
             values: ["Morning", "Afternoon", "Evening", "Night"]
-        },
+        }
     ]
 });

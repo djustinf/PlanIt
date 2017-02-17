@@ -1,0 +1,45 @@
+<!doctype HTML>
+<html>
+
+<head>
+    <link href='../../../../fullcalendar-scheduler/scheduler.css' rel='stylesheet' />
+    <link href='../../../../fullcalendar-scheduler/scheduler.js' rel='stylesheet' />
+    <link href='../../../../fullcalendar-scheduler/scheduler.min.js' rel='stylesheet' />
+    <link href='../../../../fullcalendar-scheduler/scheduler.min.css' rel='stylesheet' />
+
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css" media= "print" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+
+
+
+
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev, next today timelineWeek',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay, timelineDay'
+
+                },
+            })
+        });
+
+    </script>
+</head>
+<body>
+<img id = "close" width="150" height="90" class = "img-center center-block" src = "../../../../images/Logo.png">
+<div id="calendar" class="fc fc-unthemed fc-ltr"></div>
+<div class="fc-view fc-agendaWeek-view fc-agenda-view" style></div>
+</body>
+</html>
