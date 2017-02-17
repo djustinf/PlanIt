@@ -32,8 +32,8 @@ public class Faculty extends User {
 
     public Faculty() {}
 
-    public Faculty(String userID, String userName, String email, String firstName, String lastName) {
-        super(userID, userName, email, firstName, lastName);
+    public Faculty(String userName, String email, String firstName, String lastName) {
+        super(userName, email, firstName, lastName);
         preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
         for(int i = 0; i<DAYS_IN_WEEK; i++){
             for(int j = 0; j<INTERVALS_PER_DAY; j++) {
@@ -69,6 +69,7 @@ public class Faculty extends User {
         return false;
     }
 
+    /*
     public ArrayList<Chunk> preferencesToChunks(){
         int chunki = 0;
         int currentChunkVal;
@@ -109,4 +110,5 @@ public class Faculty extends User {
         }
         return chunks;
     }
+    */
 }

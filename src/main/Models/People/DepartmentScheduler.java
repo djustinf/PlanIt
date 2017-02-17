@@ -12,8 +12,8 @@ public class DepartmentScheduler extends User {
 
     public DepartmentScheduler() {}
 
-    public DepartmentScheduler(String userID, String userName, String email, String firstName, String lastName) {
-        super(userID, userName, email, firstName, lastName);
+    public DepartmentScheduler(String userName, String email, String firstName, String lastName) {
+        super(userName, email, firstName, lastName);
     }
 
     public void buildSchedule(String term){
