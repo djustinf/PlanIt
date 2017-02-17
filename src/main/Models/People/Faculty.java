@@ -2,20 +2,29 @@ package Models.People;
 import Models.Chunks.Chunk;
 import Models.Chunks.FacultyChunk;
 import org.hibernate.annotations.GenericGenerator;
+import org.neo4j.cypher.internal.compiler.v2_2.ast.In;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
 public class Faculty extends User {
 
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48; //30 min intervals
 
     /* each second-index indicates a 30 minute interval.
     * if there is a 1 in days[3][14] that means this professor would prefer to teach wednesday from 7:00 AM - 7:30 AM
+    *
+    * UPDATE
+    * this has been linearized. Now the above example would be 1 = availability.get(3*INTERVALS_PER_DAY + 14)
     * 0 - [12:00 AM, 12:30 AM]
     * 1 - [12:30 AM, 1:00 AM]
     * 2 - [1:00 AM, 1:30 AM]
@@ -24,7 +33,7 @@ public class Faculty extends User {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
-    private int[][] preferredTimes; //Doesn't map well with OGM
+    private List<Integer> preferredTimes; //Doesn't map well with OGM
     private int preferredTotalHours;// workload preference
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -34,12 +43,15 @@ public class Faculty extends User {
 
     public Faculty(String userName, String email, String firstName, String lastName) {
         super(userName, email, firstName, lastName);
-        preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
-        for(int i = 0; i<DAYS_IN_WEEK; i++){
-            for(int j = 0; j<INTERVALS_PER_DAY; j++) {
-
-                preferredTimes[i][j] = 0; //New rooms start out entirely unoccupied
-            }
+        preferredTimes = new ArrayList<Integer>();
+        for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
+            int rem = i%48;
+            if (i/48 == 0 || i/48 == 7)//if day is Sunday OR Saturday
+                preferredTimes.set(i,-1); //undpreferred by default
+            else if ((rem >= 0 && rem <= 13) || (rem >= 44 && rem <= 47))//12AM-7AM OR 10PM-12AM
+                preferredTimes.set(i, -1); //unpreferred by default
+            else
+            preferredTimes.set(i, 0); //All Other Times Neutral by default
         }
     }
 
@@ -55,7 +67,7 @@ public class Faculty extends User {
         if (prefLvl >= -1 && prefLvl <= 1
                 && day >= 0 && day < DAYS_IN_WEEK
                 && interval >= 0 && interval <= INTERVALS_PER_DAY) {
-            preferredTimes[day][interval] = prefLvl;
+            preferredTimes.set(INTERVALS_PER_DAY*day + interval, prefLvl);
             return true;
         }
         return false;
@@ -69,8 +81,7 @@ public class Faculty extends User {
         return false;
     }
 
-    /*
-    public ArrayList<Chunk> preferencesToChunks(){
+    /*public ArrayList<Chunk> preferencesToChunks(){
         int chunki = 0;
         int currentChunkVal;
         ArrayList<Chunk> chunks = new ArrayList<Chunk>();
@@ -109,6 +120,5 @@ public class Faculty extends User {
             }
         }
         return chunks;
-    }
-    */
+    }*/
 }

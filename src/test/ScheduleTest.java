@@ -34,13 +34,13 @@ public class ScheduleTest {
 
         Term term = new Term("Fall", 2018);
 
-        Schedule one =  new Schedule("First_Sched");
+        Schedule one =  new Schedule(term, "First_Sched");
         one.setTerm(term);
         one.addCourse(new CourseOffering("CPE453", one));
         one.addCourse(new CourseOffering("CPE349", one));
         one.addCourse(new CourseOffering("CPE309", one));
 
-        Schedule two = new Schedule("Second_Sched");
+        Schedule two = new Schedule(term, "Second_Sched");
         two.setTerm(term);
         two.addCourse(new CourseOffering("CPE453", two));
         two.addCourse(new CourseOffering("CPE349", two));
@@ -51,13 +51,13 @@ public class ScheduleTest {
 
         Term term2 = new Term("Fall", 2019);
 
-        Schedule one2 =  new Schedule("First_Sched");
+        Schedule one2 =  new Schedule(term2, "First_Sched");
         one2.setTerm(term2);
         one2.addCourse(new CourseOffering("CPE453", one2));
         one2.addCourse(new CourseOffering("CPE349", one2));
         one2.addCourse(new CourseOffering("CPE309", one2));
 
-        Schedule two2 = new Schedule("Second_Sched");
+        Schedule two2 = new Schedule(term2, "Second_Sched");
         two2.setTerm(term2);
         two2.addCourse(new CourseOffering("CPE453", two2));
         two2.addCourse(new CourseOffering("CPE349", two2));
