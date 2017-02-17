@@ -6,13 +6,9 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
-
 
 </head>
 
@@ -25,6 +21,9 @@
     }
     #day {
         font-size: 12px;
+    }
+    #entireContainer {
+        z-index: -1;
     }
 </style>
 
@@ -42,43 +41,64 @@
     });
 </script>
 
+<k id = "entireContainer">
+    <div class="container">
+        <div id="login_div" class="main-login main-center">
 
-<div class="container">
-    <div id="login_div" class="main-login main-center">
-
-        <form class="form" id="form">
-            <div class="form-group">
-                <label for="firstname">First Name</label>
-                <input type="text" class="form-control" id="firstname" placeholder="First Name">
-            </div>
-            <div class="form-group">
-                <label for="lastname">Last Name</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Last Name">
-            </div>
-            <div class="form-group">
-                <label for="emailadd">Email address</label>
-                <input type="email" class="form-control" id="emailadd" aria-describedby="emailHelp"
-                       placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
-                </small>
-            </div>
-            <div class="form-group">
-                <label for="number" class="col-2 col-form-label">Phone Number</label>
-                <div class="col-10">
-                    <input class="form-control" type="tel" value="" placeholder="Enter Phone Number" id="number">
+            <form class="form" id="form">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="First Name">
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="address" class="col-2 col-form-label">Mailing Address</label>
-                <div class="col-10">
-                    <input class="form-control" type="tel" value="" placeholder="Enter Mailing Address" id="address">
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="emailadd">Email address</label>
+                    <input type="email" class="form-control" id="emailadd" aria-describedby="emailHelp"
+                           placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="number" class="col-2 col-form-label">Phone Number</label>
+                    <div class="col-10">
+                        <input class="form-control" type="tel" value="" placeholder="Enter Phone Number" id="number">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-2 col-form-label">Mailing Address</label>
+                    <div class="col-10">
+                        <input class="form-control" type="tel" value="" placeholder="Enter Mailing Address" id="address">
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label class="col-2 col-form-label"> Most Preferred Classes</label>
-                <div class="col-10">
-                    <select class="selectpicker" multiple title="Most Preferred Classes" multiple data-selected-text-format="count > 3">
+                <div class="form-group">
+                    <label class="col-2 col-form-label"> Most Preferred Classes</label>
+                    <div class="col-10">
+                        <select class="selectpicker" multiple title="Most Preferred Classes" multiple data-selected-text-format="count > 3">
+                            <option>CPE 101</option>
+                            <option>CPE 102</option>
+                            <option>CPE 103</option>
+                            <option>CPE 104</option>
+                            <option>CPE 105</option>
+                            <option>CPE 106</option>
+                            <option>CPE 107</option>
+                            <option>CPE 108</option>
+                            <option>CPE 109</option>
+                            <option>CPE 110</option>
+                            <option>CPE 111</option>
+                            <option>CPE 112</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-2 col-form-label"> Least Preferred Classes</label>
+                        <div class="col-10">
+
+                        <select class="selectpicker" multiple title="Least Preferred Classes" multiple data-selected-text-format="count > 3">
                         <option>CPE 101</option>
                         <option>CPE 102</option>
                         <option>CPE 103</option>
@@ -92,60 +112,103 @@
                         <option>CPE 111</option>
                         <option>CPE 112</option>
                     </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-2 col-form-label"> Least Preferred Classes</label>
-                    <div class="col-10">
+            </form>
 
-                    <select class="selectpicker" multiple title="Least Preferred Classes" multiple data-selected-text-format="count > 3">
-                    <option>CPE 101</option>
-                    <option>CPE 102</option>
-                    <option>CPE 103</option>
-                    <option>CPE 104</option>
-                    <option>CPE 105</option>
-                    <option>CPE 106</option>
-                    <option>CPE 107</option>
-                    <option>CPE 108</option>
-                    <option>CPE 109</option>
-                    <option>CPE 110</option>
-                    <option>CPE 111</option>
-                    <option>CPE 112</option>
-                </select>
+            <form class="form-inline">
+                <label class="col-2 col-form-label">Preferred Hours</label>
+
+                <div class="row">
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Monday</label>
+                        <select multiple class="form-control" id="1">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Tuesday</label>
+                        <select multiple class="form-control" id="2">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Wednesday</label>
+                        <select multiple class="form-control" id="3">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Thursday</label>
+                        <select multiple class="form-control" id="4">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Friday</label>
+                        <select multiple class="form-control" id="5">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                        <label id = "day">Saturday</label>
+                        <select multiple class="form-control" id="6">
+                            <option>8:00 AM - 9:00 AM</option>
+                            <option>9:00 AM - 10:00 AM</option>
+                            <option>10:00 AM - 11:00 AM</option>
+                            <option>11:00 AM - 12:00 AM</option>
+                        </select>
+                    </div>
                 </div>
+
+            <div>
             </div>
+            </form>
 
-        </form>
+            <form class="form-inline">
+                <label class="col-2 col-form-label">Unavailable Hours</label>
 
-        <form class="form-inline">
-            <label class="col-2 col-form-label">Preferred Hours</label>
-
-            <div class="row">
+                <div class="row">
                 <div class="form-group col-lg-2">
-                    <label id = "day">Monday</label>
+                    <label id = "day" >Monday</label>
                     <select multiple class="form-control" id="1">
                         <option>8:00 AM - 9:00 AM</option>
                         <option>9:00 AM - 10:00 AM</option>
                         <option>10:00 AM - 11:00 AM</option>
                         <option>11:00 AM - 12:00 AM</option>
-                        <option>8:00 AM - 9:00 AM</option>
-                        <option>9:00 AM - 10:00 AM</option>
-                        <option>10:00 AM - 11:00 AM</option>
-                        <option>11:00 AM - 12:00 AM</option>
-                        <option>8:00 AM - 9:00 AM</option>
-                        <option>9:00 AM - 10:00 AM</option>
-                        <option>10:00 AM - 11:00 AM</option>
-                        <option>11:00 AM - 12:00 AM</option>
-                        <option>8:00 AM - 9:00 AM</option>
-                        <option>9:00 AM - 10:00 AM</option>
-                        <option>10:00 AM - 11:00 AM</option>
-                        <option>11:00 AM - 12:00 AM</option>
-                        <option>8:00 AM - 9:00 AM</option>
-                        <option>9:00 AM - 10:00 AM</option>
-                        <option>10:00 AM - 11:00 AM</option>
-                        <option>11:00 AM - 12:00 AM</option>
-
                     </select>
                 </div>
                 <div class="form-group col-lg-2">
@@ -194,79 +257,16 @@
                     </select>
                 </div>
             </div>
+            </form>
+            <form class="form-inline">
+    <center>
+            <button type="submit"  class="btn btn-primary">Save</button>
+    </center>
+            </form>
 
-        <div>
         </div>
-        </form>
-
-        <form class="form-inline">
-            <label class="col-2 col-form-label">Unavailable Hours</label>
-
-            <div class="row">
-            <div class="form-group col-lg-2">
-                <label id = "day" >Monday</label>
-                <select multiple class="form-control" id="1">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-2">
-                <label id = "day">Tuesday</label>
-                <select multiple class="form-control" id="2">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-2">
-                <label id = "day">Wednesday</label>
-                <select multiple class="form-control" id="3">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-2">
-                <label id = "day">Thursday</label>
-                <select multiple class="form-control" id="4">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-2">
-                <label id = "day">Friday</label>
-                <select multiple class="form-control" id="5">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-            <div class="form-group col-lg-2">
-                <label id = "day">Saturday</label>
-                <select multiple class="form-control" id="6">
-                    <option>8:00 AM - 9:00 AM</option>
-                    <option>9:00 AM - 10:00 AM</option>
-                    <option>10:00 AM - 11:00 AM</option>
-                    <option>11:00 AM - 12:00 AM</option>
-                </select>
-            </div>
-        </div>
-        </form>
-        <form class="form-inline">
-<center>
-        <button type="submit"  class="btn btn-primary">Save</button>
-</center>
-        </form>
-
     </div>
-</div>
 
+</k>
 
 </html>
