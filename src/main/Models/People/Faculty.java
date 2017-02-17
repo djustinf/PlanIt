@@ -11,10 +11,6 @@ import java.util.Map;
 @Entity
 public class Faculty extends User {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48; //30 min intervals
 
@@ -36,7 +32,7 @@ public class Faculty extends User {
 
     public Faculty() {}
 
-    public Faculty(int userID, String userName, String email, String firstName, String lastName) {
+    public Faculty(String userID, String userName, String email, String firstName, String lastName) {
         super(userID, userName, email, firstName, lastName);
         preferredTimes = new int[DAYS_IN_WEEK][INTERVALS_PER_DAY];
         for(int i = 0; i<DAYS_IN_WEEK; i++){
