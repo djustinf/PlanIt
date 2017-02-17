@@ -1,6 +1,7 @@
 package Models.People;
 
 import Models.Scheduling.Schedule;
+import Models.Scheduling.Term;
 
 import javax.persistence.Entity;
 
@@ -12,11 +13,17 @@ public class DepartmentScheduler extends User {
 
     public DepartmentScheduler() {}
 
-    public DepartmentScheduler(String userID, String userName, String email, String firstName, String lastName) {
-        super(userID, userName, email, firstName, lastName);
+    public DepartmentScheduler(String userName, String email, String firstName, String lastName) {
+        super(userName, email, firstName, lastName);
     }
 
-    public void buildSchedule(String term){
+    public Schedule newSchedule(Term term, String name){
+        Schedule newSched = new Schedule(term, name);
+        return newSched;
+    }
+
+    public void updateSchedule(Term term, String name)
+    {
 
     }
 

@@ -38,7 +38,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT)
     public User createUser() {
         System.out.println("/user\t\t\t\tPUT");
-        return new User(0, "a", "b", "c", "d");
+        return new User("a", "b", "c", "d");
     }
 
     /**
@@ -50,7 +50,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable Long id) {
         System.out.println("/user/{id}\t\t\t\tGET: " + id);
-        return new User(0, "a", "b", "c", "d");
+        return new User("a", "b", "c", "d");
     }
 
     /**

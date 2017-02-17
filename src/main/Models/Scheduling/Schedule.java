@@ -35,11 +35,13 @@ public class Schedule {
         comments = new ArrayList<Comment>();
     }
 
-    public Schedule(String name)
+    public Schedule(Term term, String name)
     {
         courseList = new ArrayList<CourseOffering>();
         comments = new ArrayList<Comment>();
         this.name = name;
+        this.term = term;
+        this.fullName = term.getTermName() + term.getTermYear() + "-" + name;
     }
 
     // getters and setters
