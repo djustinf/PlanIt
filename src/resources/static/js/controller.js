@@ -13,7 +13,7 @@ myAppModule.controller('TestController', function($scope) {
   $scope.show = false;
   $scope.submit = function($location) {
     console.log("Submit was clicked");
-    if (!$scope.username || !$scope.password) {
+    if (!$scope.username || !$scope.passwolrd) {
       $scope.err = true;
     }
     else {
