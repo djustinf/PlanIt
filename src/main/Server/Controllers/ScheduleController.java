@@ -1,9 +1,7 @@
 package Server.Controllers;
 
-import Models.Scheduling.Comment;
-import Models.Scheduling.Component;
-import Models.Scheduling.Schedule;
-import Models.Scheduling.Term;
+import Models.People.Faculty;
+import Models.Scheduling.*;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,7 +77,7 @@ public class ScheduleController {
      */
     @RequestMapping(value = "/{term}", method = RequestMethod.PUT)
     public Component putScheduleTerm(@PathVariable long term) {
-        return new Component("hi", 4, 0, 12);
+        return new Component("hi", 4, 0, 12, new CourseOffering(), new RoomOffering(), new Faculty(), 01);
     }
 
     /**

@@ -17,8 +17,11 @@ public class RoomOffering {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
-    @ManyToOne
-    private Room room;
+    @Column(unique = true)
+    private String name;
+
+    //@ManyToOne
+    //private Room room;
 
     /* each second-index indicates a 30 minute interval, each increment of 1 shows an occupancy.
     * if there is a 2 in days[3][14] that means this room has two courses scheduled on wednesday from 7:00 AM - 7:30 AM
@@ -36,17 +39,21 @@ public class RoomOffering {
     @ElementCollection
     private List<Integer> availability;
 
+    @ManyToOne
+    private Schedule sched;
+
     @OneToMany(mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
     private List<Component> components = new ArrayList<Component>();
 
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48;
 
-    public RoomOffering(Room parent){
-        this.room = parent;
+    public RoomOffering(Schedule sched, String name){
+        this.name = sched.getFullName() + "-" + name;
+        this.sched = sched;
         availability = new ArrayList<Integer>();
         for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
-                availability.set(i, 0); //New rooms start out entirely unoccupied
+                availability.add(i, 0); //New rooms start out entirely unoccupied
         }
         components = new ArrayList<Component>();
     }

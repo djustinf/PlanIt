@@ -33,7 +33,8 @@ public class Faculty extends User {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
-    private List<Integer> preferredTimes; //Doesn't map well with OGM
+    @ElementCollection
+    private List<Integer> preferredTimes;
     private int preferredTotalHours;// workload preference
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -47,11 +48,11 @@ public class Faculty extends User {
         for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
             int rem = i%48;
             if (i/48 == 0 || i/48 == 7)//if day is Sunday OR Saturday
-                preferredTimes.set(i,-1); //undpreferred by default
+                preferredTimes.add(i,-1); //undpreferred by default
             else if ((rem >= 0 && rem <= 13) || (rem >= 44 && rem <= 47))//12AM-7AM OR 10PM-12AM
-                preferredTimes.set(i, -1); //unpreferred by default
+                preferredTimes.add(i, -1); //unpreferred by default
             else
-            preferredTimes.set(i, 0); //All Other Times Neutral by default
+            preferredTimes.add(i, 0); //All Other Times Neutral by default
         }
     }
 
