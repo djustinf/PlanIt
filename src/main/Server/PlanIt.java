@@ -16,7 +16,7 @@ public class PlanIt {
 
     @RequestMapping("/")
     public String home() {
-        return "/index.html";
+        return "/views/login.html";
     }
 
     public static void main(String[] args) {
