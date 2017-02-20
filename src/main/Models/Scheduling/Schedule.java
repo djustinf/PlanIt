@@ -19,6 +19,8 @@ public class Schedule {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     private String name;
+
+    @Column(unique = true)
     private String fullName;
 
     @ManyToOne
@@ -26,6 +28,9 @@ public class Schedule {
 
     @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
     List<CourseOffering> courseList; // one entry per course in DB
+
+    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
+    List<RoomOffering> roomList; // one entry per course in DB
 
     @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
     List<Comment> comments;
@@ -75,6 +80,14 @@ public class Schedule {
         return courseList.remove(course);
     }
 
+    public void addRoom(RoomOffering room) {
+        roomList.add(room);
+    }
+
+    public void removeRoom(RoomOffering room) {
+        roomList.remove(room);
+    }
+
     public List<Comment> getComments() {
         return comments;
     }
@@ -89,6 +102,10 @@ public class Schedule {
 
     public String getName() {
         return name;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     public String getId() {

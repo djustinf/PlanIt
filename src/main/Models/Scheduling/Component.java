@@ -19,6 +19,9 @@ public class Component {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Column(unique = true)
+    private String name; //need a unique name
+
     @ManyToOne
     private CourseOffering offering;
 
@@ -39,7 +42,11 @@ public class Component {
 
     public Component() {}
 
-    public Component(String sectionType, int workUnits, int startTime, int endTime){
+    public Component(String sectionType, int workUnits, int startTime, int endTime, CourseOffering offering, RoomOffering room, Faculty faculty, int section){
+        roomOffering = room;
+        this.faculty = faculty;
+        this.offering = offering;
+        this.name = offering.getName() + "-" + Integer.toString(section);
         this.sectionType = sectionType;
         this.workUnits = workUnits;
         this.startTime = startTime;

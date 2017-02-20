@@ -17,6 +17,8 @@ public class CourseOffering {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+
+    @Column(unique = true)
     private String name;
 
     @ManyToOne
@@ -28,9 +30,13 @@ public class CourseOffering {
     public CourseOffering() {}
 
     public CourseOffering(String name, Schedule sched) {
-        this.name = sched.getName() + "-" + name;
+        this.name = sched.getFullName() + "-" + name;
         this.sched = sched;
         components = new ArrayList<Component>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setID(String ID) {
@@ -41,10 +47,8 @@ public class CourseOffering {
         return id;
     }
 
-    public Component addComponent(String sectionType, int workUnits, int startTime, int endTime) {
-        Component component = new Component(sectionType, workUnits, startTime, endTime);
+    public void addComponent(Component component) {
         components.add(component);
-        return component;
     }
 
     public void removeComponent(Component component) {

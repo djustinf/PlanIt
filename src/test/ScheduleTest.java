@@ -1,6 +1,5 @@
-import Models.Scheduling.CourseOffering;
-import Models.Scheduling.Schedule;
-import Models.Scheduling.Term;
+import Models.People.Faculty;
+import Models.Scheduling.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,15 +31,19 @@ public class ScheduleTest {
     public void canPersistAndLoadTermAndSchedule() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        Faculty faculty = new Faculty("xXJoe_15Xx", "doesnot@exist", "John", "Doe");
         Term term = new Term("Fall", 2018);
 
-        Schedule one =  new Schedule(term, "First_Sched");
+        Schedule one =  new Schedule(term, "First_Sched1");
+        RoomOffering room = new RoomOffering(one, "Theatre");
         one.setTerm(term);
-        one.addCourse(new CourseOffering("CPE453", one));
+        CourseOffering offering = new CourseOffering("CPE453", one);
+        offering.addComponent(new Component("Lecture",1, 2, 3, offering, room, faculty, 01));
+        one.addCourse(offering);
         one.addCourse(new CourseOffering("CPE349", one));
         one.addCourse(new CourseOffering("CPE309", one));
 
-        Schedule two = new Schedule(term, "Second_Sched");
+        Schedule two = new Schedule(term, "Second_Sched2");
         two.setTerm(term);
         two.addCourse(new CourseOffering("CPE453", two));
         two.addCourse(new CourseOffering("CPE349", two));
@@ -49,28 +52,12 @@ public class ScheduleTest {
         term.addSched(one);
         term.addSched(two);
 
-        Term term2 = new Term("Fall", 2019);
-
-        Schedule one2 =  new Schedule(term2, "First_Sched");
-        one2.setTerm(term2);
-        one2.addCourse(new CourseOffering("CPE453", one2));
-        one2.addCourse(new CourseOffering("CPE349", one2));
-        one2.addCourse(new CourseOffering("CPE309", one2));
-
-        Schedule two2 = new Schedule(term2, "Second_Sched");
-        two2.setTerm(term2);
-        two2.addCourse(new CourseOffering("CPE453", two2));
-        two2.addCourse(new CourseOffering("CPE349", two2));
-        two2.addCourse(new CourseOffering("CPE309", two2));
-
-        term2.addSched(one2);
-        term2.addSched(two2);
-
         try {
             entityManager.getTransaction().begin();
 
+            entityManager.persist(faculty);
+            entityManager.persist(room);
             entityManager.persist(term);
-            entityManager.persist(term2);
 
             entityManager.getTransaction().commit();
 
