@@ -13,12 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SpringBootApplication
 @Controller
 public class PlanIt {
-
-    @RequestMapping("/")
-    public String home() {
-        return "views/login.html";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(PlanIt.class, args);
     }
