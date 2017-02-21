@@ -14,6 +14,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
-        return "/views/index.html";
+        return "/views/login.html";
     }
 }
