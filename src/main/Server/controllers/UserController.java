@@ -1,10 +1,7 @@
 package Server.controllers;
 
 import Models.People.User;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
  * Controller for /User and /User/{id}
  *
  * @author Kris Campos
+ * @version 0.2 - Updated to reflect API Doc v 0.2 - 2/21/2017
  * @version init - 2/11/2017.
  */
 @RestController
@@ -25,7 +23,7 @@ public class UserController {
      * @return A list of users in the system
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getUsers() {
+    public List<User> getUsers(@RequestParam String query) {
         System.out.println("/user\t\t\t\tGET");
         return new ArrayList<>();
     }
@@ -36,40 +34,40 @@ public class UserController {
      * @return The newly created user
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public User createUser() {
+    public User createUser(@RequestParam User user) {
         System.out.println("/user\t\t\t\tPUT");
-        return new User("a", "b", "c", "d");
+        return user;
     }
 
     /**
      * Get info on this user
      *
-     * @param id - User ID
-     * @return User object pertaining to userID
+     * @param username - User's unique username
+     * @return User object pertaining to username
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUser(@PathVariable Long id) {
-        System.out.println("/user/{id}\t\t\t\tGET: " + id);
-        return new User("a", "b", "c", "d");
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public User getUser(@PathVariable String username) {
+        System.out.println("/user/{id}\t\t\t\tGET: " + username);
+        return new User(username, "b", "c", "d");
     }
 
     /**
      * Update this user's information
      *
-     * @param id - User ID
+     * @param username - User's unique username
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public void updateUser(@PathVariable Long id) {
-        System.out.println("/user/{id}\t\t\t\tPOST: " + id);
+    @RequestMapping(value = "/{username}", method = RequestMethod.POST)
+    public void updateUser(@PathVariable String username, @RequestParam User user) {
+        System.out.println("/user/{id}\t\t\t\tPOST: " + username);
     }
 
     /**
      * Delete this specific user
      *
-     * @param id - User ID
+     * @param username - User's unique username
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable Long id) {
-        System.out.println("user/{id}\t\t\t\tDELETE: " + id);
+    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable String username) {
+        System.out.println("user/{id}\t\t\t\tDELETE: " + username);
     }
 }

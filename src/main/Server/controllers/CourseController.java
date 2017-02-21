@@ -9,20 +9,22 @@ import java.util.List;
 /**
  * Controller for all course objects
  *
- * Created by Kris on 2/13/2017.
+ * @author Kris
+ * @version 0.2 - Updated to reflect API Doc v 0.2 - 2/21/2017
+ * @version init - 2/13/2017.
  */
 @RestController
 @RequestMapping("/course")
 public class CourseController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Course> getCourse() {
+    public List<Course> getCourse(@RequestParam String query) {
         return new ArrayList<>();
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public Course putCourse() {
-        return new Course("a");
+    public Course putCourse(@RequestParam Course course) {
+        return course;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

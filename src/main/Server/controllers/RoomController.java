@@ -3,10 +3,7 @@ package Server.controllers;
 import Models.Scheduling.Room;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +24,7 @@ public class RoomController {
      * @return List of rooms in system
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<Room> getRoom() {
+    public List<Room> getRoom(@RequestParam String query) {
         return new ArrayList<>();
     }
 
@@ -37,8 +34,8 @@ public class RoomController {
      * @return The freshly made room
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public Room putRoom() {
-        return new Room();
+    public Room putRoom(@RequestParam Room room) {
+        return room;
     }
 
     /**
@@ -58,8 +55,8 @@ public class RoomController {
      * @param id - Room ID
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public void postRoomId(@PathVariable long id) {
-
+    public void postRoomId(@PathVariable long id, @RequestParam Room room) {
+        // update room referenced by id with the new fields specific in the room object
     }
 
     /**
