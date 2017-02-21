@@ -14,6 +14,9 @@ public class Room {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
 
+    @Column(unique = true)
+    private String name;
+
     @ElementCollection
     private List<String> resources;
 
@@ -24,6 +27,10 @@ public class Room {
     private String roomType;
 
     public Room() {
+    }
+
+    public Room(String name) {
+        this.name = name;
     }
 
     public String getRoomID() {

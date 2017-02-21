@@ -19,7 +19,7 @@ public class Component {
     private String id;
 
     @Column(unique = true)
-    private String name; //need a unique name
+    private String name;
 
     @ManyToOne
     private CourseOffering offering;

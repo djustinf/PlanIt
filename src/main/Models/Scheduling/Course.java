@@ -24,14 +24,10 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
     private List<CourseOffering> offerings;
 
-    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
-    private List<Faculty> faculty;
-
     protected Course() {}
 
     public Course(String name) {
         this.name = name;
-        faculty = new ArrayList<Faculty>();
         offerings = new ArrayList<CourseOffering>();
     }
 
@@ -49,14 +45,6 @@ public class Course {
 
     public String getName() {
         return name;
-    }
-
-    public void addFaculty(Faculty member) {
-        faculty.add(member);
-    }
-
-    public void removeFaculty(Faculty member) {
-        faculty.remove(member);
     }
 
     public void addOffering(CourseOffering offer) {

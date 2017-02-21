@@ -40,9 +40,6 @@ public class Faculty extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
-    @ManyToMany(mappedBy = "faculty", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
-    private List<Course> courses;
-
     protected Faculty() {}
 
     public Faculty(String userName, String email, String firstName, String lastName) {

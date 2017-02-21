@@ -46,7 +46,7 @@ public class Schedule {
         comments = new ArrayList<Comment>();
         this.name = name;
         this.term = term;
-        this.fullName = term.getTermName() + term.getTermYear() + "-" + name;
+        this.fullName = term.getUniqueName() + "-" + name;
     }
 
     // getters and setters
