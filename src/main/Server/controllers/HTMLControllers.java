@@ -21,10 +21,15 @@ public class HTMLControllers {
         return "views/schedules.html";
     }
 
+    /*
+
+    This can be represented as an angular pop-up box
+
     @RequestMapping("/schedules/components")
     public String componentsHTML() {
         return "views/components.html";
     }
+    */
 
     @RequestMapping("/admin")
     public String adminHTML() {
@@ -33,22 +38,7 @@ public class HTMLControllers {
 
     @RequestMapping("/MyProfile")
     public String myProfileHTML() {
-        return "views/myProfile.html";
-    }
-
-    @RequestMapping("/Users")
-    public String usersHTML() {
-        return "views/users.html";
-    }
-
-    @RequestMapping("/Rooms")
-    public String roomsHTML() {
-        return "/views/rooms.html";
-    }
-
-    @RequestMapping("/Rooms")
-    public String coursesHTML() {
-        return "/views/courses.html";
+        return "views/profile.html";
     }
 
     @RequestMapping("/Test")
