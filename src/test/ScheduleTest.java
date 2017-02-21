@@ -1,5 +1,6 @@
 import Models.People.Faculty;
 import Models.Scheduling.*;
+import Server.Requests.PersistenceFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,12 +20,12 @@ public class ScheduleTest {
 
     @BeforeClass
     public static void setUpEntityManagerFactory() {
-        entityManagerFactory = Persistence.createEntityManagerFactory( "schedPU" );
+        entityManagerFactory = PersistenceFactory.getInstance().getEntityManagerFactory();
     }
 
     @AfterClass
     public static void closeEntityManagerFactory() {
-        entityManagerFactory.close();
+        PersistenceFactory.getInstance().closeEntityManagerFactory();
     }
 
     @Test
