@@ -11,11 +11,14 @@
         <class>Models.Scheduling.Schedule</class>
         <class>Models.Scheduling.Term</class>
         <class>Models.Scheduling.Comment</class>
+        <class>Models.Scheduling.Course</class>
         <class>Models.Scheduling.CourseOffering</class>
         <class>Models.Scheduling.Component</class>
         <class>Models.Scheduling.Room</class>
         <class>Models.Scheduling.RoomOffering</class>
         <class>Models.People.Faculty</class>
+        <class>Models.People.User</class>
+        <class>Models.People.DepartmentScheduler</class>
 
         <properties>
             <property name="hibernate.ogm.datastore.provider" value="mongodb" />
