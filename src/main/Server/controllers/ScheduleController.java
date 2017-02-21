@@ -20,6 +20,8 @@ import java.util.List;
 @RequestMapping("/Schedule")
 public class ScheduleController {
 
+    Schedule s = new Schedule(new Term("spring", 2017), "test");
+
     /**
      * Query point for searching all schedules
      *
@@ -37,7 +39,7 @@ public class ScheduleController {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public Schedule putSchedule() {
-        return new Schedule();
+        return new Schedule(new Term("spring", 2017), "test");
     }
 
     /**
@@ -56,7 +58,7 @@ public class ScheduleController {
      */
     @RequestMapping(value = "/{term}", method = RequestMethod.GET)
     public Schedule getScheduleTerm(@PathVariable long term) {
-        return new Schedule();
+        return new Schedule(new Term("spring", 2017), "test");
     }
 
     /**
@@ -77,7 +79,9 @@ public class ScheduleController {
      */
     @RequestMapping(value = "/{term}", method = RequestMethod.PUT)
     public Component putScheduleTerm(@PathVariable long term) {
-        return new Component("hi", 4, 0, 12, new CourseOffering(), new RoomOffering(), new Faculty(), 01);
+        return new Component("hi", 4, 0, 12,
+                new CourseOffering("test-offering", s), new RoomOffering(s, "test-room"),
+                new Faculty("a", "b", "c", "d"), 01);
     }
 
     /**

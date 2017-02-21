@@ -16,7 +16,7 @@ public class HTMLControllers {
         return "/views/login.html";
     }
 
-    @RequestMapping("/schedules")
+    @RequestMapping({"/schedules", "/Schedules"})
     public String schedulesHTML() {
         return "views/schedules.html";
     }
@@ -31,17 +31,17 @@ public class HTMLControllers {
     }
     */
 
-    @RequestMapping("/admin")
+    @RequestMapping({"/admin", "/Admin"})
     public String adminHTML() {
         return "/views/admin.html";
     }
 
-    @RequestMapping("/MyProfile")
+    @RequestMapping({"/myprofile", "/myProfile", "/MyProfile"})
     public String myProfileHTML() {
         return "views/profile.html";
     }
 
-    @RequestMapping("/Test")
+    @RequestMapping({"/test", "/Test"})
     public String testPageHTML() {
         return "/views/index.html";
     }

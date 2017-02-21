@@ -23,7 +23,7 @@ public class Room {
     private int capacity;
     private String roomType;
 
-    protected Room() {
+    public Room() {
     }
 
     public String getRoomID() {
