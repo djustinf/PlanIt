@@ -27,7 +27,7 @@ public class Course {
     //@ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
     private List<Faculty> faculty;
 
-    public Course() {}
+    protected Course() {}
 
     public Course(String name) {
         this.name = name;

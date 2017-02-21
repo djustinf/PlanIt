@@ -35,7 +35,7 @@ public class Schedule {
     @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
     List<Comment> comments;
 
-    public Schedule() {
+    protected Schedule() {
         courseList = new ArrayList<CourseOffering>();
         comments = new ArrayList<Comment>();
     }

@@ -23,6 +23,9 @@ public class Room {
     private int capacity;
     private String roomType;
 
+    protected Room() {
+    }
+
     public String getRoomID() {
         return id;
     }

@@ -27,7 +27,7 @@ public class Term {
     @OneToMany(mappedBy = "term", cascade = CascadeType.PERSIST)
     private List<Schedule> schedules = new ArrayList<Schedule>();
 
-    public Term () {}
+    protected Term () {}
 
     public Term (String name, int year) {
         termName = name;
@@ -53,6 +53,10 @@ public class Term {
 
     public int getTermYear() {
         return termYear;
+    }
+
+    public String getUniqueName() {
+        return uniqueName;
     }
 
     public void setTermYear(int termYear) {

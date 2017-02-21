@@ -58,7 +58,7 @@ public class RoomOffering {
         components = new ArrayList<Component>();
     }
 
-    public RoomOffering() {}
+    protected RoomOffering() {}
 
     public void addComponent(Component c){
         components.add(c);

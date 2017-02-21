@@ -23,7 +23,7 @@ public class Comment {
     @ManyToOne
     private Schedule sched;
 
-    public Comment() {}
+    protected Comment() {}
 
     public Comment(int posterID, String comment){
         this.posterID = posterID;
