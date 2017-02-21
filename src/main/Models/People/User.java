@@ -28,7 +28,7 @@ public class User {
     private String firstName;
     private String lastName;
 
-    public User() {}
+    protected User() {}
 
     public User(String userName, String email, String firstName, String lastName) {
         this.userName = userName;

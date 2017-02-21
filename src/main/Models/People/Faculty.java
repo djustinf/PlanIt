@@ -1,8 +1,8 @@
 package Models.People;
 import Models.Chunks.Chunk;
 import Models.Chunks.FacultyChunk;
+import Models.Scheduling.Course;
 import org.hibernate.annotations.GenericGenerator;
-import org.neo4j.cypher.internal.compiler.v2_2.ast.In;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,7 +40,10 @@ public class Faculty extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
-    public Faculty() {}
+    @ManyToMany(mappedBy = "faculty", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
+    private List<Course> courses;
+
+    protected Faculty() {}
 
     public Faculty(String userName, String email, String firstName, String lastName) {
         super(userName, email, firstName, lastName);

@@ -17,11 +17,14 @@ public class Room {
     @ElementCollection
     private List<String> resources;
 
-    //@OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
-    //private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
+    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
+    private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
 
     private int capacity;
     private String roomType;
+
+    protected Room() {
+    }
 
     public String getRoomID() {
         return id;

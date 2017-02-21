@@ -2,7 +2,6 @@ package Models.Scheduling;
 
 import Models.People.Faculty;
 import org.hibernate.annotations.GenericGenerator;
-import org.neo4j.cypher.internal.compiler.v2_2.ast.In;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class Component {
     @ManyToOne
     private Faculty faculty;
 
-    public Component() {}
+    protected Component() {}
 
     public Component(String sectionType, int workUnits, int startTime, int endTime, CourseOffering offering, RoomOffering room, Faculty faculty, int section){
         roomOffering = room;

@@ -24,10 +24,13 @@ public class CourseOffering {
     @ManyToOne
     private Schedule sched;
 
+    @ManyToOne
+    private Course course;
+
     @OneToMany(mappedBy = "offering", cascade = CascadeType.PERSIST)
     private List<Component> components;
 
-    public CourseOffering() {}
+    protected CourseOffering() {}
 
     public CourseOffering(String name, Schedule sched) {
         this.name = sched.getFullName() + "-" + name;
