@@ -21,10 +21,10 @@ public class Course {
     @Column(unique = true)
     private String name;
 
-    //@OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
     private List<CourseOffering> offerings;
 
-    //@ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
+    @ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
     private List<Faculty> faculty;
 
     protected Course() {}

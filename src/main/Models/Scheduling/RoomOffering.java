@@ -42,6 +42,9 @@ public class RoomOffering {
     @ManyToOne
     private Schedule sched;
 
+    @ManyToOne
+    private Room room;
+
     @OneToMany(mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
     private List<Component> components = new ArrayList<Component>();
 

@@ -1,6 +1,7 @@
 package Models.People;
 import Models.Chunks.Chunk;
 import Models.Chunks.FacultyChunk;
+import Models.Scheduling.Course;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -38,6 +39,9 @@ public class Faculty extends User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
+
+    @ManyToMany(mappedBy = "faculty", cascade = CascadeType.PERSIST) //Doesn't map well with hashmap currently in place
+    private List<Course> courses;
 
     protected Faculty() {}
 
