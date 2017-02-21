@@ -1,4 +1,4 @@
-package Server.RestControllers;
+package Server.controllers;
 
 import Models.People.Faculty;
 import Models.Scheduling.*;

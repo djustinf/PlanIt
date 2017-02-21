@@ -1,4 +1,4 @@
-package Server.RestControllers;
+package Server.controllers;
 
 import Models.People.User;
 import org.springframework.web.bind.annotation.PathVariable;
