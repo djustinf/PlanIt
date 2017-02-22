@@ -28,10 +28,10 @@ public class UserController {
      * @return A list of users in the system
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getUsers() {
+    public List<User> getUserList() {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
-        List<User> users = UserService.getUsers(entityManager);
+        List<User> users = UserService.getUserList(entityManager);
         entityManager.close();
         return users;
     }
