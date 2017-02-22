@@ -31,7 +31,7 @@ public class UserController {
     public List<User> getUsers() {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
-        List<User> users = UserService.getUser(entityManager);
+        List<User> users = UserService.getUsers(entityManager);
         entityManager.close();
         return users;
     }
@@ -55,8 +55,11 @@ public class UserController {
      */
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public User getUser(@PathVariable String username) {
-        System.out.println("/user/{id}\t\t\t\tGET: " + username);
-        return new User(username, "b", "c", "d");
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        User user = UserService.getUser(entityManager, username);
+        entityManager.close();
+        return user;
     }
 
     /**
