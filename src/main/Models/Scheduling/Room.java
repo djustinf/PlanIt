@@ -1,5 +1,6 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,10 +18,11 @@ public class Room {
     @Column(unique = true)
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     private List<String> resources;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "room", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
 
     private int capacity;

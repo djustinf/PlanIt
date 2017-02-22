@@ -1,11 +1,15 @@
 package Server.controllers;
 
 import Models.Scheduling.Term;
+import Server.Requests.PersistenceFactory;
+import Server.Requests.TermService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +24,12 @@ import java.util.List;
 public class TermController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Term> getTerm(@RequestParam String query) {
-        // do some query stuff
-        return new ArrayList<Term>();
+    public List<Term> getTerm() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<Term> terms = TermService.getTerms(entityManager);
+        entityManager.close();
+        return terms;
     }
 
     @RequestMapping(method = RequestMethod.PUT)

@@ -1,5 +1,7 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,9 +22,6 @@ public class RoomOffering {
     @Column(unique = true)
     private String name;
 
-    //@ManyToOne
-    //private Room room;
-
     /* each second-index indicates a 30 minute interval, each increment of 1 shows an occupancy.
     * if there is a 2 in days[3][14] that means this room has two courses scheduled on wednesday from 7:00 AM - 7:30 AM
     *
@@ -40,12 +39,15 @@ public class RoomOffering {
     private List<Integer> availability;
 
     @ManyToOne
+    @JsonBackReference
     private Schedule sched;
 
     @ManyToOne
+    @JsonBackReference
     private Room room;
 
-    @OneToMany(mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Component> components = new ArrayList<Component>();
 
     private static final int DAYS_IN_WEEK = 7;

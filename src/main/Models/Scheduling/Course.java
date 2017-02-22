@@ -1,6 +1,7 @@
 package Models.Scheduling;
 
 import Models.People.Faculty;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Course {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "course", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<CourseOffering> offerings;
 
     protected Course() {}

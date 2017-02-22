@@ -1,5 +1,6 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,7 +25,8 @@ public class Term {
 
     private int termYear;
 
-    @OneToMany(mappedBy = "term", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "term", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Schedule> schedules = new ArrayList<Schedule>();
 
     protected Term () {}

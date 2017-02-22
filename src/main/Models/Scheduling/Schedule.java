@@ -1,5 +1,7 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,24 +26,26 @@ public class Schedule {
     private String fullName;
 
     @ManyToOne
+    @JsonBackReference
     private Term term;
 
-    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     List<CourseOffering> courseList; // one entry per course in DB
 
-    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     List<RoomOffering> roomList; // one entry per course in DB
 
-    @OneToMany(mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     List<Comment> comments;
 
-    protected Schedule() {
-        courseList = new ArrayList<CourseOffering>();
-        comments = new ArrayList<Comment>();
-    }
+    protected Schedule() {}
 
     public Schedule(Term term, String name)
     {
+        roomList = new ArrayList<>();
         courseList = new ArrayList<CourseOffering>();
         comments = new ArrayList<Comment>();
         this.name = name;

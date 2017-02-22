@@ -33,7 +33,7 @@ public class ScheduleTest {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Faculty faculty = new Faculty("xXJoe_15Xx", "doesnot@exist", "John", "Doe");
-        Term term = new Term("Fall", 2018);
+        Term term = new Term("Winter", 2018);
 
         Schedule one =  new Schedule(term, "First_Sched1");
         RoomOffering room = new RoomOffering(one, "Theatre");

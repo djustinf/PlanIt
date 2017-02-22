@@ -1,11 +1,9 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by Kris on 2/3/2017.
@@ -21,6 +19,7 @@ public class Comment {
     private String comment;
 
     @ManyToOne
+    @JsonManagedReference
     private Schedule sched;
 
     protected Comment() {}

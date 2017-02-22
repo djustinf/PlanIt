@@ -1,5 +1,7 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,12 +24,15 @@ public class CourseOffering {
     private String name;
 
     @ManyToOne
+    @JsonBackReference
     private Schedule sched;
 
     @ManyToOne
+    @JsonBackReference
     private Course course;
 
-    @OneToMany(mappedBy = "offering", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "offering", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Component> components;
 
     protected CourseOffering() {}

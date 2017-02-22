@@ -1,6 +1,7 @@
 package Models.Scheduling;
 
 import Models.People.Faculty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,21 +23,24 @@ public class Component {
     private String name;
 
     @ManyToOne
+    @JsonBackReference
     private CourseOffering offering;
 
     private String sectionType;
     private int workUnits;
 
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     private List<Integer> days;
 
     private int startTime;
     private int endTime;
 
     @ManyToOne
+    @JsonBackReference
     private RoomOffering roomOffering;
 
     @ManyToOne
+    @JsonBackReference
     private Faculty faculty;
 
     protected Component() {}

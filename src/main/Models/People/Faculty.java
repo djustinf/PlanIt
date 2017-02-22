@@ -33,7 +33,7 @@ public class Faculty extends User {
     * ...
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
-    @ElementCollection
+    @ElementCollection(fetch=FetchType.EAGER)
     private List<Integer> preferredTimes;
     private int preferredTotalHours;// workload preference
 
