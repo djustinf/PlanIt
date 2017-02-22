@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 @Entity
 public class DepartmentScheduler extends User {
 
-    protected DepartmentScheduler() {}
+    protected DepartmentScheduler() {
+        super();
+    }
 
     public DepartmentScheduler(String userName, String email, String firstName, String lastName) {
         super(userName, email, firstName, lastName);

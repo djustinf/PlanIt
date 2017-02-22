@@ -1,8 +1,13 @@
 package Server.controllers;
 
 import Models.People.User;
+import Server.Requests.PersistenceFactory;
+import Server.Requests.TermService;
+import Server.Requests.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +28,12 @@ public class UserController {
      * @return A list of users in the system
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> getUsers(@RequestParam String query) {
-        System.out.println("/user\t\t\t\tGET");
-        return new ArrayList<>();
+    public List<User> getUsers() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<User> users = UserService.getUser(entityManager);
+        entityManager.close();
+        return users;
     }
 
     /**

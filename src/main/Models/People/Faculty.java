@@ -13,10 +13,6 @@ import java.util.Map;
 @Entity
 public class Faculty extends User {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
     private static final int DAYS_IN_WEEK = 7;
     private static final int INTERVALS_PER_DAY = 48; //30 min intervals
 
@@ -40,7 +36,9 @@ public class Faculty extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
-    protected Faculty() {}
+    protected Faculty() {
+        super();
+    }
 
     public Faculty(String userName, String email, String firstName, String lastName) {
         super(userName, email, firstName, lastName);
