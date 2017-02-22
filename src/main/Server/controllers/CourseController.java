@@ -27,18 +27,18 @@ public class CourseController {
         return course;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Course getCourseId(@PathVariable long id) {
-        return new Course("b");
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+    public Course getCourseName(@PathVariable String name) {
+        return new Course(name);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public void postCourseId(@PathVariable long id) {
+    @RequestMapping(value = "/{name}", method = RequestMethod.POST)
+    public void postCourseName(@PathVariable String name) {
 
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteCourseId(@PathVariable long id) {
+    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
+    public void deleteCourseName(@PathVariable String name) {
 
     }
 }
