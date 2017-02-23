@@ -26,6 +26,7 @@ public class UserService {
     public static User putUser(EntityManager entityManager, User user){
         entityManager.getTransaction().begin();
         entityManager.persist(user);
+        entityManager.flush();
         entityManager.getTransaction().commit();
         return getUser(entityManager, user.getUserName());
     }

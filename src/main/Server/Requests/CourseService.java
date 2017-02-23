@@ -23,6 +23,7 @@ public class CourseService {
     public static Course putCourse(EntityManager entityManager, Course course) {
         entityManager.getTransaction().begin();
         entityManager.persist(course);
+        entityManager.flush();
         entityManager.getTransaction().commit();
 
         // possibly delete this next line and make void
