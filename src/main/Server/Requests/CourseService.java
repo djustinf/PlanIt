@@ -30,12 +30,12 @@ public class CourseService {
     }
 
     public static Course getSingleCourse(EntityManager entityManager, String name) {
-        String query = String.format("SELECT 1 FROM Course c WHERE name = %s", name);
+        String query = String.format("SELECT c FROM Course c WHERE name = %s", name);
         return entityManager.createQuery(query, Course.class).getSingleResult();
     }
 
     public static void deleteSingleCourse(EntityManager entityManager, String name) {
-        String query = String.format("DELETE 1 FROM Course c WHERE name = %s", name);
+        String query = String.format("DELETE c FROM Course c WHERE name = %s", name);
         entityManager.createQuery(query, Course.class);
     }
 }

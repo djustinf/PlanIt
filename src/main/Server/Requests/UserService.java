@@ -4,7 +4,6 @@ import Models.People.User;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import static org.junit.Assert.*;
 
 /**
  * Created by Justin on 2/21/2017.
