@@ -16,6 +16,8 @@ import java.util.List;
  *
  * @author Kris Campos
  * @version init -  2/13/2017.
+ * updated by Jason Ismail 2/24/2017
+ * changed room ID's to name
  */
 @RestController
 @RequestMapping("/room")
@@ -48,10 +50,10 @@ public class RoomController {
     /**
      * Retrieves this room
      *
-     * @param id - Room ID
-     * @return - Room corresponding to ID
+     * @param name - Room name
+     * @return - Room corresponding to name
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public Room getRoomId(@PathVariable long id) {
         return new Room();
     }
@@ -59,9 +61,9 @@ public class RoomController {
     /**
      * Updates this room
      *
-     * @param id - Room ID
+     * @param name - Room name
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{name}", method = RequestMethod.POST)
     public void postRoomId(@PathVariable long id, @RequestParam Room room) {
         // update room referenced by id with the new fields specific in the room object
     }
@@ -69,9 +71,9 @@ public class RoomController {
     /**
      * Deletes this room
      *
-     * @param id - Room ID
+     * @param name - Room name
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     public void deleteRoomId(@PathVariable long id) {
 
     }
