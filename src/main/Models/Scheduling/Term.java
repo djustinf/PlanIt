@@ -26,7 +26,7 @@ public class Term {
     private int termYear;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "term", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "schedules")
     private List<Schedule> schedules = new ArrayList<Schedule>();
 
     protected Term () {}

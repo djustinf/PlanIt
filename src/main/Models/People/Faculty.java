@@ -1,7 +1,9 @@
 package Models.People;
 import Models.Chunks.Chunk;
 import Models.Chunks.FacultyChunk;
+import Models.Scheduling.Component;
 import Models.Scheduling.Course;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -32,6 +34,11 @@ public class Faculty extends User {
     @ElementCollection(fetch=FetchType.EAGER)
     private List<Integer> preferredTimes;
     private int preferredTotalHours;// workload preference
+
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "faculty", cascade = CascadeType.PERSIST)
+    @JsonBackReference(value = "faculty")
+    List<Component> components = new ArrayList<Component>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER

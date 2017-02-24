@@ -3,6 +3,7 @@ package Server.Controllers;
 import Models.Scheduling.Course;
 import Server.Requests.CourseService;
 import Server.Requests.PersistenceFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -29,11 +30,11 @@ public class CourseController {
         return courses;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public Course putCourse(@RequestBody Course course) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
-        CourseService.putCourse(entityManager, course);
+        CourseService.postCourse(entityManager, course);
         return course;
     }
 
@@ -46,7 +47,7 @@ public class CourseController {
         return course;
     }
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
     public void postCourseName(@PathVariable String name) {
 
     }

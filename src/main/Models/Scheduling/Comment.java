@@ -19,7 +19,7 @@ public class Comment {
     private String comment;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonManagedReference(value = "comments")
     private Schedule sched;
 
     protected Comment() {}

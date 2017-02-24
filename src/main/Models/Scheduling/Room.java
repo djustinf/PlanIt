@@ -22,7 +22,7 @@ public class Room {
     private List<String> resources;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "room", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "offerings")
     private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
 
     private int capacity;

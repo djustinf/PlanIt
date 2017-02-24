@@ -24,15 +24,15 @@ public class CourseOffering {
     private String name;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "courseList")
     private Schedule sched;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "offerings")
     private Course course;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "offering", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "component")
     private List<Component> components;
 
     protected CourseOffering() {}

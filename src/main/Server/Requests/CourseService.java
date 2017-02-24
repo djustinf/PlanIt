@@ -20,14 +20,10 @@ public class CourseService {
         return entityManager.createQuery(query, Course.class).getResultList();
     }
 
-    public static Course putCourse(EntityManager entityManager, Course course) {
+    public static void postCourse(EntityManager entityManager, Course course) {
         entityManager.getTransaction().begin();
         entityManager.persist(course);
-        entityManager.flush();
         entityManager.getTransaction().commit();
-
-        // possibly delete this next line and make void
-        return getSingleCourse(entityManager, course.getName());
     }
 
     public static Course getSingleCourse(EntityManager entityManager, String name) {

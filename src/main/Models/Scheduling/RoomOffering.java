@@ -39,15 +39,15 @@ public class RoomOffering {
     private List<Integer> availability;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "roomList")
     private Schedule sched;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "offerings")
     private Room room;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "roomOffering", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "components")
     private List<Component> components = new ArrayList<Component>();
 
     private static final int DAYS_IN_WEEK = 7;
