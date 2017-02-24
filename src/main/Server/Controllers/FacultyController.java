@@ -21,7 +21,7 @@ public class FacultyController {
         return new ArrayList<>();
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public Faculty createFaculty(@RequestParam Faculty faculty) {
         return faculty;
     }
@@ -31,7 +31,7 @@ public class FacultyController {
         return new Faculty(username, username, username, username);
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
     public Faculty updateFaculty(@PathVariable String username) {
         return new Faculty(username, username, username, username);
     }

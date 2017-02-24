@@ -2,8 +2,12 @@ package Server.Controllers;
 
 import Models.Scheduling.Room;
 
+import Server.Requests.PersistenceFactory;
+import Server.Requests.RoomService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +27,12 @@ public class RoomController {
      * @return List of rooms in system
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<Room> getRoom(@RequestParam String query) {
-        return new ArrayList<>();
+    public List<Room> getRoom() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<Room> rooms = RoomService.getRooms(entityManager);
+        entityManager.close();
+        return rooms;
     }
 
     /**

@@ -61,7 +61,7 @@ public class Schedule {
 
     public void setTerm(Term term) {
         this.term = term;
-        this.fullName = term.getTermName() + term.getTermYear() + name;
+        this.fullName = term.getUniqueName() + "-" + name;
     }
 
     public String getTermName() {
