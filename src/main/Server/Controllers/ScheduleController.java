@@ -18,7 +18,7 @@ import java.util.List;
  * @version init - 2/13/2017.
  */
 @RestController
-@RequestMapping("/Schedule")
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     // Used to satisfy compiler
