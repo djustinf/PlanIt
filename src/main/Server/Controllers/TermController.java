@@ -1,4 +1,4 @@
-package Server.controllers;
+package Server.Controllers;
 
 import Models.Scheduling.Term;
 import Server.Requests.PersistenceFactory;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,9 +33,8 @@ public class TermController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public Term putTerm(@RequestParam String name, @RequestParam int year) {
-        Term term = new Term(name, year);
-        // put it into system
-        return term;
+        return new Term(name, year);
+        // put it into system before returning
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

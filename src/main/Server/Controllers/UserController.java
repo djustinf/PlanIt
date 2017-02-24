@@ -1,14 +1,12 @@
-package Server.controllers;
+package Server.Controllers;
 
 import Models.People.User;
 import Server.Requests.PersistenceFactory;
-import Server.Requests.TermService;
 import Server.Requests.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,17 +35,6 @@ public class UserController {
     }
 
     /**
-     * Create a new user
-     *
-     * @return The newly created user
-     */
-    @RequestMapping(method = RequestMethod.PUT)
-    public User createUser(@RequestParam User user) {
-        System.out.println("/user\t\t\t\tPUT");
-        return user;
-    }
-
-    /**
      * Get info on this user
      *
      * @param username - User's unique username
@@ -60,16 +47,6 @@ public class UserController {
         User user = UserService.getUser(entityManager, username);
         entityManager.close();
         return user;
-    }
-
-    /**
-     * Update this user's information
-     *
-     * @param username - User's unique username
-     */
-    @RequestMapping(value = "/{username}", method = RequestMethod.POST)
-    public void updateUser(@PathVariable String username, @RequestParam User user) {
-        System.out.println("/user/{id}\t\t\t\tPOST: " + username);
     }
 
     /**

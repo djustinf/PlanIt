@@ -1,4 +1,4 @@
-package Server.controllers;
+package Server.Controllers;
 
 import Models.Scheduling.Course;
 import Server.Requests.CourseService;
@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

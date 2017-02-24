@@ -1,4 +1,4 @@
-package Server.controllers;
+package Server.Controllers;
 
 import Models.Scheduling.Component;
 import org.springframework.web.bind.annotation.*;

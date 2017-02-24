@@ -1,6 +1,5 @@
-package Server.controllers;
+package Server.Controllers;
 
-import Models.People.Faculty;
 import Models.Scheduling.*;
 import org.springframework.web.bind.annotation.*;
 
