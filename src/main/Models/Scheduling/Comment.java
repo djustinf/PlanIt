@@ -1,5 +1,6 @@
 package Models.Scheduling;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +20,7 @@ public class Comment {
     private String comment;
 
     @ManyToOne
-    @JsonManagedReference(value = "comments")
+    @JsonBackReference(value = "comments")
     private Schedule sched;
 
     protected Comment() {}
