@@ -1,0 +1,32 @@
+{
+  "name": "PlanIt",
+  "homepage": "https://github.com/djustinf/PlanIt",
+  "description": "A university scheduling web application",
+  "main": "",
+  "keywords": [
+    "scheduling"
+  ],
+  "authors": [
+    "Ethan Adams",
+    "Landon Woollard",
+    "Kris Campos",
+    "Jason Ismail",
+    "Sonia Narayanan",
+    "Justin Foxhoven"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "google-calendar": "^1.0.3",
+    "moment": "^2.17.1",
+    "jquery": "^3.1.1",
+    "angular-modal-service": "^0.10.1"
+  }
+}

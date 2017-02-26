@@ -1,0 +1,87 @@
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css">
+    <link rel="stylesheet" href="../css/calendar.css" />
+    <link rel="stylesheet" href="../css/ionicons.css" />
+    <link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.css">
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+
+    <style>
+        div.navbar-collapse.collapse {
+            display: block;
+            overflow: hidden;
+            max-height: 0px;
+            -webkit-transition: max-height .3s ease;
+            -moz-transition: max-height .3s ease;
+            -o-transition: max-height .3s ease;
+            transition: max-height .3s ease;
+        }
+        div.navbar-collapse.collapse.in {
+            max-height: 2000px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+<div class="navbar" style="background-color: black">
+    <ul class="nav navbar-nav" style="background-color:rgba(190,190,190,1); width:100%; padding-top: 5px; padding-bottom: 5px">
+        <li ng-class="navClass('home')"><img src="../images/PlanIt.png" style="margin-left: 15px;height:40px"></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false" style="color: rgb(29,177,219)"><b>Actions</b><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Add Faculty Preferences</a></li>
+                <li><a href="#" ng-click="$parent.openAddCourseSectionModal()">Add Course Section</a></li>
+                <li role="separator" class="divider"></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false" style="color: rgb(29,177,219)"><b>Schedule</b><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Create Schedule</a></li>
+                <li><a href="#">Delete Schedule</a></li>
+                <li><a href="#">Export Schedule</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-submenu">
+                    <a href="#">View</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#" ng-click="$parent.changeView('month', $parent.calendarInstanceState.currentCalendar)">
+                                Monthly View
+                                <i class="icon ion-checkmark-round pull-right" ng-if="$parent.calendarInstanceState.currentView == 'month'"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$parent.changeView('agendaWeek', $parent.calendarInstanceState.currentCalendar)">
+                                Weekly View
+                                <i class="icon ion-checkmark-round pull-right" ng-if="$parent.calendarInstanceState.currentView == 'agendaWeek'"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$parent.changeView('agendaDay', $parent.calendarInstanceState.currentCalendar)">
+                                Daily View
+                                <i class="icon ion-checkmark-round pull-right" ng-if="$parent.calendarInstanceState.currentView == 'agendaDay'"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false" style="color: rgb(29,177,219)"><b>Profile</b><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li style="background-color: lightgray; color: darkgray"><a>Signed in as {USER}</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Logout</a></li>
+                <li><a href="login.html"></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</body>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calendarDemoApp" id="top">
+<head>
+    <title>PlanIt</title>
+    <link rel="icon" href="../images/icon.png"/>
+    <!--<link rel="stylesheet" href="../bower_components/bootstrap-css/css/bootstrap.css"/>-->
+    <link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css">
+    <link rel="stylesheet" href="../css/calendar.css"/>
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+
+    <!-- angular material -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <script src="../bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
+
+    <script src="../bower_components/moment/moment.js"></script>
+    <script src="../bower_components/fullcalendar/dist/fullcalendar.js"></script>
+    <script src="../bower_components/fullcalendar/dist/gcal.js"></script>
+    <script src="../js/calendar.js"></script>
+    <script src="../js/calendarController.js"></script>
+
+
+    <!--<style>-->
+        <!--div.navbar-collapse.collapse {-->
+            <!--display: block;-->
+            <!--overflow: hidden;-->
+            <!--max-height: 0px;-->
+            <!-- -webkit-transition: max-height .3s ease;-->
+            <!-- -moz-transition: max-height .3s ease;-->
+            <!-- -o-transition: max-height .3s ease;-->
+            <!--transition: max-height .3s ease;-->
+        <!--}-->
+        <!--div.navbar-collapse.collapse.in {-->
+            <!--max-height: 2000px;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body ng-controller="CalendarCtrl">
+<navigation-bar style="margin-bottom: 10px"></navigation-bar>
+<div role="main">
+    <div class="container">
+        <div id="directives-calendar" >
+            <div>
+                <h1 style="margin-top: 50px; text-align: center; color: rgb(39,94,104); text-shadow: 2px 0 0 rgb(29,176,218), -2px 0 0 rgb(29,176,218), 0 2px 0 rgb(29,176,218), 0 -2px 0 rgb(29,176,218), 1px 1px rgb(29,176,218), -1px -1px 0 rgb(29,176,218), 1px -1px 0 rgb(29,176,218), -1px 1px 0 rgb(29,176,218);">PlanIt</h1>
+            </div>
+            <div class="well">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <tabset>
+                            <tab select="renderCalendar('myCalendar1');">
+                                <tab-heading>
+                                    Calendar One
+                                </tab-heading>
+                                <!--<div class="alert-success calAlert"-->
+                                     <!--ng-show="alertMessage != undefined && alertMessage != ''">-->
+                                    <!--<h4>{{alertMessage}}</h4>-->
+                                <!--</div>-->
+                                <div class="calendar" ng-model="eventSources" calendar="myCalendar1"
+                                     ui-calendar="uiConfig.calendar"></div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

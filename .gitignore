@@ -4,6 +4,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
+.idea/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 
@@ -139,6 +140,7 @@ $RECYCLE.BIN/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+
 .idea/compiler.xml
 .idea/gradle.xml
 .idea/libraries/
@@ -148,3 +150,16 @@ $RECYCLE.BIN/
 .idea/vcs.xml
 .idea/workspace.xml
 build/
+
+
+#front end dependencies
+
+node_modules/
+node_modules/*
+
+bower_components/
+bower_components/*
+
+
+#stupid emacs file
+\#*#
