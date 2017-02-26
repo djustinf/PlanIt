@@ -1,9 +1,12 @@
-package Server.controllers;
+package Server.Controllers;
 
-import Models.People.Faculty;
 import Models.Scheduling.*;
+import Server.Requests.PersistenceFactory;
+import Server.Requests.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
  * @version init - 2/13/2017.
  */
 @RestController
-@RequestMapping("/Schedule")
+@RequestMapping("/schedule")
 public class ScheduleController {
 
     // Used to satisfy compiler
@@ -27,8 +30,12 @@ public class ScheduleController {
      * @return Request schedules
      */
     @RequestMapping(method = RequestMethod.GET)
-    public List<Schedule> getSchedule(@RequestParam String query) {
-        return new ArrayList<>();
+    public List<Schedule> getSchedule() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<Schedule> schedules = ScheduleService.getSchedule(entityManager);
+        entityManager.close();
+        return schedules;
     }
 
     /**

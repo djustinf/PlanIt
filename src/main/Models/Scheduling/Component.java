@@ -23,7 +23,7 @@ public class Component {
     private String name;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "component")
     private CourseOffering offering;
 
     private String sectionType;
@@ -36,11 +36,11 @@ public class Component {
     private int endTime;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "components")
     private RoomOffering roomOffering;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "faculty")
     private Faculty faculty;
 
     protected Component() {}

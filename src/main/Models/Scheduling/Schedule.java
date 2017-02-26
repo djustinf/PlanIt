@@ -26,19 +26,19 @@ public class Schedule {
     private String fullName;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "schedules")
     private Term term;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "courseList")
     List<CourseOffering> courseList; // one entry per course in DB
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "roomList")
     List<RoomOffering> roomList; // one entry per course in DB
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "sched", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "comments")
     List<Comment> comments;
 
     protected Schedule() {}
@@ -61,7 +61,7 @@ public class Schedule {
 
     public void setTerm(Term term) {
         this.term = term;
-        this.fullName = term.getTermName() + term.getTermYear() + name;
+        this.fullName = term.getUniqueName() + "-" + name;
     }
 
     public String getTermName() {

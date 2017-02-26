@@ -1,4 +1,6 @@
+import Models.People.DepartmentScheduler;
 import Models.People.Faculty;
+import Models.People.User;
 import Models.Scheduling.*;
 import Server.Requests.PersistenceFactory;
 import org.junit.AfterClass;
@@ -85,6 +87,19 @@ public class ScheduleTest {
         System.out.printf("Successfully added %s-%d to datastore.\n", term.getTermName(), term.getTermYear());
         System.out.println("********************************************");
 
+        entityManager.close();
+    }
+
+    @Test
+    public void persistSomething() {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Room room = new Room("Room 123");
+        room.addResource("Projector");
+        room.addResource("A single chair");
+        room.setCapacity(10000000);
+        entityManager.getTransaction().begin();
+        entityManager.persist(room);
+        entityManager.getTransaction().commit();
         entityManager.close();
     }
 }

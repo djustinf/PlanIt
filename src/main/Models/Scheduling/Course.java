@@ -23,7 +23,7 @@ public class Course {
     private String name;
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "course", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "offerings")
     private List<CourseOffering> offerings;
 
     protected Course() {}

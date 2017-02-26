@@ -19,10 +19,10 @@ public class Room {
     private String name;
 
     @ElementCollection(fetch=FetchType.EAGER)
-    private List<String> resources;
+    private List<String> resources = new ArrayList<String>();
 
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "room", cascade = CascadeType.PERSIST)
-    @JsonManagedReference
+    @JsonManagedReference(value = "offerings")
     private List<RoomOffering> offerings = new ArrayList<RoomOffering>();
 
     private int capacity;
@@ -37,6 +37,14 @@ public class Room {
 
     public String getRoomID() {
         return id;
+    }
+
+    public String  getName() {
+        return name;
+    }
+
+    public String getRoomType() {
+        return roomType;
     }
 
     public List<String> getResources() {

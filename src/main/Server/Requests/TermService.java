@@ -15,4 +15,10 @@ public class TermService {
         List<Term> terms = entityManager.createQuery("SELECT e FROM Term e", Term.class).getResultList();
         return terms;
     }
+
+    public static void postTerm(EntityManager entityManager, Term term) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(term);
+        entityManager.getTransaction().commit();
+    }
 }
