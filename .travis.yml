@@ -1,2 +1,2 @@
 language: java
-- chmod +x gradlew
+chmod +777 gradlew
