@@ -31,7 +31,10 @@ public class FacultyController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Faculty createFaculty(@RequestParam Faculty faculty) {
+    public Faculty createFaculty(@RequestBody Faculty faculty) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        FacultyService.postFaculty(entityManager, faculty);
         return faculty;
     }
 

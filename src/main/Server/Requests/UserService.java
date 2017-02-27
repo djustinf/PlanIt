@@ -23,12 +23,10 @@ public class UserService {
         return user;
     }
 
-    public static User putUser(EntityManager entityManager, User user){
+    public static void postUser(EntityManager entityManager, User user) {
         entityManager.getTransaction().begin();
         entityManager.persist(user);
-        entityManager.flush();
         entityManager.getTransaction().commit();
-        return getUser(entityManager, user.getUserName());
     }
 
     public static void deleteUser(EntityManager entityManager, String userName){

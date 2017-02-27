@@ -29,11 +29,6 @@ public class DepartmentSchedulerController {
         return users;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public DepartmentScheduler createScheduler(@RequestParam DepartmentScheduler scheduler) {
-        return scheduler;
-    }
-
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public DepartmentScheduler getScheduler(@PathVariable String username) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
@@ -43,9 +38,12 @@ public class DepartmentSchedulerController {
         return user;
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.POST)
-    public DepartmentScheduler updateScheduler(@PathVariable String username) {
-        return new DepartmentScheduler(username, username, username, username);
+    @RequestMapping(method = RequestMethod.POST)
+    public DepartmentScheduler createScheduler(@RequestBody DepartmentScheduler departmentScheduler) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        DepartmentService.postScheduler(entityManager, departmentScheduler);
+        return departmentScheduler;
     }
 
     /**
