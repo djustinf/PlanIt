@@ -1,2 +1,4 @@
 language: java
-chmod +777 gradlew
+
+jdk:
+  - oraclejdk8         
