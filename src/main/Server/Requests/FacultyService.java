@@ -23,4 +23,9 @@ public class FacultyService {
         return user;
     }
 
+    public static void postFaculty(EntityManager entityManager, Faculty faculty) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(faculty);
+        entityManager.getTransaction().commit();
+    }
 }

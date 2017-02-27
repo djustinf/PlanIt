@@ -21,4 +21,10 @@ public class DepartmentService {
         DepartmentScheduler user = entityManager.createQuery(query, DepartmentScheduler.class).getSingleResult();
         return user;
     }
+
+    public static void postScheduler(EntityManager entityManager, DepartmentScheduler departmentScheduler) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(departmentScheduler);
+        entityManager.getTransaction().commit();
+    }
 }

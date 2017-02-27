@@ -34,6 +34,14 @@ public class UserController {
         return users;
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public User postUser(@RequestBody User user) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        UserService.postUser(entityManager, user);
+        return user;
+    }
+
     /**
      * Get info on this user
      *
