@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class defines a extension of the user object with extended permissions, and added instance variables.
+ * Instances of the Faculty class will have access to a faculty preferences page.
+ * Each instance of Faculty will only have permissions to update the preferences for themselves.
+ */
 @Entity
 public class Faculty extends User {
 
@@ -43,10 +48,29 @@ public class Faculty extends User {
     @ElementCollection(fetch = FetchType.EAGER)
     private Map<Integer, Integer> coursePreferences = new HashMap<Integer, Integer>();// course preferences -1, 0, 1 <=> CANNOT, CAN, PREFER
 
+    /**
+     * This is the default constructor for the Faculty class.
+     * Calls the default constructor of the User class, and does not set any instance variables.
+     * This constructor should not be used in general system interaction.
+     *
+     * @return      a default Faculty Object
+     */
     protected Faculty() {
         super();
     }
 
+    /**
+     * This is the constructor for a DepartmentScheduler, which will be used during normal system interaction.
+     * This constructor calls the constructor of the User class with all given parameters.
+     * The only difference between an instance of this class and the instance of a User class is the class title.
+     * The class title is used to check system access permissions at runtime.
+     *
+     * @param  userName   a string representing the unique username of the Faculty.
+     * @param  email      a string representing the email address of the user
+     * @param  firstName  a string representing the users first name.
+     * @param  lastName   a string representing the users last name.
+     * @return            a Faculty Object with all instance variable set, preferences set to default.
+     */
     public Faculty(String userName, String email, String firstName, String lastName) {
         super(userName, email, firstName, lastName);
         preferredTimes = new ArrayList<Integer>();
@@ -61,6 +85,17 @@ public class Faculty extends User {
         }
     }
 
+    /**
+     * This method takes a unique course number and a preference level.
+     * Since this tool is used at the department level, numbers are sufficient to identify each course uniquely.
+     * The preference level is then mapped to the course, and stored in the Faculty's preference HashMap.
+     *
+     *
+     * @param  courseNum    The course number of the course to update preferences for. Within a department, course number is unique.
+     * @param  prefLvl      an integer value representing the preference level. -1 = unpreferred, 0 = neutral, 1 = preferred.
+     * @return              true if the preference level was valid.
+     * @return              false otherwise.
+     */
     public boolean addCoursePref(int courseNum, int prefLvl) {
         if (prefLvl >= -1 && prefLvl <= 1) {
             coursePreferences.put(courseNum, prefLvl);
