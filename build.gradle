@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         maven {
-            url "http://uk.maven.org/maven2"
+            url "http://uk.maven.org/maven3"
         }
     }
     dependencies {

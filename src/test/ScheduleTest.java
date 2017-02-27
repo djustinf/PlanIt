@@ -93,12 +93,9 @@ public class ScheduleTest {
     @Test
     public void persistSomething() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Room room = new Room("Room 123");
-        room.addResource("Projector");
-        room.addResource("A single chair");
-        room.setCapacity(10000000);
+        DepartmentScheduler dpt = new DepartmentScheduler("Some_Guy33", "ark@company.com", "Dude", "Guy");
         entityManager.getTransaction().begin();
-        entityManager.persist(room);
+        entityManager.persist(dpt);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

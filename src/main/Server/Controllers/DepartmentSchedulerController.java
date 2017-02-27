@@ -1,8 +1,12 @@
 package Server.Controllers;
 
 import Models.People.DepartmentScheduler;
+import Server.Requests.DepartmentService;
+import Server.Requests.PersistenceFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +21,12 @@ import java.util.List;
 public class DepartmentSchedulerController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<DepartmentScheduler> getAllSchedulers(@RequestParam String query) {
-        return new ArrayList<>();
+    public List<DepartmentScheduler> getAllSchedulers() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<DepartmentScheduler> users = DepartmentService.getSchedulerList(entityManager);
+        entityManager.close();
+        return users;
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -28,7 +36,11 @@ public class DepartmentSchedulerController {
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public DepartmentScheduler getScheduler(@PathVariable String username) {
-        return new DepartmentScheduler(username, username, username, username);
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        DepartmentScheduler user = DepartmentService.getScheduler(entityManager, username);
+        entityManager.close();
+        return user;
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.POST)

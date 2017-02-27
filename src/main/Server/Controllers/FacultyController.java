@@ -1,8 +1,13 @@
 package Server.Controllers;
 
 import Models.People.Faculty;
+import Server.Requests.FacultyService;
+import Server.Requests.PersistenceFactory;
+import Server.Requests.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +22,12 @@ import java.util.List;
 public class FacultyController {
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Faculty> getAllFaculty(@RequestParam String query) {
-        return new ArrayList<>();
+    public List<Faculty> getAllFaculty() {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        List<Faculty> users = FacultyService.getFacultyList(entityManager);
+        entityManager.close();
+        return users;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -28,7 +37,11 @@ public class FacultyController {
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
     public Faculty getFaculty(@PathVariable String username) {
-        return new Faculty(username, username, username, username);
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        Faculty user = FacultyService.getFaculty(entityManager, username);
+        entityManager.close();
+        return user;
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.PUT)

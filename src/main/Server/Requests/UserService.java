@@ -35,6 +35,4 @@ public class UserService {
         String query = String.format("DELETE c FROM User c WHERE userName = '%s'", userName);
         entityManager.createQuery(query, User.class);
     }
-
-
 }
