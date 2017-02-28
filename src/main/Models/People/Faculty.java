@@ -104,6 +104,18 @@ public class Faculty extends User {
         return false;
     }
 
+    /**
+     * This method takes a unique course number and a preference level.
+     * Since this tool is used at the department level, numbers are sufficient to identify each course uniquely.
+     * The preference level is then mapped to the course, and stored in the Faculty's preference HashMap.
+     *
+     *
+     * @param  day         the day to set a preference in
+     * @param  interval    the 1/2 hour time interval to set the preference for.
+     * @param  prefLvl     an integer value representing the preference level. -1 = unpreferred, 0 = neutral, 1 = preferred.
+     * @return             true if the preference level, and day, and time interval are all valid.
+     * @return             false otherwise.
+     */
     public boolean addTimePref(int day, int interval, int prefLvl){
         if (prefLvl >= -1 && prefLvl <= 1
                 && day >= 0 && day < DAYS_IN_WEEK
@@ -114,6 +126,14 @@ public class Faculty extends User {
         return false;
     }
 
+    /**
+     * This method takes an integer representing the desired number of hours per week the faculty wants to work.
+     *
+     *
+     * @param  total    the 1/2 hour time interval to set the preference for.
+     * @return             true if preferred weekly hours is not negative, or greater than the total number of hours in a week.
+     * @return             false otherwise.
+     */
     public boolean setWeeklyHoursPref(int total) {
         if (0 < total && total <= 168) {
             preferredTotalHours = total;
