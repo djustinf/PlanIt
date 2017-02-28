@@ -62,10 +62,10 @@ public class Faculty extends User {
     /**
      * This is the constructor for a DepartmentScheduler, which will be used during normal system interaction.
      * This constructor calls the constructor of the User class with all given parameters.
-     * The only difference between an instance of this class and the instance of a User class is the class title.
-     * The class title is used to check system access permissions at runtime.
+     * This class differs from the default User in two ways. First it has faculty specific preference variables.
+     * Second, instance of can be used to access some restricted parts of the system.
      *
-     * @param  userName   a string representing the unique username of the Faculty.
+     * @param  userName   a string representing the unique username of the user.
      * @param  email      a string representing the email address of the user
      * @param  firstName  a string representing the users first name.
      * @param  lastName   a string representing the users last name.
