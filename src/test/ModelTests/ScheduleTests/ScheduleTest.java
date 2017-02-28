@@ -1,6 +1,7 @@
+package ModelTests.ScheduleTests;
+
 import Models.People.DepartmentScheduler;
 import Models.People.Faculty;
-import Models.People.User;
 import Models.Scheduling.*;
 import Server.Requests.PersistenceFactory;
 import org.junit.AfterClass;
@@ -10,7 +11,6 @@ import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
 /**
