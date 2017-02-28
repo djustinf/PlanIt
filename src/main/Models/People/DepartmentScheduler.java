@@ -36,8 +36,8 @@ public class DepartmentScheduler extends User {
      * @param  lastName   a string representing the useres last name.
      * @return            a DepartmentScheduler Object with all instance variable set.
      */
-    public DepartmentScheduler(String userName, String email, String firstName, String lastName) {
-        super(userName, email, firstName, lastName);
+    public DepartmentScheduler(String userName, String password, String email, String firstName, String lastName) {
+        super(userName, password, email, firstName, lastName);
     }
 
     /**

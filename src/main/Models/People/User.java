@@ -24,17 +24,22 @@ public class User {
     @Column(unique = true)
     private String userName;
 
+    private String password;
     private String email;
     private String firstName;
     private String lastName;
 
     protected User() {}
 
-    public User(String userName, String email, String firstName, String lastName) {
+    public User(String userName, String password, String email, String firstName, String lastName) {
         this.userName = userName;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getUserID() {

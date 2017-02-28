@@ -49,7 +49,7 @@ public class FacultyController {
 
     @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
     public Faculty updateFaculty(@PathVariable String username) {
-        return new Faculty(username, username, username, username);
+        return new Faculty(username, username, username, username, username);
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
