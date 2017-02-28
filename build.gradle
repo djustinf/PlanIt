@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         maven {
-            url "http://uk.maven.org/maven3"
+            url "http://uk.maven.org/maven2"
         }
     }
     dependencies {
@@ -41,6 +41,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.apache.commons:commons-collections4:4.1'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '1.5.1.RELEASE'
     compile group: 'org.hibernate.ogm', name: 'hibernate-ogm-core', version: '5.0.4.Final'
