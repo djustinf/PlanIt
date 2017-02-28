@@ -71,8 +71,8 @@ public class Faculty extends User {
      * @param  lastName   a string representing the users last name.
      * @return            a Faculty Object with all instance variable set, preferences set to default.
      */
-    public Faculty(String userName, String email, String firstName, String lastName) {
-        super(userName, email, firstName, lastName);
+    public Faculty(String userName, String password, String email, String firstName, String lastName) {
+        super(userName, password, email, firstName, lastName);
         preferredTimes = new ArrayList<Integer>();
         for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
             int rem = i%48;
