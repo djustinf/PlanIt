@@ -85,6 +85,10 @@ public class Faculty extends User {
         }
     }
 
+    public Map<Integer, Integer> getCoursePreferences() {
+        return coursePreferences;
+    }
+
     /**
      * This method takes a unique course number and a preference level.
      * Since this tool is used at the department level, numbers are sufficient to identify each course uniquely.
