@@ -13,16 +13,15 @@ public class HTMLControllers {
 
     @RequestMapping({"/", "/home", "", "/login"})
     public String homeHTML() {
-        return "/views/login.html";
+        return "views/login.html";
     }
 
-    @RequestMapping({"/schedules", "/Schedules"})
+    @RequestMapping({"/calendar", "/Calendar"})
     public String schedulesHTML() {
-        return "views/schedules.html";
+        return "views/calendar.html";
     }
 
     /*
-
     This can be represented as an angular pop-up box
 
     @RequestMapping("/schedules/components")
