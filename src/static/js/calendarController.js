@@ -260,7 +260,7 @@ calendarDemoApp.controller('CalendarCtrl',
 calendarDemoApp.directive("navigationBar", function () {
     return {
         restrict: "E",
-        templateUrl: "navbar.partial.html",
+        templateUrl: "/navbar.partial.html",
         scope: {},
         controller: ['$scope', function navbarCtrl(scope) {
             console.log(scope.$parent.calendarInstanceState);

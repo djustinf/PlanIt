@@ -27,6 +27,11 @@ public class HTMLControllers {
         return "views/calendar.html";
     }
 
+    @RequestMapping({"/navbar"})
+    public String navbarHTML() {
+        return "views/navbar.partial.html";
+    }
+
     /*
     This can be represented as an angular pop-up box
 
