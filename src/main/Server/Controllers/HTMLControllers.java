@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HTMLControllers {
 
-    @RequestMapping({"/", "/home", "", "/login"})
+    @RequestMapping({"/", "/home", ""})
     public String homeHTML() {
+        // TODO update the returning html
+        return "/views/calendar.html";
+    }
+
+    @RequestMapping("/login")
+    public String loginHTML() {
         return "/views/login.html";
     }
 

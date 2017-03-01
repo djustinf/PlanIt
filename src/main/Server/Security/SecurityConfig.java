@@ -41,11 +41,11 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                 EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
                 EntityManager entityManager = singleton.createEntityManager();
                 Models.People.User account = UserService.getUser(entityManager, username);
-                if (account != null) {
+                if (account != null) { // can differentiate between users after this
                     return new User(account.getUserName(), account.getPassword(), true, true, true, true,
                             AuthorityUtils.createAuthorityList("USER"));
                 } else {
-                    throw new UsernameNotFoundException("could not find the user '"
+                    throw new UsernameNotFoundException("Could not find the user '"
                             + username + "'");
                 }
             }
@@ -58,6 +58,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // can change this from httpBasic to formLogin once login page supports it
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().fullyAuthenticated().and().
