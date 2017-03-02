@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css">
     <link rel="stylesheet" href="../css/calendar.css" />
     <link rel="stylesheet" href="../css/ionicons.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
     <link rel="stylesheet" href="../bower_components/fullcalendar/dist/fullcalendar.css">
 
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -19,9 +20,14 @@
             -moz-transition: max-height .3s ease;
             -o-transition: max-height .3s ease;
             transition: max-height .3s ease;
+            top: 0px;
+            position: absolute;
         }
         div.navbar-collapse.collapse.in {
             max-height: 2000px;
+        }
+        body {
+            margin-top: 0px;
         }
     </style>
 </head>
@@ -66,6 +72,12 @@
                             <a href="#" ng-click="$parent.changeView('agendaDay', $parent.calendarInstanceState.currentCalendar)">
                                 Daily View
                                 <i class="icon ion-checkmark-round pull-right" ng-if="$parent.calendarInstanceState.currentView == 'agendaDay'"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" ng-click="$parent.changeView('listWeek', $parent.calendarInstanceState.currentCalendar)">
+                                List View
+                                <i class="icon ion-checkmark-round pull-right" ng-if="$parent.calendarInstanceState.currentView == 'listWeek'"></i>
                             </a>
                         </li>
                     </ul>

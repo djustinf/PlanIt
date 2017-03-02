@@ -58,6 +58,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+
     // can change this from httpBasic to formLogin once login page supports it
     @Override
     protected void configure(HttpSecurity http) throws Exception {
