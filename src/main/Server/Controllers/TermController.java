@@ -28,8 +28,8 @@ public class TermController {
         return terms;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public Term putTerm(@RequestParam String name, @RequestParam int year) {
+    @RequestMapping(method = RequestMethod.POST)
+    public Term createTerm(@RequestParam String name, @RequestParam int year) {
         return new Term(name, year);
         // put it into system before returning
     }

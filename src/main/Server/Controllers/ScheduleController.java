@@ -43,8 +43,8 @@ public class ScheduleController {
      *
      * @return - The freshly made schedule
      */
-    @RequestMapping(method = RequestMethod.PUT)
-    public Schedule putSchedule(@RequestParam Schedule schedule) {
+    @RequestMapping(method = RequestMethod.POST)
+    public Schedule createSchedule(@RequestParam Schedule schedule) {
         return schedule;
     }
 
@@ -65,8 +65,8 @@ public class ScheduleController {
      * @param fullname - term the schedule belongs to
      * @return the new component
      */
-    @RequestMapping(value = "/{fullname}", method = RequestMethod.PUT)
-    public Component putScheduleFullname(@PathVariable String fullname, @RequestParam Component component) {
+    @RequestMapping(value = "/{fullname}", method = RequestMethod.POST)
+    public Component createScheduleFullname(@PathVariable String fullname, @RequestParam Component component) {
         return component;
     }
 
@@ -97,8 +97,8 @@ public class ScheduleController {
      * @param fullname - The term the schedule belongs to
      * @return the new comment
      */
-    @RequestMapping(value = "/{fullname}/comments", method = RequestMethod.PUT)
-    public Comment putScheduleTermComments(@PathVariable String fullname, @RequestParam Comment comment) {
+    @RequestMapping(value = "/{fullname}/comments", method = RequestMethod.POST)
+    public Comment createScheduleTermComments(@PathVariable String fullname, @RequestParam Comment comment) {
         return comment;
     }
 }

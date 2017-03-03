@@ -54,7 +54,7 @@ public class RoomController {
      * @return - Room corresponding to name
      */
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public Room getRoomId(@PathVariable long id) {
+    public Room getRoomId(@PathVariable String name) {
         return new Room();
     }
 
@@ -64,7 +64,7 @@ public class RoomController {
      * @param name - Room name
      */
     @RequestMapping(value = "/{name}", method = RequestMethod.POST)
-    public void postRoomId(@PathVariable long id, @RequestParam Room room) {
+    public void postRoomId(@PathVariable String name, @RequestParam Room room) {
         // update room referenced by id with the new fields specific in the room object
     }
 
@@ -74,7 +74,7 @@ public class RoomController {
      * @param name - Room name
      */
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    public void deleteRoomId(@PathVariable long id) {
+    public void deleteRoomId(@PathVariable String name) {
 
     }
 }

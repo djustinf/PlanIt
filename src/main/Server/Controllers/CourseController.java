@@ -21,8 +21,13 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 
+    /**
+     * Access point to get all courses
+     *
+     * @return a list of all courses matching query specification
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public List<Course> getCourse() {
+    public List<Course> getAllCourses() {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
         List<Course> courses = CourseService.getCourses(entityManager);
@@ -30,14 +35,24 @@ public class CourseController {
         return courses;
     }
 
+    /**
+     * Creates a new course
+     *
+     * @param course - course to be added to system
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public Course putCourse(@RequestBody Course course) {
+    public void createCourse(@RequestBody Course course) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
         CourseService.postCourse(entityManager, course);
-        return course;
     }
 
+    /**
+     * Retrieve a specific course
+     *
+     * @param name unique identifier for this course
+     * @return the request course
+     */
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     public Course getCourseName(@PathVariable String name) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
@@ -47,11 +62,23 @@ public class CourseController {
         return course;
     }
 
+    /**
+     * Updates a specific course
+     *
+     * @param name unique identifier for a course
+     */
     @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
-    public void postCourseName(@PathVariable String name) {
+    public void updateCourseName(@PathVariable String name) {
 
     }
 
+    /**
+     * Deletes a specific course.
+     *
+     * This will have to delete this course from faculty preferences and also remove it from unpublished schedules.
+     *
+     * @param name unique identifier of course
+     */
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
     public void deleteCourseName(@PathVariable String name) {
 

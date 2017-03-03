@@ -18,8 +18,8 @@ public class ComponentController {
         return new Component("t", 0, 1, 2,true, false, true, false , false, true, false);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void postScheduleComponent(@PathVariable String fullname, @PathVariable String name, @RequestParam Component component) {
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateScheduleComponent(@PathVariable String fullname, @PathVariable String name, @RequestParam Component component) {
         // update fields
     }
 
