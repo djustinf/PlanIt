@@ -218,13 +218,13 @@ calendarDemoApp.controller('CalendarCtrl',
 
         $scope.openAddCourseSectionModal = function () {
             ModalService.showModal({
-                templateUrl: "addEvent.partial.html",
+                templateUrl: "../views/addEvent.partial.html",
                 controller: "ModalController"
             }).then(function(modal) {
 
                 //it's a bootstrap element, use 'modal' to show it
                 console.log(modal.element)
-                modal.element.modal();
+
                 modal.close.then(function(result) {
                     console.log(result);
                     var days = [];
@@ -243,6 +243,7 @@ calendarDemoApp.controller('CalendarCtrl',
                     $scope.renderCalendar($scope.calendarInstanceState.currentCalendar)
                 });
                 console.log("test")
+                //modal.element.modal();
             });
 
         };
@@ -260,7 +261,7 @@ calendarDemoApp.controller('CalendarCtrl',
 calendarDemoApp.directive("navigationBar", function () {
     return {
         restrict: "E",
-        templateUrl: "/navbar.partial.html",
+        templateUrl: "../views/navbar.partial.html",
         scope: {},
         controller: ['$scope', function navbarCtrl(scope) {
             console.log(scope.$parent.calendarInstanceState);

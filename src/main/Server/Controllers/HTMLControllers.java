@@ -17,6 +17,11 @@ public class HTMLControllers {
         return "/views/calendar.html";
     }
 
+    @RequestMapping("/rooms")
+    public String roomsHTML() {
+        return "/views/rooms.html";
+    }
+
     @RequestMapping("/login")
     public String loginHTML() {
         return "/views/login.html";
@@ -30,6 +35,11 @@ public class HTMLControllers {
     @RequestMapping({"/navbar"})
     public String navbarHTML() {
         return "views/navbar.partial.html";
+    }
+
+    @RequestMapping({"/addEvent"})
+    public String addEventHTML() {
+        return "views/addEvent.partial.html";
     }
 
     /*
