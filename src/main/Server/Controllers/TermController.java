@@ -28,12 +28,6 @@ public class TermController {
         return terms;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Term createTerm(@RequestParam String name, @RequestParam int year) {
-        return new Term(name, year);
-        // put it into system before returning
-    }
-
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTerm(@RequestParam String uniqueName) {
         // delete term from system
