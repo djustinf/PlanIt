@@ -62,8 +62,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // can change this from httpBasic to formLogin once login page supports it
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated().and().
-                httpBasic().and().
+
+        http.authorizeRequests().anyRequest().fullyAuthenticated().and()
+                .httpBasic().and().
                 csrf().disable();
     }
 }

@@ -13,7 +13,6 @@ public class HTMLControllers {
 
     @RequestMapping({"/", "/home", ""})
     public String homeHTML() {
-        // TODO update the returning html
         return "/views/calendar.html";
     }
 

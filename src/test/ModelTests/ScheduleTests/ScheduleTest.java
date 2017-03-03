@@ -34,7 +34,7 @@ public class ScheduleTest {
     public void canPersistAndLoadTermAndSchedule() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        Faculty faculty = new Faculty("xXJoe_15Xx", "doesnot@exist", "John", "Doe");
+        Faculty faculty = new Faculty("xXJoe_15Xx", "a", "doesnot@exist", "John", "Doe");
         Term term = new Term("Winter", 2018);
 
         Schedule one =  new Schedule(term, "First_Sched1");
@@ -93,7 +93,7 @@ public class ScheduleTest {
     @Test
     public void persistSomething() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        DepartmentScheduler dpt = new DepartmentScheduler("Some_Guy33", "ark@company.com", "Dude", "Guy");
+        DepartmentScheduler dpt = new DepartmentScheduler("Some_Guy33", "a", "ark@company.com", "Dude", "Guy");
         entityManager.getTransaction().begin();
         entityManager.persist(dpt);
         entityManager.getTransaction().commit();

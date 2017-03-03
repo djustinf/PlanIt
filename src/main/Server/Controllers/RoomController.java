@@ -54,7 +54,7 @@ public class RoomController {
      * @return - Room corresponding to name
      */
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
-    public Room getRoomId(@PathVariable String name) {
+    public Room getRoomId(@PathVariable long id) {
         return new Room();
     }
 
@@ -63,9 +63,12 @@ public class RoomController {
      *
      * @param name - Room name
      */
-    @RequestMapping(value = "/{name}", method = RequestMethod.POST)
-    public void postRoomId(@PathVariable String name, @RequestParam Room room) {
-        // update room referenced by id with the new fields specific in the room object
+    @RequestMapping(method = RequestMethod.POST)
+    public Room postRoomId(@RequestBody Room room) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        RoomService.postRoom(entityManager, room);
+        return room;
     }
 
     /**
@@ -74,7 +77,7 @@ public class RoomController {
      * @param name - Room name
      */
     @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    public void deleteRoomId(@PathVariable String name) {
+    public void deleteRoomId(@PathVariable long id) {
 
     }
 }

@@ -36,11 +36,11 @@ public class RoomService {
      *
      * @return The freshly made room
      */
-    public Room putRoom(Room room, EntityManager entityManager) {
-
-        return room;
+    public static void postRoom(EntityManager entityManager, Room room) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(room);
+        entityManager.getTransaction().commit();
     }
-
 
     /**
      * Retrieves this room
