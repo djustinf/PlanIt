@@ -1,11 +1,28 @@
 var calendarDemoApp = angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'angularModalService']);
 
 calendarDemoApp.controller('CalendarCtrl',
-    function ($scope, $compile, $timeout, uiCalendarConfig, ModalService) {
+    function ($scope, $compile, $timeout, uiCalendarConfig, ModalService, $interval, $templateCache, $http) {
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
+
+        var views = [
+            //"addEvent.partial.html",
+            "rooms.html"
+        ];
+
+
+        views.forEach(function(viewName){
+            $http({
+                method: 'GET',
+                url: '../views/' + viewName
+            }).then(function successCallback(response) {
+                $templateCache.put(viewName, response.data);
+            }, function errorCallback(response) {
+                console.log(response);
+            });
+        });
 
         var Day = {
             SUNDAY: 0,
@@ -172,7 +189,7 @@ calendarDemoApp.controller('CalendarCtrl',
         $scope.calendarInstanceState = {
             currentView: "month",
             currentCalendar: "myCalendar1"
-        }
+        };
 
         /* Change View */
         $scope.changeView = function (view, calendar) {
@@ -217,13 +234,32 @@ calendarDemoApp.controller('CalendarCtrl',
         $scope.showModal = false;
 
         $scope.openAddCourseSectionModal = function () {
+
+
             ModalService.showModal({
-                templateUrl: "../views/addEvent.partial.html",
+                template: $templateCache.get("addEvent.partial.html"),
                 controller: "ModalController"
             }).then(function(modal) {
 
                 //it's a bootstrap element, use 'modal' to show it
-                console.log(modal.element)
+                if(modal.element && modal.element.modal){
+                    modal.element.modal();
+                    console.log("modal was there")
+                }
+                else {
+
+                    var intevalRef = $interval(function(){
+                        if(modal.element.modal){
+                            console.log("callling modal now");
+                            modal.element.modal();
+                            intevalRef.cancel();
+                        }
+                        else{
+                            console.warn('modal still not ready');
+                        }
+                    }, 200);
+                    console.warn("modal was not there")
+                }
 
                 modal.close.then(function(result) {
                     console.log(result);
@@ -242,7 +278,6 @@ calendarDemoApp.controller('CalendarCtrl',
                     }
                     $scope.renderCalendar($scope.calendarInstanceState.currentCalendar)
                 });
-                console.log("test")
                 //modal.element.modal();
             });
 
@@ -270,7 +305,7 @@ calendarDemoApp.directive("navigationBar", function () {
 });
 
 calendarDemoApp.controller("ModalController", function($scope, close){
-    console.log("modal loaded")
+    console.log("modal loaded");
 
     $scope.newCourseComponent = {
         department: "",
