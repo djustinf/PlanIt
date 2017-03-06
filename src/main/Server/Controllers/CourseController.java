@@ -79,8 +79,10 @@ public class CourseController {
      *
      * @param name unique identifier of course
      */
-    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    public void deleteCourseName(@PathVariable String name) {
-
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteCourse(@RequestParam String id) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        CourseService.removeCourse(entityManager, id);
     }
 }

@@ -60,9 +60,9 @@ public class CourseService {
      * @param entityManager - manages entities in the Course table
      * @param name - unique name of course to be deleted
      */
-    public static void deleteSingleCourse(EntityManager entityManager, String name) {
-        // TODO This must also delete course from all in progress schedules and remove it from faculty preferences
-        String query = String.format("DELETE c FROM Course c WHERE name = %s", name);
-        entityManager.createQuery(query, Course.class);
+    public static void removeCourse(EntityManager entityManager, String id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Course.class, id));
+        entityManager.getTransaction().commit();
     }
 }

@@ -29,8 +29,9 @@ public class UserService {
         entityManager.getTransaction().commit();
     }
 
-    public static void deleteUser(EntityManager entityManager, String userName){
-        String query = String.format("DELETE c FROM User c WHERE userName = '%s'", userName);
-        entityManager.createQuery(query, User.class);
+    public static void removeUser(EntityManager entityManager, String id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(User.class, id));
+        entityManager.getTransaction().commit();
     }
 }

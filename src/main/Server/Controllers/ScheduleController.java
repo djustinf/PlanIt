@@ -21,9 +21,6 @@ import java.util.List;
 @RequestMapping("/schedule")
 public class ScheduleController {
 
-    // Used to satisfy compiler
-    private Schedule s = new Schedule(new Term("spring", 2017), "test");
-
     /**
      * Query point for searching all schedules
      *
