@@ -34,4 +34,10 @@ public class UserService {
         entityManager.remove(entityManager.find(User.class, id));
         entityManager.getTransaction().commit();
     }
+
+    public static void updateUser(EntityManager entityManager, User user) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
+    }
 }

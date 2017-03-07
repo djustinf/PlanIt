@@ -47,13 +47,10 @@ public class FacultyController {
         return user;
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.PUT)
-    public Faculty updateFaculty(@PathVariable String username) {
-        return new Faculty(username, username, username, username, username);
-    }
-
-    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
-    public void deleteFaculty(@PathVariable String username) {
-
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateFaculty(@RequestBody Faculty user) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        FacultyService.updateFaculty(entityManager, user);
     }
 }

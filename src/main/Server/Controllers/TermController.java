@@ -39,4 +39,11 @@ public class TermController {
         EntityManager entityManager = singleton.createEntityManager();
         TermService.postTerm(entityManager, term);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateTerm(@RequestBody Term term) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        TermService.updateTerm(entityManager, term);
+    }
 }

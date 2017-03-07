@@ -68,4 +68,11 @@ public class UserController {
         EntityManager entityManager = singleton.createEntityManager();
         UserService.removeUser(entityManager, id);
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateUser(@RequestBody User user) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        UserService.updateUser(entityManager, user);
+    }
 }

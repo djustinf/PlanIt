@@ -21,4 +21,10 @@ public class TermService {
         entityManager.persist(term);
         entityManager.getTransaction().commit();
     }
+
+    public static void updateTerm(EntityManager entityManager, Term term) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(term);
+        entityManager.getTransaction().commit();
+    }
 }
