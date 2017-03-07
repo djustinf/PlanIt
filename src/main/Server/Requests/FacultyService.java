@@ -28,4 +28,16 @@ public class FacultyService {
         entityManager.persist(faculty);
         entityManager.getTransaction().commit();
     }
+
+    public static void updateFaculty(EntityManager entityManager, Faculty user) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
+    }
+
+    public static void removeFaculty(EntityManager entityManager, String id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Faculty.class, id));
+        entityManager.getTransaction().commit();
+    }
 }

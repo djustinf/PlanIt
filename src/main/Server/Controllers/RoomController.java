@@ -76,8 +76,10 @@ public class RoomController {
      *
      * @param name - Room name
      */
-    @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
-    public void deleteRoomId(@PathVariable long id) {
-
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteRoomId(@RequestParam String id) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        RoomService.removeRoom(entityManager, id);
     }
 }

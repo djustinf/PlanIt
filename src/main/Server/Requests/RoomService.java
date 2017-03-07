@@ -70,9 +70,9 @@ public class RoomService {
      *
      * @param id - Room name
      */
-    public void deleteRoomId(String roomName, EntityManager entityManager) {
-        String query = String.format("DELETE r FROM Room r WHERE userName = '%s'", roomName);
-        entityManager.createQuery(query, Room.class);
-
+    public static void removeRoom(EntityManager entityManager, String id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Room.class, id));
+        entityManager.getTransaction().commit();
     }
 }

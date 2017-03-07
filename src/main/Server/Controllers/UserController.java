@@ -62,8 +62,17 @@ public class UserController {
      *
      * @param username - User's unique username
      */
-    @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable String username) {
-        System.out.println("user/{id}\t\t\t\tDELETE: " + username);
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteUser(@RequestParam String id) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        UserService.removeUser(entityManager, id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateUser(@RequestBody User user) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        UserService.updateUser(entityManager, user);
     }
 }
