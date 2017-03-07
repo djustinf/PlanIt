@@ -53,4 +53,11 @@ public class FacultyController {
         EntityManager entityManager = singleton.createEntityManager();
         FacultyService.updateFaculty(entityManager, user);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteFaculty(@RequestParam String id) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        FacultyService.removeFaculty(entityManager, id);
+    }
 }

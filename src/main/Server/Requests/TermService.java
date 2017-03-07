@@ -27,4 +27,10 @@ public class TermService {
         entityManager.merge(term);
         entityManager.getTransaction().commit();
     }
+
+    public static void deleteTerm(EntityManager entityManager, String termName){
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Term.class, termName));
+        entityManager.getTransaction().commit();
+    }
 }

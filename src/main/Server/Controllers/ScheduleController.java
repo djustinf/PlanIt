@@ -42,6 +42,9 @@ public class ScheduleController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public Schedule createSchedule(@RequestParam Schedule schedule) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        ScheduleService.postSchedule(entityManager, schedule);
         return schedule;
     }
 

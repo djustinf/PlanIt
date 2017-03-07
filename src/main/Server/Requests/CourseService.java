@@ -51,6 +51,11 @@ public class CourseService {
         return entityManager.createQuery(query, Course.class).getSingleResult();
     }
 
+    public static void updateCourse(EntityManager entityManager, Course course) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(course);
+        entityManager.getTransaction().commit();
+    }
 
     /**
      * Deletes a single course from the database
@@ -58,7 +63,7 @@ public class CourseService {
      * Also deletes this course from faculty preferences and removes it from all unpublished schedules
      *
      * @param entityManager - manages entities in the Course table
-     * @param name - unique name of course to be deleted
+     * @param id - unique name of course to be deleted
      */
     public static void removeCourse(EntityManager entityManager, String id) {
         entityManager.getTransaction().begin();

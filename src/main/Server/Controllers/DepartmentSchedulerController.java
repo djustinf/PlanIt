@@ -40,7 +40,7 @@ public class DepartmentSchedulerController {
      *
      * @param departmentScheduler - The department scheduler to be created
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public void createScheduler(@RequestBody DepartmentScheduler departmentScheduler) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();

@@ -15,4 +15,12 @@ public class ScheduleService {
         List<Schedule> schedules = entityManager.createQuery(query, Schedule.class).getResultList();
         return schedules;
     }
+
+    public static void postSchedule(EntityManager entityManager, Schedule schedule) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(schedule);
+        entityManager.getTransaction().commit();
+    }
+
+
 }

@@ -34,4 +34,10 @@ public class FacultyService {
         entityManager.merge(user);
         entityManager.getTransaction().commit();
     }
+
+    public static void removeFaculty(EntityManager entityManager, String id) {
+        entityManager.getTransaction().begin();
+        entityManager.remove(entityManager.find(Faculty.class, id));
+        entityManager.getTransaction().commit();
+    }
 }

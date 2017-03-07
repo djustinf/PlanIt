@@ -31,6 +31,9 @@ public class TermController {
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTerm(@RequestParam String uniqueName) {
         // delete term from system
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        TermService.deleteTerm(entityManager, uniqueName);
     }
 
     @RequestMapping(method = RequestMethod.POST)
