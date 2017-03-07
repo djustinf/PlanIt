@@ -17,7 +17,7 @@ myAppModule.controller('RoomController', function($scope, $http, $filter, NgTabl
             // or server returns response with an error status.
         });
         var tp = new NgTableParams({}, {dataset: $scope.data});
-    }
+    };
 
     $scope.refreshRooms();
 
@@ -41,5 +41,9 @@ myAppModule.controller('RoomController', function($scope, $http, $filter, NgTabl
         }, function errorCallback(response) {
             console.log(response);
         });
+    };
+
+    $scope.remove=function($index){
+        $scope.users.splice($index,1);
     }
 });

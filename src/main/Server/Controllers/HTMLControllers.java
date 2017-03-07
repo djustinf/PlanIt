@@ -21,6 +21,16 @@ public class HTMLControllers {
         return "/views/rooms.html";
     }
 
+    @RequestMapping("/users")
+    public String usersHTML() {
+        return "/views/users.html";
+    }
+
+    @RequestMapping("/courses")
+    public String coursesHTML() {
+        return "/views/courses.html";
+    }
+
     @RequestMapping("/login")
     public String loginHTML() {
         return "/views/login.html";
