@@ -36,7 +36,7 @@ public class RoomOffering {
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
     @ElementCollection
-    private List<Integer> availability;
+    private List<String> availability;
 
     @ManyToOne
     @JsonBackReference(value = "roomList")
@@ -56,30 +56,22 @@ public class RoomOffering {
     public RoomOffering(Schedule sched, String name){
         this.name = sched.getFullName() + "-" + name;
         this.sched = sched;
-        availability = new ArrayList<Integer>();
-        for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
-                availability.add(i, 0); //New rooms start out entirely unoccupied
-        }
+        availability = new ArrayList<String>();
         components = new ArrayList<Component>();
     }
 
     protected RoomOffering() {}
 
-    //FIXME broke when I had to change days to strings due to reinstantiation list ordering issues
-    /*
+    //FIXME broke when I had to change days to strings
+    //I think I fixed it!, but we lost the unique availability by day. Changing something creates a duplicate day/availability entry.
+    //this could create some conflicts that don't really exist.
     public void addComponent(Component c){
         components.add(c);
-        int listIndex;
-        List<Integer> days = c.getDays();
-        for(int i = 0; i<7; i++){
-            if(days.get(i) == 1){
-                for(int j = c.getStartTime(); j<c.getEndTime(); j++){
-                    listIndex = i*INTERVALS_PER_DAY + j;
-                    availability.set(listIndex, availability.get(listIndex)+1);
-                }
+        List<String> days = c.getDays();
+        for(int i = 0; i<days.size(); i++) {
+            for(int j = c.getStartTime(); j<c.getEndTime(); j++) {
+                 availability.add(days.get(i)+j);
             }
         }
-
     }
-    */
 }
