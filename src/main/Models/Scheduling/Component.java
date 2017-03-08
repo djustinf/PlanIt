@@ -81,6 +81,10 @@ public class Component {
         return name;
     }
 
+    public void setCourseOffering(CourseOffering offering) {
+        this.offering = offering;
+    }
+
     public int getStartTime() {
         return startTime;
     }

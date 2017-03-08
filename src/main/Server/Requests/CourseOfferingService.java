@@ -1,5 +1,7 @@
 package Server.Requests;
 
+import Models.Scheduling.Component;
+import Models.Scheduling.Course;
 import Models.Scheduling.CourseOffering;
 
 import javax.persistence.EntityManager;
@@ -26,9 +28,11 @@ public class CourseOfferingService {
         return entityManager.createQuery(query, CourseOffering.class).getSingleResult();
     }
 
-    public static void updateCourseOffering(EntityManager entityManager, CourseOffering course) {
+    public static void addComponent(EntityManager entityManager, String name, Component component) {
         entityManager.getTransaction().begin();
-        entityManager.merge(course);
+        CourseOffering offering = getSingleCourseOffering(entityManager, name);
+        offering.addComponent(component);
+        component.setCourseOffering(offering);
         entityManager.getTransaction().commit();
     }
 

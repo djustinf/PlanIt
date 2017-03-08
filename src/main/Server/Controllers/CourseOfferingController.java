@@ -1,5 +1,6 @@
 package Server.Controllers;
 
+import Models.Scheduling.Component;
 import Models.Scheduling.CourseOffering;
 import Server.Requests.CourseOfferingService;
 import Server.Requests.PersistenceFactory;
@@ -42,8 +43,10 @@ public class CourseOfferingController {
     }
 
     @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
-    public void updateCourseOfferingName(@PathVariable String name) {
-
+    public void addComponent(@RequestBody Component component, @PathVariable("name") String name) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        CourseOfferingService.addComponent(entityManager, name, component);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
