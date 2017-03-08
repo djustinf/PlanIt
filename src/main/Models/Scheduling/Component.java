@@ -61,8 +61,8 @@ public class Component {
         this.id = ID;
     }
 
-    public void setRoom(int roomNum){
-        //TODO: Figure this shit out
+    public void setRoom(RoomOffering room){
+        this.roomOffering = room;
     }
 
     public String getID(){

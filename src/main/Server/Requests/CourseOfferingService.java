@@ -1,7 +1,6 @@
 package Server.Requests;
 
 import Models.Scheduling.Component;
-import Models.Scheduling.Course;
 import Models.Scheduling.CourseOffering;
 
 import javax.persistence.EntityManager;
