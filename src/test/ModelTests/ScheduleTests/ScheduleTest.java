@@ -93,9 +93,22 @@ public class ScheduleTest {
     @Test
     public void persistSomething() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        DepartmentScheduler dpt = new DepartmentScheduler("Some_Guy33", "a", "ark@company.com", "Dude", "Guy");
+        Faculty faculty = new Faculty("THATguy", "hi", "doesnot@exist", "John", "Doe");
+        Term term = new Term("Spring", 2090);
+
+        Schedule one =  new Schedule(term, "First_Sched1");
+        RoomOffering room = new RoomOffering(one, "Theatre");
+        term.addSched(one);
+        one.setTerm(term);
+        CourseOffering offering = new CourseOffering("CPE453", one);
+        offering.addComponent(new Component("Lecture",1, 2, 3, offering, room, faculty, 01));
+        one.addCourse(offering);
+        one.addCourse(new CourseOffering("CPE349", one));
+        one.addCourse(new CourseOffering("CPE309", one));
         entityManager.getTransaction().begin();
-        entityManager.persist(dpt);
+        entityManager.persist(faculty);
+        entityManager.persist(room);
+        entityManager.persist(term);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
