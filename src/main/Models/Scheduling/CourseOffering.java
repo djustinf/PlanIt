@@ -47,6 +47,10 @@ public class CourseOffering {
         return name;
     }
 
+    public void setSched(Schedule sched) {
+        this.sched = sched;
+    }
+
     public void setID(String ID) {
         this.id = ID;
     }
@@ -61,5 +65,9 @@ public class CourseOffering {
 
     public void removeComponent(Component component) {
         components.remove(component);
+    }
+
+    public List<Component> getComponents() {
+        return components;
     }
 }

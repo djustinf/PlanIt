@@ -1,7 +1,7 @@
 var calendarDemoApp = angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'angularModalService']);
 
 calendarDemoApp.controller('CalendarCtrl',
-    function ($scope, $compile, $timeout, uiCalendarConfig, ModalService) {
+    function ($scope, $compile, $timeout, uiCalendarConfig, ModalService, $interval, $templateCache, $http) {
         var date = new Date();
         var d = date.getDate();
         var m = date.getMonth();
@@ -15,6 +15,114 @@ calendarDemoApp.controller('CalendarCtrl',
             THURSDAY: 4,
             FRIDAY: 5,
             SATURDAY: 6
+        };
+
+
+        function cacheCurScheduleInfo(){
+            localStorage.setItem("curScheduleFullName", JSON.stringify($scope.curScheduleInfo.fullName));
+            localStorage.setItem("curScheduleComponents", JSON.stringify($scope.curScheduleInfo.components));
+        }
+
+        $scope.curScheduleInfo = {
+            fullName: localStorage.getItem("curScheduleFullName"),
+            components: localStorage.getItem("curScheduleComponents"),
+            scheduleSelected: false
+        };
+
+        $scope.schedules = localStorage.getItem("cachedSchedules");
+        $scope.schedules = $scope.schedules ? JSON.parse($scope.schedules) : [];
+
+        $scope.curScheduleInfo.fullName = $scope.curScheduleInfo.fullName ? JSON.parse($scope.curScheduleInfo.fullName) : undefined;
+        $scope.curScheduleInfo.components = $scope.curScheduleInfo.components ? JSON.parse($scope.curScheduleInfo.components) : [];
+
+        if($scope.curScheduleInfo.fullName && $scope.curScheduleInfo.components){
+            $scope.curScheduleInfo.scheduleSelected = true;
+
+            console.log($scope.curScheduleInfo);
+            $scope.events = [];
+            $scope.curScheduleInfo.components.forEach(function(component){
+                var daysArr = [];
+                component.days.forEach(function(day){
+                    if(day && day.toLowerCase){
+                        switch(day.toLowerCase()){
+                            case "monday":
+                                if(daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
+                                break;
+                            case "tuesday":
+                                if(daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
+                                break;
+                            case "wednesday":
+                                if(daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
+                                break;
+                            case "thursday":
+                                if(daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
+                                break;
+                            case "friday":
+                                if(daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
+                                break;
+                            case "saturday":
+                                if(daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
+                                break;
+                            case "sunday":
+                                if(daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
+                                break;
+                        }
+                    }
+                });
+
+                $scope.events = $scope.events.concat(
+                    createArrOfEventsForCourseComponent(component.name.substring(
+                        $scope.curScheduleInfo.fullName.length + 1),
+                        [
+                            {
+                                startTime: (component.startTime + 12) * 60,
+                                endTime: (component.endTime + 12) * 60,
+                                days: daysArr
+                            }
+                        ],
+                        component.id)
+                );
+            });
+        }
+        else {
+            $scope.curScheduleInfo.scheduleSelected = false;
+
+            $scope.curScheduleInfo.fullName = undefined;
+            localStorage.removeItem("curScheduleFullName");
+
+            $scope.curScheduleInfo.components = [];
+            localStorage.removeItem("curScheduleComponents");
+
+            refreshSchedules();
+
+        }
+
+        $scope.selectSchedule = function(selectedFullName){
+            $scope.curScheduleInfo.fullName = selectedFullName;
+
+            console.log(selectedFullName + " selected");
+
+            pullCourseComponents().then(function(response){
+                console.log(response);
+                $scope.curScheduleInfo.components = response.data;
+                $scope.curScheduleInfo.scheduleSelected = true;
+
+                cacheCurScheduleInfo();
+            }, function(err){
+                console.warn(err);
+            });
+        };
+
+        $scope.clearSelectedSchedule = function(){
+            $scope.curScheduleInfo.scheduleSelected = false;
+
+            $scope.curScheduleInfo.fullName = undefined;
+            localStorage.removeItem("curScheduleFullName");
+
+            $scope.curScheduleInfo.components = [];
+            localStorage.removeItem("curScheduleComponents");
+
+            refreshSchedules();
         };
 
         /**
@@ -47,7 +155,7 @@ calendarDemoApp.controller('CalendarCtrl',
          *      one for the Tuesday-Thursday time slot and another for the Wednesday
          */
         function createArrOfEventsForCourseComponent(title, segmentedEventArr, uniqueCourseComponentId){
-            if(!title || !segmentedEventArr || !segmentedEventArr.length || !isInt(uniqueCourseComponentId)){
+            if(!title || !segmentedEventArr || !segmentedEventArr.length || !uniqueCourseComponentId){
                 console.warn("one of the variables you passed in is not valid, nothing is being created (yell at Ethan)");
                 alert("error in courseComponent, nothing is being created");
                 return undefined;
@@ -130,17 +238,46 @@ calendarDemoApp.controller('CalendarCtrl',
             this.allDay = false;
         }
 
+
+        function pullCourseComponents(){
+            if(!$scope.curScheduleInfo.fullName){
+                console.warn("no schedule selected")
+            }
+            return $http.get("/schedule/" + $scope.curScheduleInfo.fullName + "/component");
+        }
+
+        function refreshSchedules(){
+            console.info("refresh schedules called");
+
+            $http.get("schedule").then(function(res){
+                if(res && res.data){
+                    $scope.schedules = res.data;
+
+                    console.log("Schedules refreshed");
+
+                    //cache the schedules
+                    localStorage.setItem("cachedSchedules",JSON.stringify($scope.schedules));
+                }
+                else {
+                    console.warn("received incorrect response from localhost:8080/schedule");
+                }
+            }, function(err){
+                console.warn(err);
+            });
+        }
+
         /* event source that contains custom events on the scope */
-        $scope.events = [];
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 309-01", [{startTime: 9 * 60 + 10, endTime: 10 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]}],1));
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 309-02", [{startTime: 10 * 60 + 10, endTime: 11 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]}], 2));
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("PHYS 132-01", [
-            {startTime: 11 * 60 + 10, endTime: 12 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]},
-            {startTime: 15 * 60 + 10, endTime: 18 * 60, days: [Day.WEDNESDAY]}
-        ],3));
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("PHIL 231-06", [{startTime: 18 * 60 + 10, endTime: 20 * 60, days: [Day.MONDAY, Day.WEDNESDAY]}], 4));
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 436-03", [{startTime: 13 * 60 + 40, endTime: 15 * 60, days: [Day.TUESDAY, Day.THURSDAY]}], 5));
-        $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 436-04", [{startTime: 15 * 60 + 10, endTime: 16 * 60 + 30, days: [Day.TUESDAY, Day.THURSDAY]}], 6));
+        // $scope.events = [];
+        //
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 309-01", [{startTime: 9 * 60 + 10, endTime: 10 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]}],1));
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 309-02", [{startTime: 10 * 60 + 10, endTime: 11 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]}], 2));
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("PHYS 132-01", [
+        //     {startTime: 11 * 60 + 10, endTime: 12 * 60, days: [Day.MONDAY, Day.WEDNESDAY, Day.FRIDAY]},
+        //     {startTime: 15 * 60 + 10, endTime: 18 * 60, days: [Day.WEDNESDAY]}
+        // ],3));
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("PHIL 231-06", [{startTime: 18 * 60 + 10, endTime: 20 * 60, days: [Day.MONDAY, Day.WEDNESDAY]}], 4));
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 436-03", [{startTime: 13 * 60 + 40, endTime: 15 * 60, days: [Day.TUESDAY, Day.THURSDAY]}], 5));
+        // $scope.events = $scope.events.concat(createArrOfEventsForCourseComponent("CPE 436-04", [{startTime: 15 * 60 + 10, endTime: 16 * 60 + 30, days: [Day.TUESDAY, Day.THURSDAY]}], 6));
 
         /* add and removes an event source of choice */
         $scope.addRemoveEventSource = function (sources, source) {
@@ -172,7 +309,7 @@ calendarDemoApp.controller('CalendarCtrl',
         $scope.calendarInstanceState = {
             currentView: "month",
             currentCalendar: "myCalendar1"
-        }
+        };
 
         /* Change View */
         $scope.changeView = function (view, calendar) {
@@ -217,13 +354,32 @@ calendarDemoApp.controller('CalendarCtrl',
         $scope.showModal = false;
 
         $scope.openAddCourseSectionModal = function () {
+
+
             ModalService.showModal({
-                templateUrl: "../views/addEvent.partial.html",
+                template: $templateCache.get("addEvent.partial.html"),
                 controller: "ModalController"
             }).then(function(modal) {
 
                 //it's a bootstrap element, use 'modal' to show it
-                console.log(modal.element)
+                if(modal.element && modal.element.modal){
+                    modal.element.modal();
+                    console.log("modal was there")
+                }
+                else {
+
+                    var intevalRef = $interval(function(){
+                        if(modal.element.modal){
+                            console.log("callling modal now");
+                            modal.element.modal();
+                            intevalRef.cancel();
+                        }
+                        else{
+                            console.warn('modal still not ready');
+                        }
+                    }, 200);
+                    console.warn("modal was not there")
+                }
 
                 modal.close.then(function(result) {
                     console.log(result);
@@ -242,7 +398,6 @@ calendarDemoApp.controller('CalendarCtrl',
                     }
                     $scope.renderCalendar($scope.calendarInstanceState.currentCalendar)
                 });
-                console.log("test")
                 //modal.element.modal();
             });
 
@@ -270,7 +425,7 @@ calendarDemoApp.directive("navigationBar", function () {
 });
 
 calendarDemoApp.controller("ModalController", function($scope, close){
-    console.log("modal loaded")
+    console.log("modal loaded");
 
     $scope.newCourseComponent = {
         department: "",

@@ -1,8 +1,12 @@
 package Server.Requests;
 
 import Models.Scheduling.Component;
+import Models.Scheduling.CourseOffering;
+import Models.Scheduling.Schedule;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service to fulfill requests from ComponentController.java
@@ -20,11 +24,13 @@ public class ComponentService {
      * @param compName - The component's unique identifier
      * @return the request component
      */
-    public static Component getComponent(EntityManager entityManager, String scheduleName, String compName) {
-        // TODO Update this once table is ready
-        String query = String.format("SELECT Component e FROM Schedule f WHERE compName = '%s' AND scheduleName = '%s'",
-                compName, scheduleName); /*this query could be (and probably is) all kinds of wrong*/
-        return entityManager.createQuery(query, Component.class).getSingleResult();
+    public static List<Component> getComponents(EntityManager entityManager, String scheduleName) {
+        List<Component> components = new ArrayList<Component>();
+        Schedule sched = ScheduleService.getSingleSchedule(entityManager, scheduleName);
+        for (CourseOffering off : sched.getCourseList()) {
+            components.addAll(off.getComponents());
+        }
+        return components;
     }
 
     public static void postComponent(EntityManager entityManager, Component comp) {

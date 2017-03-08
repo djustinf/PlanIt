@@ -37,7 +37,7 @@ public class Faculty extends User {
     * 46 - [11:00 PM, 11:30 PM]
     * 47 - [11:30 PM, 12:00 AM]*/
     @ElementCollection(fetch=FetchType.EAGER)
-    private List<Integer> preferredTimes;
+    private List<String> preferredTimes;
     private int preferredTotalHours;// workload preference
 
 
@@ -73,15 +73,15 @@ public class Faculty extends User {
      */
     public Faculty(String userName, String password, String email, String firstName, String lastName) {
         super(userName, password, email, firstName, lastName);
-        preferredTimes = new ArrayList<Integer>();
+        preferredTimes = new ArrayList<String>();
         for(int i = 0; i<DAYS_IN_WEEK*INTERVALS_PER_DAY; i++){
             int rem = i%48;
             if (i/48 == 0 || i/48 == 7)//if day is Sunday OR Saturday
-                preferredTimes.add(i,-1); //undpreferred by default
+                preferredTimes.add(i + " " + dayInttoString(i) + " " + -1); //undpreferred by default
             else if ((rem >= 0 && rem <= 13) || (rem >= 44 && rem <= 47))//12AM-7AM OR 10PM-12AM
-                preferredTimes.add(i, -1); //unpreferred by default
+                preferredTimes.add(i + " " + dayInttoString(i) + " " + -1); //unpreferred by default
             else
-            preferredTimes.add(i, 0); //All Other Times Neutral by default
+            preferredTimes.add(i + " " + dayInttoString(i) + " " + 0); //All Other Times Neutral by default
         }
     }
 
@@ -93,7 +93,7 @@ public class Faculty extends User {
         return preferredTotalHours;
     }
 
-    public List<Integer> getPreferredTimes() {
+    public List<String> getPreferredTimes() {
         return preferredTimes;
     }
 
@@ -132,10 +132,21 @@ public class Faculty extends User {
         if (prefLvl >= -1 && prefLvl <= 1
                 && day >= 0 && day < DAYS_IN_WEEK
                 && interval >= 0 && interval <= INTERVALS_PER_DAY) {
-            preferredTimes.set(INTERVALS_PER_DAY*day + interval, prefLvl);
+            preferredTimes.add(interval + " " + dayInttoString(day) + " " + prefLvl);
             return true;
         }
         return false;
+    }
+
+    private String dayInttoString(int day) {
+        if (day == 0) return "sunday";
+        if (day == 1) return "monday";
+        if (day == 2) return "tuesday";
+        if (day == 3) return "wednesday";
+        if (day == 4) return "thursday";
+        if (day == 5) return "friday";
+        if (day == 6) return "saturday";
+        return "Not a day";
     }
 
     /**

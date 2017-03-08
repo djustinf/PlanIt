@@ -1,5 +1,7 @@
 package Server.Requests;
 
+import Models.Scheduling.Course;
+import Models.Scheduling.CourseOffering;
 import Models.Scheduling.Schedule;
 
 import javax.persistence.EntityManager;
@@ -22,5 +24,16 @@ public class ScheduleService {
         entityManager.getTransaction().commit();
     }
 
+    public static Schedule getSingleSchedule(EntityManager entityManager, String name) {
+        String query = String.format("SELECT c FROM Schedule c WHERE fullName = '%s'", name);
+        return entityManager.createQuery(query, Schedule.class).getSingleResult();
+    }
 
+    public static void addCourseOffering(EntityManager entityManager, String fullName, CourseOffering offering) {
+        entityManager.getTransaction().begin();
+        Schedule schedule = getSingleSchedule(entityManager, fullName);
+        schedule.addCourse(offering);
+        offering.setSched(schedule);
+        entityManager.getTransaction().commit();
+    }
 }

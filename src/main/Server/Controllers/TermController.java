@@ -1,5 +1,6 @@
 package Server.Controllers;
 
+import Models.Scheduling.Schedule;
 import Models.Scheduling.Term;
 import Server.Requests.PersistenceFactory;
 import Server.Requests.TermService;
@@ -43,10 +44,10 @@ public class TermController {
         TermService.postTerm(entityManager, term);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public void updateTerm(@RequestBody Term term) {
+    @RequestMapping(value = "/{uniqueName}", method = RequestMethod.PUT)
+    public void addSchedule(@RequestBody Schedule schedule, @PathVariable("uniqueName") String uniqueName) {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
-        TermService.updateTerm(entityManager, term);
+        TermService.addSchedule(entityManager, uniqueName, schedule);
     }
 }

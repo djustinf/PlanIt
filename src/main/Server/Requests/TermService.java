@@ -1,5 +1,6 @@
 package Server.Requests;
 
+import Models.Scheduling.Schedule;
 import Models.Scheduling.Term;
 
 import javax.persistence.EntityManager;
@@ -16,15 +17,22 @@ public class TermService {
         return terms;
     }
 
+    public static Term getSingleTerm(EntityManager entityManager, String name) {
+        String query = String.format("SELECT c FROM Term c WHERE uniqueName = '%s'", name);
+        return entityManager.createQuery(query, Term.class).getSingleResult();
+    }
+
     public static void postTerm(EntityManager entityManager, Term term) {
         entityManager.getTransaction().begin();
         entityManager.persist(term);
         entityManager.getTransaction().commit();
     }
 
-    public static void updateTerm(EntityManager entityManager, Term term) {
+    public static void addSchedule(EntityManager entityManager, String termName, Schedule schedule) {
         entityManager.getTransaction().begin();
-        entityManager.merge(term);
+        Term term = getSingleTerm(entityManager, termName);
+        term.addSched(schedule);
+        schedule.setTerm(term);
         entityManager.getTransaction().commit();
     }
 

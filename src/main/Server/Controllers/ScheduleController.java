@@ -35,6 +35,22 @@ public class ScheduleController {
         return schedules;
     }
 
+    @RequestMapping(value = "/{fullName}", method = RequestMethod.GET)
+    public Schedule getScheduleName(@PathVariable String fullName) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        Schedule schedule = ScheduleService.getSingleSchedule(entityManager, fullName);
+        entityManager.close();
+        return schedule;
+    }
+
+    @RequestMapping(value = "/{fullName}/offering", method = RequestMethod.PUT)
+    public void addCourseOffering(@PathVariable("fullName") String fullName, @RequestBody CourseOffering courseOffering) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        ScheduleService.addCourseOffering(entityManager, fullName, courseOffering);
+    }
+
     /**
      * Creates a new schedule
      *
@@ -48,57 +64,4 @@ public class ScheduleController {
         return schedule;
     }
 
-    /**
-     * Retrieves calender view of this specific schedule
-     *
-     * @param fullname - full name of this term
-     * @return Schedule with all its corresponding objects
-     */
-    @RequestMapping(value = "/{fullname}", method = RequestMethod.GET)
-    public Schedule getScheduleFullname(@PathVariable String fullname) {
-        return new Schedule(new Term("test", 2017), "test");
-    }
-
-    /**
-     * Creates a new component
-     *
-     * @param fullname - term the schedule belongs to
-     * @return the new component
-     */
-    @RequestMapping(value = "/{fullname}", method = RequestMethod.POST)
-    public Component createScheduleFullname(@PathVariable String fullname, @RequestParam Component component) {
-        return component;
-    }
-
-    /**
-     * deletes this schedule, its components, course offerings, and comments
-     *
-     * @param fullname - term this schedule belongs to
-     */
-    @RequestMapping(value = "/{fullname}", method = RequestMethod.DELETE)
-    public void deleteScheduleFullname(@PathVariable String fullname) {
-
-    }
-
-    /**
-     * Retrieves a list of comments
-     *
-     * @param fullname - The term the schedule belongs to
-     * @return a list of comments
-     */
-    @RequestMapping(value = "/{fullname}/comments", method = RequestMethod.GET)
-    public List<Comment> getScheduleTermComments(@PathVariable String fullname, @RequestParam String query) {
-        return new ArrayList<>();
-    }
-
-    /**
-     * Add a new comment
-     *
-     * @param fullname - The term the schedule belongs to
-     * @return the new comment
-     */
-    @RequestMapping(value = "/{fullname}/comments", method = RequestMethod.POST)
-    public Comment createScheduleTermComments(@PathVariable String fullname, @RequestParam Comment comment) {
-        return comment;
-    }
 }
