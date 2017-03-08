@@ -49,8 +49,8 @@ public class Component {
         roomOffering = room;
         this.faculty = faculty;
         this.offering = offering;
-        this.name = offering.getName() + "-" + Integer.toString(section);
         this.sectionType = sectionType;
+        this.name = offering.getName() + "-" + sectionType + Integer.toString(section);
         this.workUnits = workUnits;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -64,13 +64,20 @@ public class Component {
         this.startTime = startTime;
         this.endTime = endTime;
         days = new ArrayList<Integer>();
-        if(sun) days.add(0, 1);
-        if(mon) days.add(1, 1);
-        if(tues) days.add(2, 1);
-        if(wed) days.add(3, 1);
-        if(thurs) days.add(4, 1);
-        if(fri) days.add(5, 1);
-        if(sat) days.add(6, 1);
+        if(sun) days.add(1);
+        else    days.add(0);
+        if(mon) days.add(1);
+        else    days.add(0);
+        if(tues) days.add(1);
+        else    days.add(0);
+        if(wed) days.add(1);
+        else    days.add(0);
+        if(thurs) days.add(1);
+        else    days.add(0);
+        if(fri) days.add(1);
+        else    days.add(0);
+        if(sat) days.add(1);
+        else    days.add(0);
     }
 
     public void setID(String ID) {
@@ -110,13 +117,20 @@ public class Component {
     }
 
     public void setDays(boolean sun, boolean mon, boolean tues, boolean wed, boolean thurs, boolean fri, boolean sat){
-        if(sun) days.add(0, 1);
-        if(mon) days.add(1, 1);
-        if(tues) days.add(2, 1);
-        if(wed) days.add(3, 1);
-        if(thurs) days.add(4, 1);
-        if(fri) days.add(5, 1);
-        if(sat) days.add(6, 1);
+        if(sun) days.add(1);
+        else    days.add(0);
+        if(mon) days.add(1);
+        else    days.add(0);
+        if(tues) days.add(1);
+        else    days.add(0);
+        if(wed) days.add(1);
+        else    days.add(0);
+        if(thurs) days.add(1);
+        else    days.add(0);
+        if(fri) days.add(1);
+        else    days.add(0);
+        if(sat) days.add(1);
+        else    days.add(0);
     }
 
     public List<Integer> getDays(){
