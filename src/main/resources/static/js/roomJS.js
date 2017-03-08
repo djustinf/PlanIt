@@ -1,5 +1,15 @@
 var myAppModule = angular.module('roomApp', ["ngTable"]);
 
+myAppModule.directive("navigationBar", function () {
+    return {
+        restrict: "E",
+        templateUrl: "../views/navbar.partial.html",
+        scope: {},
+        controller: ['$scope', function navbarCtrl(scope) {
+        }]
+    }
+});
+
 myAppModule.controller('RoomController', function($scope, $http, $filter, NgTableParams) {
     var self = this;
     $scope.enableFiltering = true;
@@ -19,13 +29,13 @@ myAppModule.controller('RoomController', function($scope, $http, $filter, NgTabl
         var tp = new NgTableParams({}, {dataset: $scope.data});
     };
 
+
     $scope.refreshRooms();
 
     $scope.addRoom = function() {
         var obj = {
             name : $scope.name,
             resources : [$scope.resources],
-            offerings : [],
             capacity: $scope.capacity,
             roomType: $scope.roomType
         };
@@ -43,7 +53,19 @@ myAppModule.controller('RoomController', function($scope, $http, $filter, NgTabl
         });
     };
 
-    $scope.remove=function($index){
-        $scope.users.splice($index,1);
+    $scope.refreshRooms();
+
+    $scope.remove=function(roomID){
+        $http({
+            method: 'DELETE',
+            url: '/room' + '?id=' + roomID,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            $scope.message = response.data;
+            $scope.refreshRooms();
+        }, function errorCallback(response) {
+            console.log(response);
+        });
     }
 });
