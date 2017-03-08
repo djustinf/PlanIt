@@ -65,6 +65,8 @@ public class RoomOffering {
 
     protected RoomOffering() {}
 
+    //FIXME broke when I had to change days to strings
+    /*
     public void addComponent(Component c){
         components.add(c);
         int listIndex;
@@ -79,4 +81,5 @@ public class RoomOffering {
         }
 
     }
+    */
 }

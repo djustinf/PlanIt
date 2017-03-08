@@ -93,11 +93,11 @@ public class ScheduleTest {
     @Test
     public void persistSomething() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Faculty faculty = new Faculty("the_guy", "hi", "doesnot@exist", "John", "Doe");
-        Term term = new Term("Winter", 2030);
+        Faculty faculty = new Faculty("some_random_guy", "hi", "doesnot@exist", "John", "Doe");
+        Term term = new Term("Winter", 2050);
 
         Schedule one =  new Schedule(term, "First_Sched1");
-        RoomOffering room = new RoomOffering(one, "An Active Volcano");
+        RoomOffering room = new RoomOffering(one, "A (very) Active Volcano");
         term.addSched(one);
         one.setTerm(term);
         CourseOffering offering = new CourseOffering("CPE453", one);
