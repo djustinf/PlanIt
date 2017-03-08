@@ -58,9 +58,9 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <tabset>
-                            <tab select="renderCalendar('myCalendar1');">
+                            <tab ng-repeat="schedule in schedules" select="renderCalendar('myCalendar1');">
                                 <tab-heading>
-                                    Calendar One
+                                    {{schedule.fullName || "Calendar"}}
                                 </tab-heading>
                                 <!--<div class="alert-success calAlert"-->
                                      <!--ng-show="alertMessage != undefined && alertMessage != ''">-->

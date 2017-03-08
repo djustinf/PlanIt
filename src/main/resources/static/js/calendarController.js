@@ -43,28 +43,30 @@ calendarDemoApp.controller('CalendarCtrl',
             $scope.curScheduleInfo.components.forEach(function(component){
                 var daysArr = [];
                 component.days.forEach(function(day){
-                    switch(day.toLowerCase()){
-                        case "monday":
-                            if(daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
-                            break;
-                        case "tuesday":
-                            if(daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
-                            break;
-                        case "wednesday":
-                            if(daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
-                            break;
-                        case "thursday":
-                            if(daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
-                            break;
-                        case "friday":
-                            if(daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
-                            break;
-                        case "saturday":
-                            if(daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
-                            break;
-                        case "sunday":
-                            if(daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
-                            break;
+                    if(day && day.toLowerCase){
+                        switch(day.toLowerCase()){
+                            case "monday":
+                                if(daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
+                                break;
+                            case "tuesday":
+                                if(daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
+                                break;
+                            case "wednesday":
+                                if(daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
+                                break;
+                            case "thursday":
+                                if(daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
+                                break;
+                            case "friday":
+                                if(daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
+                                break;
+                            case "saturday":
+                                if(daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
+                                break;
+                            case "sunday":
+                                if(daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
+                                break;
+                        }
                     }
                 });
 
@@ -109,6 +111,18 @@ calendarDemoApp.controller('CalendarCtrl',
             }, function(err){
                 console.warn(err);
             });
+        };
+
+        $scope.clearSelectedSchedule = function(){
+            $scope.curScheduleInfo.scheduleSelected = false;
+
+            $scope.curScheduleInfo.fullName = undefined;
+            localStorage.removeItem("curScheduleFullName");
+
+            $scope.curScheduleInfo.components = [];
+            localStorage.removeItem("curScheduleComponents");
+
+            refreshSchedules();
         };
 
         /**
