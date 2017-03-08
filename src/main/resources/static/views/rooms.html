@@ -26,10 +26,17 @@
          <script src="../js/roomJS.js"></script>
          <link rel="stylesheet"; href="../css/room.css">
 
+    <style>
+
+        body {
+            background-image: none;
+        }
+    </style>
+
 </head>
 
  <body ng-app = "roomApp">
- <navigation-bar style="margin-bottom: 10px"></navigation-bar>
+ <!--navigation-bar style="margin-bottom: 10px"></navigation-bar-->
  <div ng-controller = "RoomController" class="container">
              <center>
                  <table class="table table-striped table-hover" ng-table="vm.tableParams" class="table" show-filter="true">
@@ -38,14 +45,12 @@
                              {{user.name}}</td>
                          <td title="'Resources'" filter="{ resources: 'number'}" sortable="'resources'">
                              {{user.resources}}</td>
-                         <td title="'Offerings'" filter="{ offerings: 'number'}" sortable="'offerings'">
-                             {{user.offerings}}</td>
                          <td title="'Capacity'" filter="{ capacity: 'number'}" sortable="'capacity'">
                              {{user.capacity}}</td>
                          <td title="'Room Type'" filter="{ roomType: 'number'}" sortable="'roomType'">
                              {{user.roomType}}</td>
                          <td>
-                             <input type="button" value="Remove" class="btn btn-primary" ng-click="remove($index)"
+                             <input type="button" value="Remove" class="btn btn-primary" ng-click="remove(user.userID)">
                          </td>
                      </tr>
                  </table>
@@ -83,11 +88,6 @@
                                  <label>Resources</label>
                                  <input class="form-control"
                                         ng-model="resources" placeholder="Resources"/>
-                             </div>
-                             <div class="form-group">
-                                 <label>Offerings</label>
-                                 <input class="form-control"
-                                        ng-model="offerings" placeholder="Offerings"/>
                              </div>
                              <div class="form-group">
                                  <label>Capacity</label>

@@ -2,9 +2,16 @@ var myAppModule = angular.module('userApp', ["ngTable"]);
 
 myAppModule.controller('UserController', function($scope, $http, $filter, NgTableParams) {
     var self = this;
-    $scope.users = [];
     $scope.enableFiltering = true;
-
+    $scope.email = {};
+    $scope.firstName = {};
+    $scope.lastName = {};
+    $scope.fullName = {};
+    $scope.password = {};
+    $scope.userName = {};
+    $scope.coursePreferences = {};
+    $scope.numHours = {};
+    $scope.preferredTimes = {};
 
     $scope.refreshUsers = function () {
         $http({
@@ -14,6 +21,7 @@ myAppModule.controller('UserController', function($scope, $http, $filter, NgTabl
             console.log(response.data);
             $scope.data = response.data;
         }, function errorCallback(response) {
+            console.log(response);
             // called asynchronously if an error occurs
             // or server returns response with an error status.
         });
@@ -24,15 +32,12 @@ myAppModule.controller('UserController', function($scope, $http, $filter, NgTabl
 
     $scope.addUser = function() {
         var obj = {
-            userName: $scope.userName,
             email : $scope.email,
-            password: null,
             firstName: $scope.firstName,
-            lastName: $scope.lastName,
             fullName: $scope.firstName + $scope.lastName,
-            numHours: $scope.numHours,
-            coursePreferences : [],
-            preferredHours: []
+            lastName: $scope.lastName,
+            password: null,
+            userName: $scope.userName,
         };
         $http({
             method: 'POST',
@@ -47,5 +52,21 @@ myAppModule.controller('UserController', function($scope, $http, $filter, NgTabl
             console.log(response);
         });
     };
+
+    $scope.refreshUsers();
+
+    $scope.remove=function(userID){
+        $http({
+            method: 'DELETE',
+            url: '/user' + '?id=' + userID,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            $scope.message = response.data;
+            $scope.refreshUsers();
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
 
 });
