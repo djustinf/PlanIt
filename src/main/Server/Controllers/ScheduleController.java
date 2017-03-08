@@ -21,9 +21,6 @@ import java.util.List;
 @RequestMapping("/schedule")
 public class ScheduleController {
 
-    // Used to satisfy compiler
-    private Schedule s = new Schedule(new Term("spring", 2017), "test");
-
     /**
      * Query point for searching all schedules
      *
@@ -45,6 +42,9 @@ public class ScheduleController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public Schedule createSchedule(@RequestParam Schedule schedule) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        ScheduleService.postSchedule(entityManager, schedule);
         return schedule;
     }
 

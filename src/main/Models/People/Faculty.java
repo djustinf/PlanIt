@@ -89,6 +89,14 @@ public class Faculty extends User {
         return coursePreferences;
     }
 
+    public int getPreferredTotalHours() {
+        return preferredTotalHours;
+    }
+
+    public List<Integer> getPreferredTimes() {
+        return preferredTimes;
+    }
+
     /**
      * This method takes a unique course number and a preference level.
      * Since this tool is used at the department level, numbers are sufficient to identify each course uniquely.

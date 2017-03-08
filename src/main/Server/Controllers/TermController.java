@@ -31,6 +31,9 @@ public class TermController {
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteTerm(@RequestParam String uniqueName) {
         // delete term from system
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        TermService.deleteTerm(entityManager, uniqueName);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -38,5 +41,12 @@ public class TermController {
         EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
         EntityManager entityManager = singleton.createEntityManager();
         TermService.postTerm(entityManager, term);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public void updateTerm(@RequestBody Term term) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        TermService.updateTerm(entityManager, term);
     }
 }
