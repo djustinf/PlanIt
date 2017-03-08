@@ -93,6 +93,10 @@ public class Component {
         return workUnits;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getStartTime() {
         return startTime;
     }
