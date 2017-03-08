@@ -22,5 +22,8 @@ public class ScheduleService {
         entityManager.getTransaction().commit();
     }
 
-
+    public static Schedule getSingleSchedule(EntityManager entityManager, String name) {
+        String query = String.format("SELECT c FROM Schedule c WHERE fullName = '%s'", name);
+        return entityManager.createQuery(query, Schedule.class).getSingleResult();
+    }
 }

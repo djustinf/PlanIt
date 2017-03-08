@@ -62,4 +62,8 @@ public class CourseOffering {
     public void removeComponent(Component component) {
         components.remove(component);
     }
+
+    public List<Component> getComponents() {
+        return components;
+    }
 }
