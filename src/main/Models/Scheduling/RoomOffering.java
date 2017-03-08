@@ -65,7 +65,7 @@ public class RoomOffering {
 
     protected RoomOffering() {}
 
-    //FIXME broke when I had to change days to strings
+    //FIXME broke when I had to change days to strings due to reinstantiation list ordering issues
     /*
     public void addComponent(Component c){
         components.add(c);

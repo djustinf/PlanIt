@@ -47,6 +47,10 @@ public class CourseOffering {
         return name;
     }
 
+    public void setSched(Schedule sched) {
+        this.sched = sched;
+    }
+
     public void setID(String ID) {
         this.id = ID;
     }

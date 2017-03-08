@@ -29,8 +29,10 @@ public class ComponentController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public void updateScheduleComponent(@PathVariable String fullname, @PathVariable String name, @RequestParam Component component) {
-        // update fields
+    public void updateScheduleComponent(@PathVariable("fullName") String fullName, @RequestBody Component component) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        //ComponentService.putComponent(entityManager, component, fullName);
     }
 
     @RequestMapping(method = RequestMethod.DELETE)

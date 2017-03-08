@@ -44,6 +44,13 @@ public class ScheduleController {
         return schedule;
     }
 
+    @RequestMapping(value = "/{fullName}/offering", method = RequestMethod.PUT)
+    public void addCourseOffering(@PathVariable("fullName") String fullName, @RequestBody CourseOffering courseOffering) {
+        EntityManagerFactory singleton = PersistenceFactory.getInstance().getEntityManagerFactory();
+        EntityManager entityManager = singleton.createEntityManager();
+        ScheduleService.addCourseOffering(entityManager, fullName, courseOffering);
+    }
+
     /**
      * Creates a new schedule
      *
