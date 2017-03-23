@@ -22,6 +22,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
     <script src="../bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
+    <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/angular-toastr/dist/angular-toastr.css" />
 
     <script src="../bower_components/moment/moment.js"></script>
     <script src="../bower_components/fullcalendar/dist/fullcalendar.js"></script>
@@ -29,28 +32,12 @@
     <script src="../js/calendar.js"></script>
     <script src="../js/calendarController.js"></script>
 
-    <!--script type="text/ng-template" id="/addEvent" src="../views/addEvent.partial.html"></script-->
-
-    <!--<style>-->
-        <!--div.navbar-collapse.collapse {-->
-            <!--display: block;-->
-            <!--overflow: hidden;-->
-            <!--max-height: 0px;-->
-            <!-- -webkit-transition: max-height .3s ease;-->
-            <!-- -moz-transition: max-height .3s ease;-->
-            <!-- -o-transition: max-height .3s ease;-->
-            <!--transition: max-height .3s ease;-->
-        <!--}-->
-        <!--div.navbar-collapse.collapse.in {-->
-            <!--max-height: 2000px;-->
-        <!--}-->
-    <!--</style>-->
 </head>
 <body ng-controller="CalendarCtrl">
 <navigation-bar style="margin-bottom: 10px"></navigation-bar>
 <div role="main">
     <div class="container">
-        <div id="directives-calendar" ng-if="curScheduleInfo.scheduleSelected">
+        <div id="directives-calendar">
             <div>
                 <h1 style="margin-top: 50px; text-align: center; color: rgb(39,94,104); text-shadow: 2px 0 0 rgb(29,176,218), -2px 0 0 rgb(29,176,218), 0 2px 0 rgb(29,176,218), 0 -2px 0 rgb(29,176,218), 1px 1px rgb(29,176,218), -1px -1px 0 rgb(29,176,218), 1px -1px 0 rgb(29,176,218), -1px 1px 0 rgb(29,176,218);">PlanIt</h1>
             </div>
@@ -58,35 +45,17 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <tabset>
-                            <tab ng-repeat="schedule in schedules" select="renderCalendar('myCalendar1');">
+                            <tab ng-repeat="schedule in schedules" select="renderCalendar('myCalendar' + ($index+1));">
                                 <tab-heading>
-                                    {{schedule.fullName || "Calendar"}}
+                                    {{schedule.fullName + ($index+1) || "Calendar"}}
                                 </tab-heading>
-                                <!--<div class="alert-success calAlert"-->
-                                     <!--ng-show="alertMessage != undefined && alertMessage != ''">-->
-                                    <!--<h4>{{alertMessage}}</h4>-->
-                                <!--</div>-->
-                                <div class="calendar" ng-model="eventSources" calendar="myCalendar1"
+                                <div class="calendar" ng-model="eventSources" calendar="myCalendar{{$index+1}}"
                                      ui-calendar="uiConfig.calendar"></div>
                             </tab>
                         </tabset>
                     </div>
                 </div>
             </div>
-        </div>
-        <div ng-if="!curScheduleInfo.scheduleSelected" style="width:60%; padding: 15px; background-color: darkgrey; -webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px; margin-left: 20%; margin-top: 10%;">
-            <p class="well well-sm row" style="padding-top: 5px; padding-bottom: 5px; margin-top: 4px; margin-bottom: 4px">
-                <b class="col-sm-5">Full Name</b>
-                <b class="col-sm-4"># of Components</b>
-                <b class="col-sm-3">Choose</b>
-            </p>
-            <p class="well well-sm" style="padding-top: 5px; padding-bottom: 5px; margin-top: 4px; margin-bottom: 4px" ng-repeat="sched in schedules">
-                <c class="col-sm-5">{{sched.fullName}}</c>
-                <c class="col-sm-4">{{sched.components.length}}</c>
-                <c class="col-sm-3">
-                    <button class="btn btn-primary" ng-click="selectSchedule(sched.fullName)">Select</button>
-                </c>
-            </p>
         </div>
     </div>
 </div>

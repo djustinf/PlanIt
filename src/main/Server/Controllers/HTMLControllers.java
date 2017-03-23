@@ -51,6 +51,25 @@ public class HTMLControllers {
         return "views/addEvent.partial.html";
     }
 
+    @RequestMapping({"/addRoom"})
+    public String addRoomHTML() {
+        return "views/addRoom.partial.html";
+    }
+
+    @RequestMapping({"/addUser"})
+    public String addUserHTML() {
+        return "views/addUser.partial.html";
+    }
+
+    @RequestMapping({"/viewRooms"})
+    public String viewRoomsHTML(){
+        return "views/viewRooms.partial.html";
+    }
+
+    @RequestMapping({"/viewUsers"})
+    public String viewUsersHTML(){
+        return "views/viewUsers.partial.html";
+    }
     /*
     This can be represented as an angular pop-up box
 

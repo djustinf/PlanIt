@@ -4,6 +4,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
     <script src="../bower_components/angular-modal-service/dst/angular-modal-service.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 
@@ -35,6 +40,25 @@
             margin-top: 0px;
         }
     </style>
+    <script type="text/ng-template" id="modal.html">
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Yes or No?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>It's your call...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" ng-click="close('No')" class="btn btn-default" data-dismiss="modal">No</button>
+                        <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
 </head>
 
 <body ng-controller="MainCtrl">
@@ -45,11 +69,13 @@
             <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                aria-expanded="false" style="color: rgb(29,177,219)"><b>Actions</b><span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Add Faculty Preferences</a></li>
-                <li><a href="/users.html">Manage Faculty</a></li>
-                <!-- <li><a href="#" ng-click="$parent.openAddCourseSectionModal()">Add Course Section</a></li> -->
-                <li><a href="/rooms.html" >Manage Rooms</a></li>
+                <li><a href="#" ng-click="showAModal()">Create New Course Section</a></li>
+                <li><a href="#" ng-click="addUserModal()">Create New User</a></li>
+                <li><a href="#" ng-click="showRoomsModal()">Create New Room</a></li>
                 <li role="separator" class="divider"></li>
+                <li><a href="#" ng-click="viewUsersModal()">View Users</a></li>
+                <li><a href="#" ng-click="viewRoomsModal()">View Rooms</a></li>
+
             </ul>
         </li>
         <li class="dropdown">

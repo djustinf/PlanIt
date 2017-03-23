@@ -1,4 +1,4 @@
-var calendarDemoApp = angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'angularModalService']);
+var calendarDemoApp = angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'angularModalService', 'toastr', "ngTable"]);
 
 calendarDemoApp.controller('CalendarCtrl',
     function ($scope, $compile, $timeout, uiCalendarConfig, ModalService, $interval, $templateCache, $http) {
@@ -17,12 +17,6 @@ calendarDemoApp.controller('CalendarCtrl',
             SATURDAY: 6
         };
 
-
-        function cacheCurScheduleInfo(){
-            localStorage.setItem("curScheduleFullName", JSON.stringify($scope.curScheduleInfo.fullName));
-            localStorage.setItem("curScheduleComponents", JSON.stringify($scope.curScheduleInfo.components));
-        }
-
         $scope.curScheduleInfo = {
             fullName: localStorage.getItem("curScheduleFullName"),
             components: localStorage.getItem("curScheduleComponents"),
@@ -32,86 +26,113 @@ calendarDemoApp.controller('CalendarCtrl',
         $scope.schedules = localStorage.getItem("cachedSchedules");
         $scope.schedules = $scope.schedules ? JSON.parse($scope.schedules) : [];
 
-        $scope.curScheduleInfo.fullName = $scope.curScheduleInfo.fullName ? JSON.parse($scope.curScheduleInfo.fullName) : undefined;
-        $scope.curScheduleInfo.components = $scope.curScheduleInfo.components ? JSON.parse($scope.curScheduleInfo.components) : [];
+        $scope.curScheduleInfo.fullName = "";
+        $scope.curScheduleInfo.components = [];
 
-        if($scope.curScheduleInfo.fullName && $scope.curScheduleInfo.components){
-            $scope.curScheduleInfo.scheduleSelected = true;
+        $scope.events = [];
 
-            console.log($scope.curScheduleInfo);
-            $scope.events = [];
-            $scope.curScheduleInfo.components.forEach(function(component){
-                var daysArr = [];
-                component.days.forEach(function(day){
-                    if(day && day.toLowerCase){
-                        switch(day.toLowerCase()){
-                            case "monday":
-                                if(daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
-                                break;
-                            case "tuesday":
-                                if(daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
-                                break;
-                            case "wednesday":
-                                if(daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
-                                break;
-                            case "thursday":
-                                if(daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
-                                break;
-                            case "friday":
-                                if(daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
-                                break;
-                            case "saturday":
-                                if(daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
-                                break;
-                            case "sunday":
-                                if(daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
-                                break;
-                        }
+        $scope.curScheduleInfo.components.forEach(function(component){
+            var daysArr = [];
+            component.days.forEach(function(day){
+                if(day && day.toLowerCase){
+                    switch(day.toLowerCase()){
+                        case "monday":
+                            if(daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
+                            break;
+                        case "tuesday":
+                            if(daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
+                            break;
+                        case "wednesday":
+                            if(daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
+                            break;
+                        case "thursday":
+                            if(daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
+                            break;
+                        case "friday":
+                            if(daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
+                            break;
+                        case "saturday":
+                            if(daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
+                            break;
+                        case "sunday":
+                            if(daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
+                            break;
                     }
-                });
-
-                $scope.events = $scope.events.concat(
-                    createArrOfEventsForCourseComponent(component.name.substring(
-                        $scope.curScheduleInfo.fullName.length + 1),
-                        [
-                            {
-                                startTime: (component.startTime + 12) * 60,
-                                endTime: (component.endTime + 12) * 60,
-                                days: daysArr
-                            }
-                        ],
-                        component.id)
-                );
+                }
             });
-        }
-        else {
-            $scope.curScheduleInfo.scheduleSelected = false;
 
-            $scope.curScheduleInfo.fullName = undefined;
-            localStorage.removeItem("curScheduleFullName");
+            $scope.eventSources[0] = $scope.eventSources[0].concat(
+                createArrOfEventsForCourseComponent(component.name.substring(
+                    $scope.curScheduleInfo.fullName.length + 1),
+                    [
+                        {
+                            startTime: (component.startTime + 12) * 60,
+                            endTime: (component.endTime + 12) * 60,
+                            days: daysArr
+                        }
+                    ],
+                    component.id)
+            );
+        });
 
-            $scope.curScheduleInfo.components = [];
-            localStorage.removeItem("curScheduleComponents");
-
-            refreshSchedules();
-
-        }
-
-        $scope.selectSchedule = function(selectedFullName){
+        $scope.selectSchedule = function(selectedFullName) {
             $scope.curScheduleInfo.fullName = selectedFullName;
 
             console.log(selectedFullName + " selected");
 
-            pullCourseComponents().then(function(response){
+            pullCourseComponents().then(function (response) {
                 console.log(response);
                 $scope.curScheduleInfo.components = response.data;
-                $scope.curScheduleInfo.scheduleSelected = true;
+                $scope.eventSources[0].length = 0;
 
-                cacheCurScheduleInfo();
-            }, function(err){
-                console.warn(err);
+                $scope.curScheduleInfo.components.forEach(function (component) {
+                    var daysArr = [];
+                    component.days.forEach(function (day) {
+                        if (day && day.toLowerCase) {
+                            switch (day.toLowerCase()) {
+                                case "monday":
+                                    if (daysArr.indexOf(Day.MONDAY) == -1) daysArr.push(Day.MONDAY);
+                                    break;
+                                case "tuesday":
+                                    if (daysArr.indexOf(Day.TUESDAY) == -1) daysArr.push(Day.TUESDAY);
+                                    break;
+                                case "wednesday":
+                                    if (daysArr.indexOf(Day.WEDNESDAY) == -1) daysArr.push(Day.WEDNESDAY);
+                                    break;
+                                case "thursday":
+                                    if (daysArr.indexOf(Day.THURSDAY) == -1) daysArr.push(Day.THURSDAY);
+                                    break;
+                                case "friday":
+                                    if (daysArr.indexOf(Day.FRIDAY) == -1) daysArr.push(Day.FRIDAY);
+                                    break;
+                                case "saturday":
+                                    if (daysArr.indexOf(Day.SATURDAY) == -1) daysArr.push(Day.SATURDAY);
+                                    break;
+                                case "sunday":
+                                    if (daysArr.indexOf(Day.SUNDAY) == -1) daysArr.push(Day.SUNDAY);
+                                    break;
+                            }
+                        }
+                    });
+                    $scope.eventSources[0] = $scope.eventSources[0].concat(
+                        createArrOfEventsForCourseComponent(component.name.substring(
+                                $scope.curScheduleInfo.fullName.length + 1),
+                            [
+                                {
+                                    startTime: (component.startTime + 12) * 60,
+                                    endTime: (component.endTime + 12) * 60,
+                                    days: daysArr
+                                }
+                            ],
+                            component.id)
+                    );
+                }, function (err) {
+                    console.warn(err);
+                });
             });
-        };
+        }
+
+        $scope.selectSchedule("Winter2018-First_Sched1");
 
         $scope.clearSelectedSchedule = function(){
             $scope.curScheduleInfo.scheduleSelected = false;
@@ -229,9 +250,6 @@ calendarDemoApp.controller('CalendarCtrl',
             this.start = "" + startTimeHour + ":" + startTimeMinute;
             this.end = "" + endTimeHour + ":" + endTimeMinute;
 
-            console.log(this.start);
-            console.log(this.end);
-
             this.dow = days;
             this.id = id;
 
@@ -243,13 +261,14 @@ calendarDemoApp.controller('CalendarCtrl',
             if(!$scope.curScheduleInfo.fullName){
                 console.warn("no schedule selected")
             }
+
             return $http.get("/schedule/" + $scope.curScheduleInfo.fullName + "/component");
         }
 
         function refreshSchedules(){
             console.info("refresh schedules called");
 
-            $http.get("schedule").then(function(res){
+            $http.get("/schedule").then(function(res){
                 if(res && res.data){
                     $scope.schedules = res.data;
 
@@ -292,18 +311,10 @@ calendarDemoApp.controller('CalendarCtrl',
                 sources.push(source);
             }
         };
-        /* add custom event*/
-        $scope.addEvent = function () {
-            $scope.events.push({
-                title: 'Open Sesame',
-                start: new Date(y, m, 28),
-                end: new Date(y, m, 29),
-                className: ['openSesame']
-            });
-        };
+
         /* remove event */
         $scope.remove = function (index) {
-            $scope.events.splice(index, 1);
+            $scope.eventSources[0].splice(index, 1);
         };
 
         $scope.calendarInstanceState = {
@@ -355,12 +366,11 @@ calendarDemoApp.controller('CalendarCtrl',
 
         $scope.openAddCourseSectionModal = function () {
 
-
             ModalService.showModal({
-                template: $templateCache.get("addEvent.partial.html"),
+                template: "addEvent.partial.html",
                 controller: "ModalController"
             }).then(function(modal) {
-
+                alert("second!")
                 //it's a bootstrap element, use 'modal' to show it
                 if(modal.element && modal.element.modal){
                     modal.element.modal();
@@ -393,7 +403,7 @@ calendarDemoApp.controller('CalendarCtrl',
                     if(result.days.saturday) days.push(Day.SATURDAY);
                     var newCompArr = createArrOfEventsForCourseComponent(result.department + " " + result.courseNumber + "-" + result.courseSection, [{startTime: result.startTime, endTime: result.endTime, days: days}],10);
                     if(newCompArr) {
-                        $scope.events = $scope.events.concat(newCompArr);
+                        $scope.eventSources[0] = $scope.eventSources[0].concat(newCompArr);
                         console.log(newCompArr)
                     }
                     $scope.renderCalendar($scope.calendarInstanceState.currentCalendar)
@@ -410,6 +420,7 @@ calendarDemoApp.controller('CalendarCtrl',
         /* event sources array*/
         $scope.eventSources = [$scope.events];
         $scope.eventSources2 = [$scope.events];
+
     });
 
 
@@ -418,10 +429,93 @@ calendarDemoApp.directive("navigationBar", function () {
         restrict: "E",
         templateUrl: "../views/navbar.partial.html",
         scope: {},
-        controller: ['$scope', function navbarCtrl(scope) {
+        controller: ['$scope', 'ModalService', function navbarCtrl(scope, ModalService) {
             console.log(scope.$parent.calendarInstanceState);
+
+            scope.showAModal = function() {
+                ModalService.showModal({
+                    templateUrl: "/addEvent",
+                    controller: "ModalController"
+                }).then(function(modal) {
+                    console.log('test')
+                    // The modal object has the element built, if this is a bootstrap modal
+                    // you can call 'modal' to show it, if it's a custom modal just show or hide
+                    // it as you need to.
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.message = result ? "You said Yes" : "You said No";
+                    });
+                });
+
+            };
+
+            scope.showRoomsModal = function(){
+                ModalService.showModal({
+                    templateUrl: "/addRoom",
+                    controller: "AddRoomController"
+                }).then(function(modal) {
+                    console.log('test')
+                    // The modal object has the element built, if this is a bootstrap modal
+                    // you can call 'modal' to show it, if it's a custom modal just show or hide
+                    // it as you need to.
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.message = result ? "You said Yes" : "You said No";
+                    });
+                });
+
+            };
+
+            scope.addUserModal = function() {
+                ModalService.showModal({
+                    templateUrl: "/addUser",
+                    controller: "AddUserController"
+                }).then(function(modal) {
+                    console.log('test')
+                    // The modal object has the element built, if this is a bootstrap modal
+                    // you can call 'modal' to show it, if it's a custom modal just show or hide
+                    // it as you need to.
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.message = result ? "You said Yes" : "You said No";
+                    });
+                });
+            }
+
+            scope.viewRoomsModal = function() {
+                ModalService.showModal({
+                    templateUrl: "/viewRooms",
+                    controller: "ViewRoomsController"
+                }).then(function(modal) {
+                    console.log('test')
+                    // The modal object has the element built, if this is a bootstrap modal
+                    // you can call 'modal' to show it, if it's a custom modal just show or hide
+                    // it as you need to.
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.message = result ? "You said Yes" : "You said No";
+                    });
+                });
+            }
+
+            scope.viewUsersModal = function() {
+                ModalService.showModal({
+                    templateUrl: "/viewUsers",
+                    controller: "ViewUsersController"
+                }).then(function(modal) {
+                    console.log('test')
+                    // The modal object has the element built, if this is a bootstrap modal
+                    // you can call 'modal' to show it, if it's a custom modal just show or hide
+                    // it as you need to.
+                    modal.element.modal();
+                    modal.close.then(function(result) {
+                        $scope.message = result ? "You said Yes" : "You said No";
+                    });
+                });
+            }
         }]
     }
+
 });
 
 calendarDemoApp.controller("ModalController", function($scope, close){
@@ -454,9 +548,200 @@ calendarDemoApp.controller("ModalController", function($scope, close){
         return bool1 && bool2;
     };
 
+    $scope.createNewComponent = function(){
+
+        var obj = {
+
+        };
+        $http({
+            method: 'POST',
+            url: '/courseOffering/' + department,
+            data: obj,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            console.log(response);
+            toastr.success(response.data.userName, "User successfully created!");
+        }, function errorCallback(err) {
+            toastr.error(err.msg, "Error creating user");
+        });
+    }
+
     $scope.closeModal = function(msg){
         console.log("modal is being closed");
         close(msg, 500);
+    }
+
+});
+
+calendarDemoApp.controller("AddRoomController", function($scope, close, $http){
+    console.log("modal loaded");
+
+    $scope.newRoom = {
+        name: "",
+        resources: "",
+        capacity: "",
+        roomType: ""
+    };
+
+    $scope.newRoomReady = function(){
+        return $scope.newRoom.name && $scope.newRoom.resources && ($scope.newRoom.capacity || $scope.newRoom.capacity === 0) && $scope.newRoom.roomType
+    };
+
+    $scope.createNewRoom = function(){
+        var obj = {
+            name : $scope.name,
+            resources : [$scope.resources],
+            capacity: $scope.capacity,
+            roomType: $scope.roomType
+        };
+        $http({
+            method: 'POST',
+            url: '/room',
+            data: obj,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            console.log(response);
+        }, function errorCallback(err) {
+            console.log(err);
+        });
+    };
+
+    $scope.closeModal = function(msg){
+        console.log("modal is being closed");
+        close(msg, 500);
+    }
+
+});
+
+calendarDemoApp.controller("AddUserController", function($scope, close, $http, toastr){
+    console.log("modal loaded");
+
+    $scope.newUser = {
+        email: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        username: "",
+        confirmPass: ""
+    };
+
+    $scope.newUserReady = function(){
+        return $scope.newUser.email && $scope.newUser.firstName && $scope.newUser.lastName && $scope.newUser.password && $scope.newUser.username && ($scope.newUser.password == $scope.newUser.confirmPass)
+    };
+
+    $scope.addUser = function() {
+        var obj = {
+            email : $scope.newUser.email,
+            firstName: $scope.newUser.firstName,
+            fullName: $scope.newUser.firstName + $scope.lastName,
+            lastName: $scope.newUser.lastName,
+            password: $scope.newUser.password,
+            userName: $scope.newUser.username
+        };
+        $http({
+            method: 'POST',
+            url: '/user',
+            data: obj,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            console.log(response);
+            toastr.success(response.data.userName, "User successfully created!");
+        }, function errorCallback(err) {
+            toastr.error(err.msg, "Error creating user");
+        });
+    };
+
+    $scope.closeModal = function(msg){
+        console.log("modal is being closed");
+        close(msg, 500);
+    }
+
+});
+
+calendarDemoApp.controller("ViewRoomsController", function($scope, close, $http, toastr, NgTableParams){
+
+    $scope.closeModal = function(msg){
+        console.log("modal is being closed");
+        close(msg, 500);
+    };
+
+    $scope.enableFiltering = true;
+
+    $scope.refreshRooms = function() {
+
+        $http({
+            method: 'GET',
+            url: '/room'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            $scope.data = response.data;
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+        var tp = new NgTableParams({}, {dataset: $scope.data});
+    };
+
+
+    $scope.refreshRooms();
+
+    $scope.remove=function(roomID){
+        $http({
+            method: 'DELETE',
+            url: '/room' + '?id=' + roomID,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            $scope.message = response.data;
+            $scope.refreshRooms();
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
+
+});
+
+calendarDemoApp.controller("ViewUsersController", function($scope, close, $http, toastr, NgTableParams){
+
+    $scope.closeModal = function(msg){
+        console.log("modal is being closed");
+        close(msg, 500);
+    };
+
+    $scope.enableFiltering = true;
+
+    $scope.refreshUsers = function() {
+
+        $http({
+            method: 'GET',
+            url: '/user'
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            $scope.data = response.data;
+        }, function errorCallback(response) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+        var tp = new NgTableParams({}, {dataset: $scope.data});
+    };
+
+    $scope.refreshUsers();
+
+    $scope.remove=function(userID){
+        $http({
+            method: 'DELETE',
+            url: '/user' + '?id=' + userID,
+            headers : {'Content-Type': 'application/json',
+                'Accept': '*/*' }
+        }).then(function successCallback(response) {
+            $scope.message = response.data;
+            $scope.refreshUsers();
+        }, function errorCallback(response) {
+            console.log(response);
+        });
     }
 
 });
